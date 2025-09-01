@@ -1,0 +1,13 @@
+@font-face {
+  font-family: "Poppins Sans";
+  src: url("/fonts/Poppins-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display Serif";
+  src: url("/fonts/PlayfairDisplay-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}

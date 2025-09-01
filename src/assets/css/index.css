@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #E52421;
+  --color-primary-text: #121212;
+  --color-fade-text: #12121250;
+  --color-secondary: #31006F;
+  --color-white: #FFF;
+  --color-accent: #FF6670;
+  --shadow-box: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+  --font-sans: "Poppins Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans";
+  --font-serif: "Playfair Display Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+@layer base {
+  html, body { font-family: var(--font-sans); }
+}
+
+@layer components {
+  .btn { @apply px-4 py-2 rounded font-medium transition-colors; }
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+  }
+  .btn-primary:hover {
+    background-color: color-mix(in oklab, var(--color-primary) 85%, black);
+  }
+  .input { @apply px-3 py-2 border border-gray-300 rounded outline-none; }
+  .input:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+}
