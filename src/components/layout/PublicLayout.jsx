@@ -1,44 +1,65 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink, Link } from "react-router-dom";
+import { Logo } from "/src/components/branding/Logo";
+import { BrandName } from "/src/components/branding/BrandName";
+import { SubmitButton } from "/src/components/ui/SubmitButton";
+import { Button } from "/src/components/ui/Button";
+
+const NAV_LINKS = [
+  {to: "/why-us", text: "Why Us"},
+  {to: "/how-it-works", text: "How it works"},
+  {to: "/restaurants", text: "Restaurants"},
+  {to: "/stories", text: "Stories"},
+]
 
 const PublicLayout = () => {
+  const navItem = ({ isActive }) =>
+    `rounded-full py-2 font-medium ${
+      isActive ? "text-primary-text/15" : "text-primary-text"
+    }`;
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-          <nav className="flex justify-between items-center">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-primary-800">My App</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <a
-                href="/login"
-                className="px-4 py-2 rounded-md text-sm font-medium text-primary-700 hover:bg-gray-100"
-              >
-                Login
-              </a>
-              <a
-                href="/register"
-                className="px-4 py-2 rounded-md text-sm font-medium bg-primary-600 text-white hover:bg-primary-700"
-              >
-                Register
-              </a>
-            </div>
-          </nav>
+    <>
+      <header className={`fixed inset-x-0 top-0 z-50 bg-transparent py-2.5`}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="rounded-full backdrop-blur-[10px] bg-white shadow ring-1 ring-black/5">
+            <nav className="h-16 px-4 sm:px-6 lg:px-8 lg:pr-2.5 grid grid-cols-3 place-items-center">
+              <ul className="hidden md:flex items-center gap-2 lg:gap-6">
+                {
+                  NAV_LINKS.map((nl) => <li><NavLink to={nl.to} className={navItem}>{nl.text}</NavLink></li>)
+                }
+              </ul>
+
+              <Link to="/" className="flex items-center gap-2 shrink-0">
+                <Logo /><BrandName />
+              </Link>
+
+              <div className="flex items-center gap-5 sm:gap-4 justify-self-end">
+                <NavLink to="/login">
+                  <Button className="transition-all hover:-translate-y-0.5 duration-300">
+                      <span>Sign In</span>
+                  </Button>
+                </NavLink>
+                <NavLink to="/register">
+                  <SubmitButton className="bg-secondary rounded-full lg:px-5 lg:py-2.5" withIcon text="Get Started" />
+                </NavLink>
+              </div>
+            </nav>
+          </div>
         </div>
       </header>
 
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
 
       <footer className="bg-white shadow-inner py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <p className="text-center text-gray-500">
-            © {new Date().getFullYear()} My App. All rights reserved.
+            © {new Date().getFullYear()} DINEMATE. All rights reserved.
           </p>
         </div>
       </footer>
-    </div>
+    </>
   );
 };
 
