@@ -8,6 +8,12 @@
   --color-white: #FFF;
   --color-accent: #FF6670;
   --shadow-box: 0 20px 60px rgba(0, 0, 0, 0.25);
+  --color-orbit-dashes: #A1A1AA;
+  --color-feature-card-bg:#F4F4F5;
+  --color-gradient-features-from: #F2F2F2;
+  --color-gradient-features-middle: #FFEDEE;
+  --color-gradient-features-to: #FFF0F1;
+
 
   --font-sans: "Poppins Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, "Noto Sans";
   --font-serif: "Playfair Display Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
