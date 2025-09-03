@@ -30,7 +30,7 @@ export const OrbitRing = ({progress}) => {
     const DASH_COLOR = "#A1A1AA"
 
   return (
-    <div ref={containerRef} className="relative mx-auto pointer-events-none aspect-square w-[clamp(950px,60vw,1400px)]">
+    <div ref={containerRef} id="why-us" className="relative mx-auto pointer-events-none aspect-square w-[clamp(950px,60vw,1400px)]">
       <motion.div style={{ rotate }} className="absolute inset-0">
         <div
           className="h-full w-full rounded-full"
