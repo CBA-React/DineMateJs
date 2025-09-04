@@ -48,7 +48,7 @@ const PublicLayout = () => {
             <nav className="h-16 px-4 sm:px-6 lg:px-8 lg:pr-2.5 grid grid-cols-3 place-items-center">
               <ul className="hidden md:flex items-center gap-2 lg:gap-6">
                 {
-                  NAV_LINKS.map((nl) => <li><NavLink to={nl.to} className={navItem}>{nl.text}</NavLink></li>)
+                  NAV_LINKS.map((nl) => <li key={`${nl.text}-navlivk`}><NavLink to={nl.to} className={navItem}>{nl.text}</NavLink></li>)
                 }
               </ul>
 
@@ -80,9 +80,9 @@ const PublicLayout = () => {
 
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-8">
           {FOOTER_SECTIONS.map((section) => (
-            <ul key={section.id} className="flex flex-col gap-5">
+            <ul key={`${section.id}-footer`}className="flex flex-col gap-5">
               {section.items.map((it) => (
-                <li key={it.label}>
+                <li key={`${it.label}-footer-label`}>
                   <FootLink href={it.href} external={it.external}>
                     {it.label}
                   </FootLink>
