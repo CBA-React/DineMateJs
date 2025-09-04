@@ -63,6 +63,22 @@ export const RESTAURANTS = [
     isOpen: true,
     area: 'Japantown',
   },
+  {
+    id: '4',
+    name: 'Sakura Sushi',
+    cuisine: 'Japanese',
+    priceLevel: 3,
+    distanceMiles: 0.8,
+    pricePerPerson: 85,
+    description:
+      'Fresh sushi and sashimi in an elegant, minimal setting with sake pairings.',
+    tags: ['Omakase', 'Sake Selection', 'Tiramisu'],
+    image:
+      'pictures/sakura-sushi.png',
+    rating: 4.9,
+    isOpen: true,
+    area: 'Japantown',
+  },
 ];
 
 export const SOCIAL_CARDS = [

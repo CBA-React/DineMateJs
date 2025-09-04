@@ -31,7 +31,7 @@ const HowItWorksSteps = () => {
     return (
         <div className="grid grid-cols-3 gap-6">
             {STEPS_INFO.map((step) => 
-                <StepCard cardNumber={step.cardNumber} cardName={step.cardName} cardDescription={step.cardDescription} cardImage={step.cardImage} cardImageAlt={step.cardImageAlt}/>
+                <StepCard key={step.cardName} cardNumber={step.cardNumber} cardName={step.cardName} cardDescription={step.cardDescription} cardImage={step.cardImage} cardImageAlt={step.cardImageAlt}/>
             )}
         </div>
     )

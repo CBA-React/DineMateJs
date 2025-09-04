@@ -39,7 +39,7 @@ export const HeroSection = ({
               </Link>
 
               <Link
-                to="/how-it-works"
+                to="/#how-it-works"
               >
                 <Button>
                   <span className="border-white border-[1px] px-5 py-2.5 rounded-full font-medium transition-all hover:-translate-y-0.5 hover:shadow-md duration-300">See how it works</span>

@@ -1,5 +1,4 @@
 @import "tailwindcss";
-
 @import "swiper/css";
 @import "swiper/css/navigation";
 @import "swiper/css/pagination";
@@ -23,12 +22,29 @@
   --font-serif: "Playfair Display Serif", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-.swiper-pagination-bullet{ @apply h-2.5 w-2.5 bg-gray-300 opacity-100; }
-.swiper-pagination-bullet-active{ @apply bg-gray-900; }
-
-
 @layer base {
   html, body { font-family: var(--font-sans); }
+  .swiper-pagination-bullet {
+    @apply h-2 w-2 bg-primary-text/25 opacity-100;
+  }
+  .swiper-pagination-bullet-active {
+    @apply bg-primary-text;
+  }
+
+  .swiper-pagination-bullet-custom {
+    @apply h-2 w-2 bg-primary-text/25 opacity-100 rounded-full cursor-pointer transition-colors duration-200;
+  }
+  .swiper-pagination-bullet-active-custom {
+    @apply bg-primary-text;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+  .swiper-pagination {
+    display: none !important;
+  }
 }
 
 @layer components {
