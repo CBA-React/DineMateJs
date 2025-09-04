@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 @theme {
   --color-primary: #E52421;
@@ -21,6 +24,27 @@
 
 @layer base {
   html, body { font-family: var(--font-sans); }
+  .swiper-pagination-bullet {
+    @apply h-2 w-2 bg-primary-text/25 opacity-100;
+  }
+  .swiper-pagination-bullet-active {
+    @apply bg-primary-text;
+  }
+
+  .swiper-pagination-bullet-custom {
+    @apply h-2 w-2 bg-primary-text/25 opacity-100 rounded-full cursor-pointer transition-colors duration-200;
+  }
+  .swiper-pagination-bullet-active-custom {
+    @apply bg-primary-text;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+  .swiper-pagination {
+    display: none !important;
+  }
 }
 
 @layer components {
