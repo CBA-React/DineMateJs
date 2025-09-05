@@ -21,6 +21,7 @@
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.542.0",
     "react": "^19.0.0",
+    "react-curved-text": "^3.0.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",

@@ -45,13 +45,14 @@ export function PillMultiSelectSection({
               )}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {options.map((opt) => {
                 const isSelected = selected.includes(opt);
                 const disabled = !isSelected && !canAddMore;
                 return (
                   <PillToggle
                     key={opt}
+                    className="px-5 py-[5.5px]"
                     selected={isSelected}
                     disabled={disabled}
                     onClick={() => toggle(opt)}

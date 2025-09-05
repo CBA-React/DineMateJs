@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Controller } from "react-hook-form";
 
-export function DistanceSlider({
+export const DistanceSlider = ({
   control,
   name = "distance",
   min = 1,
@@ -9,12 +9,13 @@ export function DistanceSlider({
   step = 1,
   label = "Distance preference",
   helper = "Use the slider to set the maximum distance range for searching",
-}) {
+  hideHelper = false
+}) => {
   return (
     <div className="space-y-3">
       <div>
-        <div className="block text-sm font-medium text-gray-700 mb-2">DISTANCE</div>
-        <p className="text-fade-text">{helper}</p>
+        <div className="block text-sm font-medium text-primary-text mb-2">DISTANCE</div>
+        {!hideHelper && <p className="text-fade-text">{helper}</p>}
       </div>
 
       <Controller
