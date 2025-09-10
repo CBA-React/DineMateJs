@@ -1,4 +1,4 @@
-import { Select } from "/src/ui/Select";
+import { Select } from "/src/components/ui/Select";
 import { GENDER_OPTIONS } from "/src/constants";
 
 export const TypeSelect = ({ inputProps, error = "", className = "" }) => {
