@@ -2,29 +2,107 @@ import { useForm } from "react-hook-form";
 import { EmailInput } from "/src/components/auth/EmailInput";
 import { PasswordInput } from "/src/components/auth/PasswordInput";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
-import useAuth from "../../hooks/useAuth";
 import { Input } from "/src/components/ui/Input";
 import { Checkbox } from "/src/components/ui/Checkbox";
 import { AgeSelect } from "/src/components/auth/AgeSelect";
 import { LocationSelect } from "/src/components/auth/LocationSelect";
 import { useNavigate } from "react-router-dom";
+import { upsertDraft } from "/src/features/auth/registrationDraftSlice";
+import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
-  const {
-    isLoading,
-    isError,
-    message,
-  } = useAuth();
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const password = watch("password");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    setError,
+    clearErrors,
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password1: "",
+      password2: "",
+      fullName: "",
+      age: 18,
+      gender: "",
+      city: "",
+      location: [0, 0],
+      quiz: { additionalProp1: "", additionalProp2: "", additionalProp3: "" },
+    },
+    mode: "onChange",
+  });
 
-  const onSubmit = () => {
-    // if register OK:
-    navigate("/onboarding/photos");
-  }
+  const password1 = watch("password1");
+
+  const [_, setLocStatus] = useState("idle"); // idle | requesting | granted | denied | unsupported
+  const requestedRef = useRef(false); 
+
+  useEffect(() => {
+    if (requestedRef.current) return;
+    requestedRef.current = true;
+
+    if (!("geolocation" in navigator)) {
+      setLocStatus("unsupported");
+      setError("location", { type: "manual", message: "Geolocation is not supported by this browser" });
+      return;
+    }
+
+    const attempt = () => {
+      setLocStatus("requesting");
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = Number(pos.coords.latitude.toFixed(6));
+          const lng = Number(pos.coords.longitude.toFixed(6));
+          setValue("location", [lat, lng], { shouldValidate: true, shouldDirty: true });
+          clearErrors("location");
+          setLocStatus("granted");
+        },
+        (err) => {
+          setLocStatus("denied");
+          console.log(`Access denied ${err}`)
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
+    };
+
+    if (navigator.permissions?.query) {
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then((p) => {
+          if (p.state === "granted" || p.state === "prompt") attempt();
+          p.onchange = () => {
+            if (p.state === "granted") attempt();
+          };
+        })
+        .catch(() => attempt());
+    } else {
+      attempt();
+    }
+  }, [setValue, setError, clearErrors]);
+
+  const onSubmit = (data) => {
+    console.log(data);
+
+    dispatch(
+      upsertDraft({
+        email: data.email,
+        password1: data.password1,
+        password2: data.password2,
+        fullName: data.fullName,
+        age: Number(data.age),
+        gender: data.gender,
+        city: data.city,
+        location: data.location
+      })
+    );
+    navigate("/onboarding", { replace: true });
+  };
 
   return (
     <>
@@ -38,11 +116,11 @@ const Register = () => {
           <Input
             label="FULL NAME"
             placeholder="Enter your full name"
-            inputProps={register("name", {
+            inputProps={register("fullName", {
               required: "Full name is required",
               minLength: { value: 2, message: "Name must be at least 2 characters" },
             })}
-            error={errors.name?.message}
+            error={errors.fullName?.message}
           />
 
           <EmailInput 
@@ -62,31 +140,47 @@ const Register = () => {
             />
             
             <LocationSelect 
-              inputProps={register("location", {
+              inputProps={register("city", {
                 required: "Location is required"
               })}
-              error={errors.location?.message}
+              error={errors.city?.message}
             />
+
+              <input
+                type="hidden"
+                {...register("location", {
+                  validate: (val) =>
+                    (Array.isArray(val) &&
+                      val.length === 2 &&
+                      val.every((n) => Number.isFinite(Number(n))) &&
+                      Math.abs(Number(val[0])) <= 90 &&
+                      Math.abs(Number(val[1])) <= 180) ||
+                    "Invalid location",
+                })}
+              />
+              {errors.location?.message && (
+                <p className="text-sm text-primary">{errors.location.message}</p>
+              )}
           </div>
           
           <PasswordInput 
-            inputProps={register("password", {
+            inputProps={register("password1", {
               required: "Password is required",
               minLength: { value: 8, message: "Min 8 characters" },
             })}
             label="PASSWORD"
             placeholder="Create a password"
-            error={errors.password?.message}
+            error={errors.password1?.message}
           />
 
           <PasswordInput 
-            inputProps={register("confirmPassword", {
+            inputProps={register("password2", {
               required: "Confirm password is required",
-              validate: value => value === password || "Passwords do not match"
+              validate: value => value === password1 || "Passwords do not match"
             })}
             label="CONFIRM PASSWORD"
             placeholder="Confirm your password"
-            error={errors.confirmPassword?.message}
+            error={errors.password2?.message}
           />
 
           <Checkbox
@@ -121,12 +215,10 @@ const Register = () => {
           />
         </div>
 
-        {isError && <p className="text-sm text-red-600 mb-4">{message}</p>}
-
         <SubmitButton 
-          text={isLoading ? "Creating Account..." : "Create Account"} 
+          text="Create Account"
           withIcon 
-          disabled={isLoading}
+          type="submit"
         />
       </form>
 

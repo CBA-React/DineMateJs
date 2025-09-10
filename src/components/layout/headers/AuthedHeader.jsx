@@ -4,8 +4,11 @@ import { BrandName } from "@/components/branding/BrandName";
 import ProfileMenu from "/src/components/ui/ProfileMenu";
 import { MessageButton } from "/src/components/ui/Button";
 import clsx from "clsx";
+import { useAuth } from '/src/hooks/useAuth';
 
 export const AuthedHeader = ({ links }) => {
+  const {logoutUser} = useAuth();
+
   const navItem = ({ isActive }) =>
     clsx("rounded-full py-2 font-medium", isActive ? `text-primary relative inline-block
          after:content-[''] after:block after:w-1/2 after:h-[1px]
@@ -28,7 +31,7 @@ export const AuthedHeader = ({ links }) => {
                 aria-orientation="vertical"
                 className={`h-8 w-px bg-black/10 mx-5`}
                 />
-              <ProfileMenu />
+              <ProfileMenu onLogout={logoutUser}  />
             </div>
           </nav>
         </div>

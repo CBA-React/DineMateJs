@@ -1,14 +1,8 @@
-import { Select } from "../ui/Select";
+import { Select } from "/src/components/ui/Select";
+import { GENDER_OPTIONS } from "/src/constants";
 
 export const TypeSelect = ({ inputProps, error = "", className = "" }) => {
-    const GENDER_OPTIONS = [
-        {value: "man", label: "Man"},
-        {value: "woman", label: "Woman"},
-        {value: "non-binary", label: "Non-binary"},
-        {value: "agender", label: "Agender"},
-        {value: "genderfluid", label: "Genderfluid"},
-        {value: "prefer-not-to-say", label: "Prefer not to say"},
-    ]
+  
 
   return (
     <Select

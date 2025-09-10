@@ -1,5 +1,6 @@
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, register, reset } from "../features/auth/authSlice";
+import { login, logout, register, reset } from "/src/features/auth/authSlice";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -7,24 +8,29 @@ export const useAuth = () => {
     (state) => state.auth
   );
 
-  const loginUser = async (userData) => {
-    await dispatch(login(userData));
-  };
+  const isAuthenticated = !!user;
+  const token = user?.token ?? user?.access_token ?? null;
 
-  const registerUser = async (userData) => {
-    await dispatch(register(userData));
-  };
+  const loginUser = useCallback((userData) => {
+    return dispatch(login(userData)).unwrap(); 
+  }, [dispatch]);
 
-  const logoutUser = () => {
+  const registerUser = useCallback((userData) => {
+    return dispatch(register(userData)).unwrap();
+  }, [dispatch]);
+
+  const logoutUser = useCallback(() => {
     dispatch(logout());
-  };
+  }, [dispatch]);
 
-  const resetAuthState = () => {
+  const resetAuthState = useCallback(() => {
     dispatch(reset());
-  };
+  }, [dispatch]);
 
   return {
     user,
+    token,
+    isAuthenticated,
     isLoading,
     isSuccess,
     isError,

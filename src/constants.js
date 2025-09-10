@@ -242,8 +242,13 @@ export const PROFILE_MOCK = {
 };
 
 export const GENDERS_ICONS = new Map([
-  ["man", Mars],
-  ["woman", Venus],
-  ["non-binary", NonBinary],
-  ["agender", CircleSmall]
+  ["male", Mars],
+  ["feamle", Venus],
+  ["other", CircleSmall]
 ])
+
+export const GENDER_OPTIONS = [
+  {value: "male", label: "Male"},
+  {value: "female", label: "Female"},
+  {value: "other", label: "Other"},
+]

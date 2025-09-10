@@ -1,4 +1,5 @@
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import { useEffect } from "react";
 import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSection";
 import { Grid2X2, UserRound } from "lucide-react";
 
@@ -8,7 +9,21 @@ const ALL_ALCOHOL    = ["Not for me","I don't drink","I try not to drink", "I dr
 const ALL_SMOKE    = ["I smoke for company", "With alcohol", "I don't smoke", "I smoke", "I'm trying to quit"];
 
 export function StepInterests() {
-  const { control } = useFormContext();
+  const { control, setValue, register } = useFormContext();
+
+  const alcoholSel = useWatch({ control, name: "alcohol" });
+  const smokeSel   = useWatch({ control, name: "smoke" }); 
+
+  useEffect(() => {
+    const habits = [];
+    const alcohol = Array.isArray(alcoholSel) ? alcoholSel[0] : undefined;
+    const smoking = Array.isArray(smokeSel) ? smokeSel[0] : undefined;
+
+    if (smoking) habits.push({ type: "smoking", value: smoking });
+    if (alcohol) habits.push({ type: "alcohol", value: alcohol });
+
+    setValue("habits", habits, { shouldValidate: true, shouldDirty: true });
+  }, [alcoholSel, smokeSel, setValue]);
 
   return (
     <section>
@@ -26,7 +41,7 @@ export function StepInterests() {
 
       <PillMultiSelectSection
         control={control}
-        name="traits"
+        name="tags"
         options={ALL_TRAITS}
         title="Personality tags"
         min={3}
@@ -58,12 +73,22 @@ export function StepInterests() {
         icon={<UserRound className="w-4 h-4 text-primary-text" />}
       />
 
-      <input type="hidden" {...(useFormContext()).register("interests", {
+      <input type="hidden" {...register("interests", {
         validate: v => (Array.isArray(v) && v.length >= 3) || "Pick at least 3 interests"
       })} />
-      <input type="hidden" {...(useFormContext()).register("traits", {
+      <input type="hidden" {...register("tags", {
         validate: v => (Array.isArray(v) && v.length >= 3) || "Pick at least 3 traits"
       })} />
+      <input
+        type="hidden"
+        {...register("habits", {
+          validate: (v) =>
+            (Array.isArray(v) &&
+              v.some((h) => h?.type === "smoking" && h.value) &&
+              v.some((h) => h?.type === "alcohol" && h.value)) ||
+            "Pick smoking and alcohol options",
+        })}
+      />
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 
 export function TextArea({
   control,
-  name = "about",
+  name = "description",
   label = "About you*",
   placeholder = "Tell potential matches about yourself, your interests, and what you're looking for...",
   minLength = 0,
