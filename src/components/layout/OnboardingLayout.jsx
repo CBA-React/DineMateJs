@@ -1,57 +1,81 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { STEPS } from "/src/pages/onboarding/config";
-import { AuthCard } from "../auth/AuthCard";
-import { AuthBackground } from "../auth/AuthBackground";
-import { BG_BY_PATH } from "../../constants";
-import { SubmitButton } from "../ui/SubmitButton";
+import { AuthCard } from "/src/components/auth/AuthCard";
+import { AuthBackground } from "/src/components/auth/AuthBackground";
+import { BG_BY_PATH } from "/src/constants";
+import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Check } from "lucide-react";
-
-const DEFAULTS = {
-    photos: [],
-    gender: "",
-    type: "",
-    distance: 80,
-    about: "",
-    interests: [],
-    traits: [],
-    q1: undefined,
-    q2: undefined,
-    q3: undefined
-  };
+import useAuth from "/src/hooks/useAuth";
+import { upsertDraft, resetDraft } from "/src/features/auth/registrationDraftSlice";
 
 export function OnboardingLayout() {
-  const methods = useForm({ defaultValues: DEFAULTS, mode: "onChange" });
-  const { trigger, getValues } = methods;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { pathname } = useLocation();
-
   const bg = BG_BY_PATH.find((r) => r.test(pathname))?.src;
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const draft = useSelector(s => s.registrationDraft);
+  
+  const defaultValues = useMemo(() => {
+    const base = draft ? structuredClone(draft) : {};
+    base.quiz = {
+      additionalProp1: "",
+      additionalProp2: "",
+      additionalProp3: "",
+      ...(draft?.quiz || {}),
+    };
+    return base;
+  }, [draft]);
+  
+  const methods = useForm({
+    defaultValues,
+    mode: "onChange",
+  });
+
+  useEffect(() => {
+    const sub = methods.watch(vals => 
+      dispatch(upsertDraft(structuredClone(vals))));
+    return () => sub.unsubscribe();
+  }, [methods, dispatch]);
+
   const stepIndex = useMemo(
     () => Math.max(0, STEPS.findIndex(s => location.pathname.endsWith(s.route))),
     [location.pathname]
   );
+
+  const { registerUser, isLoading } = useAuth();
+
+  if (!draft?.email || !draft?.password1 || !draft?.password2) {
+    return <Navigate to="/register" replace />;
+  }
+
+  const { trigger, getValues } = methods;
+
   const step = STEPS[stepIndex];
   const isLast = stepIndex === STEPS.length - 1;
-
-  const saveStep = async () => {
-    const data = getValues();
-    localStorage.setItem("onboarding", JSON.stringify(data));
-  };
 
   const handleNext = async () => {
     const valid = await trigger(step.fields, { shouldFocus: true });
     if (!valid) return;
 
-    await saveStep();
-    if (isLast) {
-      navigate("/home");
-    } else {
+    if (!isLast) {
       navigate(`/onboarding/${STEPS[stepIndex + 1].route}`);
+      return;
+    }
+
+    const allValues = getValues();             
+
+    try {
+      await registerUser(allValues);               
+      dispatch(resetDraft());
+      navigate("/discover", { replace: true }); 
+    } catch (err) {
+      console.error("Register failed:", err);
     }
   };
 
@@ -80,7 +104,7 @@ export function OnboardingLayout() {
                         <button className="text-fade-text underline" onClick={handlePrev} disabled={stepIndex === 0}>
                             Previous
                         </button>
-                        <SubmitButton onClick={handleNext} className="max-w-[120px]" withIcon text="Next" />
+                        <SubmitButton onClick={handleNext} className="max-w-[120px]" withIcon text="Next" disabled={isLoading} />
                     </div>
                 </div>
             </FormProvider>

@@ -7,13 +7,14 @@ export function RadioPillGroup({
   name,
   title,
   options,
+  rules,
   requiredMessage = "Please choose an option",
 }) {
   return (
     <Controller
       name={name}
       control={control}
-      rules={{ required: requiredMessage }}
+      rules={rules ?? (requiredMessage ? { required: requiredMessage } : undefined)}
       render={({ field, fieldState }) => (
         <div className="space-y-3">
           <div className="flex items-center gap-2">

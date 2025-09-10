@@ -24,27 +24,30 @@ export function StepQuiz() {
     <section className="space-y-8">
       <RadioPillGroup
         control={control}
-        name="q1"
+        name="quiz.additionalProp1"
         title="How do you recharge after a long day?"
         options={Q1}
+        rules={{ required: "Pick an option" }}
       />
 
       <hr className="my-6 border-primary-text/15" />
 
       <RadioPillGroup
         control={control}
-        name="q2"
+        name="quiz.additionalProp2"
         title="When planning a date, you prefer to:"
         options={Q2}
+        rules={{ required: "Pick an option" }}
       />
 
       <hr className="my-6 border-primary-text/15" />
 
       <RadioPillGroup
         control={control}
-        name="q3"
+        name="quiz.additionalProp3"
         title="Your approach to trying new cuisines:"
         options={Q3}
+        rules={{ required: "Pick an option" }}
       />
     </section>
   );

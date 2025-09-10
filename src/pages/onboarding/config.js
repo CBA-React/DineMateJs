@@ -19,7 +19,7 @@ export const STEPS = [
   },
   {
     id: "quiz", label: "Quiz", route: "quiz",
-    fields: ["q1","q2","q3"],
+    fields: ["additionalProp1","additionalProp2","additionalProp3"],
     h2: "Compatibility Quiz",
     sub: "Help us find your perfect matches",
   },

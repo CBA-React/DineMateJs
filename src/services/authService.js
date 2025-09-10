@@ -1,31 +1,76 @@
-// src/services/authService.js
 import api from "./api";
 
-const API_URL = "/api/auth";
+const API_URL = "/api/v1/auth";
 
-// Register user
-const register = async (userData) => {
-  const response = await api.post(`${API_URL}/register`, userData);
+const buildRegisterPayloadFromForm = (v = {}) => {
+  const tuple =
+    Array.isArray(v.location) && v.location.length === 2
+      ? [Number(v.location[0]), Number(v.location[1])]
+      : null;
 
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
+  const tupleIsValid = Array.isArray(tuple) && tuple.every((n) => Number.isFinite(n));
 
-  return response.data;
+  const asString =
+    typeof v.location === "string"
+      ? v.location
+      : typeof v.city === "string"
+      ? v.city
+      : "";
+
+  const location = tupleIsValid ? tuple : asString;
+
+  return {
+    user: {
+      email: v.email ?? "",
+      password_1: v.password1 ?? "",
+      password_2: v.password2 ?? "",
+    },
+    profile: {
+      full_name: v.fullName ?? "",
+      age: Number(v.age) || 18,
+      gender: v.gender || "male",
+      city: v.city || "",
+      location, 
+      description: v.description || "",
+      search_gender: v.search_gender || "female",
+      interests: (v.interests || []).map((name, i) => ({ id: i, name })),
+      tags: (v.tags || []).map((name, i) => ({ id: i, name })),
+      habits: (v.habits || []).map((h) => ({ type: h.type, value: h.value })),
+      quiz: v.quiz || {},
+    },
+    settings: {
+      search_settings: {
+        age_range: v.age_range || `${v.ageMin ?? 18}-${v.ageMax ?? 28}`,
+        distance: Number(v.distance) || 50,
+        interests: v.search_interests || {},
+        tags: v.search_tags || {},
+        habits: v.search_habits || {},
+        show_friendship: !!v.show_friendship,
+        only_verified: !!v.only_verified,
+      },
+    },
+  };
 };
 
-// Login user
-const login = async (userData) => {
-  const response = await api.post(`${API_URL}/login`, userData);
+// Register
+const register = async (formValues) => {
+  const payload = buildRegisterPayloadFromForm(formValues);
+  const { data } = await api.post(`${API_URL}/register`, payload);
 
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-
-  return response.data;
+  if (data) localStorage.setItem("user", JSON.stringify(data));
+  return data;
 };
 
-// Logout user
+// Login 
+const login = async (credentials) => {
+  const body = { email: credentials.email, password: credentials.password };
+  const { data } = await api.post(`${API_URL}/login`, body);
+
+  if (data) localStorage.setItem("user", JSON.stringify(data));
+  return data;
+};
+
+// Logout
 const logout = () => {
   localStorage.removeItem("user");
 };

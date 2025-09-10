@@ -1,8 +1,8 @@
-// import { useSelector } from "react-redux";
 import HomeAuthed from "/src/pages/home/HomeAuthed";
-import Home from "/src/pages/home/Home";                 
+import Home from "/src/pages/home/Home";              
+import { useAuth } from "/src/hooks/useAuth"  
 
 export default function HomeSwitch() {
-  const isAuthed = true;
-  return isAuthed ? <HomeAuthed /> : <Home />;
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <HomeAuthed /> : <Home />;
 }

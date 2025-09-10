@@ -3,10 +3,11 @@ import { Logo } from "/src/components/branding/Logo";
 import { BrandName } from "/src/components/branding/BrandName";
 import { Button } from "/src/components/ui/Button";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
+import clsx from "clsx";
 
 export const PublicHeader = ({ links }) => {
-  const navItem = ({ isActive }) =>
-    `rounded-full py-2 font-medium ${isActive ? "text-primary-text/15" : "text-primary-text"}`;
+  const navItem = () =>
+    clsx("rounded-full py-2 font-medium text-primary-text");
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 bg-transparent py-2.5`}>

@@ -1,15 +1,12 @@
-// src/services/api.js
 import axios from "axios";
 
-// Create an instance of axios
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Add a request interceptor
 api.interceptors.request.use(
   (config) => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -23,7 +20,6 @@ api.interceptors.request.use(
   }
 );
 
-// Add a response interceptor
 api.interceptors.response.use(
   (response) => {
     return response;
@@ -31,7 +27,6 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // If the error is 401 and hasn't been retried yet
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
