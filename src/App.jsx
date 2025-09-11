@@ -27,7 +27,9 @@ import HomeSwitch from "./pages/HomeSwitch";
 import RequireAuth from "./router/RequireAuth";
 import Discover from "./pages/Discover";
 import Matches from "./pages/Matches";
+import Dining from "./pages/Dining";
 import Profile from "./pages/Profile";
+import Restaurant from "./pages/Restaurant";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -53,7 +55,8 @@ function App() {
                 <Route path="/discover" element={<Discover />} />
                 <Route path="/matches" element={<Matches />} />
                 <Route path="/profile/:profileId/*" element={<Profile />} />
-                {/* <Route path="/dining" element={<Dining />} /> */}
+                <Route path="/dining" element={<Dining />} />
+                <Route path="/restaurant/:restaurantId" element={<Restaurant />} />
                 {/* <Route path="/events" element={<Events />} /> */}
                 <Route path="*" element={<Navigate to="/discover" replace />} />
               </Route>

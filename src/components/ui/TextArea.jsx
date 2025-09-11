@@ -9,9 +9,11 @@ export function TextArea({
   minLength = 0,
   maxLength = 500,
   required = true,
+  shouldUnregister = false,
 }) {
   return (
     <Controller
+      shouldUnregister={shouldUnregister}
       name={name}
       control={control}
       rules={{
@@ -28,7 +30,7 @@ export function TextArea({
 
         return (
           <div className="space-y-2">
-            <div className="text-primary-text uppercase text-sm">About you*</div>
+            <div className="text-primary-text uppercase text-sm">{label}</div>
 
             <label className="sr-only" htmlFor={`${name}-textarea`}>{label}</label>
             <textarea

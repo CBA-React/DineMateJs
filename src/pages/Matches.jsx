@@ -1,4 +1,4 @@
-import {SortDropdown} from "../components/ui/SortDropdown";
+import { SortDropdown } from "/src/components/ui/SortDropdown";
 import { useState } from "react";
 import { Button } from "/src/components/ui/Button";
 import { SlidersHorizontal } from "lucide-react";
@@ -6,15 +6,10 @@ import { Search } from "/src/components/ui/Search";
 import { PEOPLE } from "/src/constants";
 import { MatchCard } from "/src/components/matches/MatchCard";
 import { useNavigate } from "react-router-dom";
-import { SubmitButton } from "../components/ui/SubmitButton";
+import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Link } from "react-router-dom";
-import {FiltersPanel} from "../components/ui/FiltersPanel";
-
-const SORT_OPTIONS = [
-    {value: "best-match", label: "Best Match"},
-    {value: "most-recent", label: "Most Recent"},
-    {value: "closest-location", label: "Closest Location"},
-]
+import { MatchFilters } from "/src/components/matches/MatchFilters";
+import { SORT_OPTIONS } from "/src/constants";
 
 const TEXT = {
     title: "Your Matches",
@@ -26,7 +21,7 @@ const TEXT = {
 const Matches = () => {
     const [sort, setSort] = useState("best");
     const [filtersOpen, setFiltersOpen] = useState(false);
-    const [filters, setFilters] = useState(null);
+    const [_, setFilters] = useState(null);
     const navigate = useNavigate();
 
     return (
@@ -54,7 +49,7 @@ const Matches = () => {
                                 <SlidersHorizontal />
                                 Filters
                             </Button>
-                            <FiltersPanel
+                            <MatchFilters 
                                 open={filtersOpen}
                                 onClose={() => setFiltersOpen(false)}
                                 onApply={(vals) => setFilters(vals)}

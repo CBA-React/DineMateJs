@@ -42,7 +42,7 @@ export const RESTAURANTS = [
       'Fresh sushi and sashimi in an elegant, minimal setting with sake pairings.',
     tags: ['Omakase', 'Sake Selection', 'Tiramisu'],
     image:
-      'pictures/sakura-sushi.png',
+      '/pictures/sakura-sushi.png',
     rating: 4.9,
     isOpen: true,
     area: 'Japantown',
@@ -58,7 +58,7 @@ export const RESTAURANTS = [
       'Fresh seafood with panoramic ocean views and an open-kitchen experience.',
     tags: ['Dungeness Crab', 'Cioppino', 'Oyster Bar'],
     image:
-      'pictures/coastal-grill.png',
+      '/pictures/coastal-grill.png',
     rating: 4.9,
     isOpen: true,
     area: 'Japantown',
@@ -74,7 +74,7 @@ export const RESTAURANTS = [
       'Fresh sushi and sashimi in an elegant, minimal setting with sake pairings.',
     tags: ['Omakase', 'Sake Selection', 'Tiramisu'],
     image:
-      'pictures/sakura-sushi.png',
+      '/pictures/sakura-sushi.png',
     rating: 4.9,
     isOpen: true,
     area: 'Japantown',
@@ -252,3 +252,14 @@ export const GENDER_OPTIONS = [
   {value: "female", label: "Female"},
   {value: "other", label: "Other"},
 ]
+
+export const SORT_OPTIONS = [
+    {value: "best-match", label: "Best Match"},
+    {value: "most-recent", label: "Most Recent"},
+    {value: "closest-location", label: "Closest Location"},
+]
+
+export const CUISINES = ["Italian","Japanese","Seafood","Mexican","Mediterranean","American","Indian","Spanish","Chinese","French","Vegan"];
+
+export const INTERESTS = ["Hiking","Photography","Yoga","Wine Tasting","Reading","Art","Music","Dancing","Meditation","Movies","Gardening","Travel","Sports","Theater","Cooking","Volunteering"];
+export const PERSONALITY = ["Adventurous","Foodie","Introverted","Spontaneous","Planner","Spiritual","Ambitious","Romantic","Intellectual","Laid-back","Extroverted","Optimistic","Artistic","Athletic","Creative"];
