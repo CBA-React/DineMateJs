@@ -2,9 +2,10 @@ import clsx from "clsx";
 import { MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export const Button = ({className, children, onClick, ...props}) => {
+export const Button = ({className, children, onClick, type = "button", ...props}) => {
     return (
         <button 
+            type={type}
             className={clsx("cursor-pointer w-full gap-1.5 flex flex-row", className)}
             onClick={onClick}
             {...props}
