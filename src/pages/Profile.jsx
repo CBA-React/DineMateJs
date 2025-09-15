@@ -27,7 +27,7 @@ const Profile = () => {
     )
 }
 
-const GalleryCard = ({person, className}) => {
+export const GalleryCard = ({person, className}) => {
     const [idx, setIdx] = useState(0);
     const next = () => setIdx((i) => (i + 1) % person.photos.length);
     const prev = () =>
@@ -126,9 +126,9 @@ const GalleryCard = ({person, className}) => {
     )
 }
 
-const RightColumn = ({ person }) => {
+export const RightColumn = ({ person }) => {
     const key = person.gender?.toLowerCase?.() ?? "";
-    const GenderIcon = GENDERS_ICONS.get(key);
+    const GenderIcon = GENDERS_ICONS.get(key) ?? Circle;
 
     return (
       <section className="flex flex-col gap-6">
@@ -200,6 +200,6 @@ const RightColumn = ({ person }) => {
         </div>
       </section>
     );
-  }
+}
 
 export default Profile;

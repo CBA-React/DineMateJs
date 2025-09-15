@@ -3,20 +3,8 @@ import { Button } from "/src/components/ui/Button";
 import { X } from "lucide-react";
 import { useBooking } from "/src/hooks/useBooking";
 import { SubmitButton } from '/src/components/ui/SubmitButton';
+import { formatDateTime } from "/src/utils/dateUtils";
 
-function formatDateTime(dateISO, timeHHMM) {
-  const dt = new Date(`${dateISO}T${timeHHMM || "19:00"}`);
-  const dateStr = new Intl.DateTimeFormat(undefined, {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  }).format(dt);
-  const timeStr = new Intl.DateTimeFormat(undefined, {
-    hour: "numeric",
-    minute: "2-digit",
-  }).format(dt);
-  return { dateStr, timeStr };
-}
 
 export const BookingConfirmationModal = () => {
   const { confirmationOpen, confirmation, closeConfirmationModal } = useBooking();

@@ -24,7 +24,16 @@ export const DiningFilters = ({ open, onClose, onApply, onReset }) => {
         <>
           <DistanceSlider hideHelper control={control} name="distance" min={1} max={80} />
           <Select control={control} name="priceRange" label="PRICE RANGE" placeholder="Select price range" />
-          <PillMultiSelectSection control={control} name="cuisine" options={CUISINES} title="CUISINE" />
+          <PillMultiSelectSection 
+            control={control} 
+            name="cuisine" 
+            options={CUISINES} 
+            title="CUISINE"
+            pillClassName="px-5 py-[5.5px]"
+            pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
+            pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
+            pillDisabledClassName="opacity-40 cursor-not-allowed"
+          />
         </>
       )}
     </FilterSheet>

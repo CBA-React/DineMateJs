@@ -1,4 +1,4 @@
-import { Shield, ConciergeBell, Heart, CreditCard, Venus, Mars, NonBinary, CircleSmall, Wine, Cigarette } from "lucide-react";
+import { Shield, ConciergeBell, Heart, CreditCard, Venus, Mars, CircleSmall, Wine, Cigarette, UsersRound, IdCardLanyard } from "lucide-react";
 
 export const BG_BY_PATH = [
     { test: (p) => p.startsWith("/login"),            src: "/pictures/restaurant-interior(3).jpg" },
@@ -213,7 +213,7 @@ export const PROFILE_MOCK = {
     "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1200&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=1200&auto=format&fit=crop",
   ],
-  gender: "Woman",
+  gender: "female",
   lookingFor: "Man",
   qa: [
     {
@@ -243,7 +243,7 @@ export const PROFILE_MOCK = {
 
 export const GENDERS_ICONS = new Map([
   ["male", Mars],
-  ["feamle", Venus],
+  ["female", Venus],
   ["other", CircleSmall]
 ])
 
@@ -263,3 +263,59 @@ export const CUISINES = ["Italian","Japanese","Seafood","Mexican","Mediterranean
 
 export const INTERESTS = ["Hiking","Photography","Yoga","Wine Tasting","Reading","Art","Music","Dancing","Meditation","Movies","Gardening","Travel","Sports","Theater","Cooking","Volunteering"];
 export const PERSONALITY = ["Adventurous","Foodie","Introverted","Spontaneous","Planner","Spiritual","Ambitious","Romantic","Intellectual","Laid-back","Extroverted","Optimistic","Artistic","Athletic","Creative"];
+
+
+export const EVENTS_TYPES = [
+  "Speed Dating",
+  "Social Mixers",
+  "Workshops",
+  "Dining Events"
+]
+
+export const EVENTS = [
+  {
+    id: 1,
+    title: "Wine and Dine Speed Dating",
+    image: "/pictures/wine-event.jpg",
+    venue: "The Rose Garden, Downtown",
+    featured: true,
+    tags: ["Speed Dating"],
+    description: "Meet 12-15 potential matches in an elegant wine bar setting. Each date lasts 5 minutes with a wine tasting component.",
+    price: 45,
+    attending: 60,
+    capacity: 90,
+    ages: "25-40",
+    distance: 10,
+    date: "2025-01-25",
+    time: "18:00",
+    included: [
+      { label: 'Welcome Drink', icon: Wine, text: 'Red Wine' },
+      { label: 'Name Tag and Event Materials', icon: IdCardLanyard, text: 'Personal name tag' },
+      { label: 'Light Refreshments', icon: ConciergeBell, text: 'Bruschetta' },
+      { label: 'Contact Exchange Facilitation', icon: UsersRound, text: 'Interactive with a sommelier' },
+    ],
+  },
+  {
+      id: 2,
+      title: "Sunset Rooftop Jazz Night",
+      image: "/pictures/jazz-event.jpg",
+      venue: "Skyline Lounge, Uptown",
+      featured: false,
+      tags: ["Live Music", "Networking"],
+      description:
+        "Enjoy smooth jazz as the sun sets over the city skyline. A perfect evening of music, cocktails, and great conversation.",
+      price: 60,
+      attending: 40,
+      capacity: 80,
+      ages: "21-45",
+      distance: 8,
+      date: "2025-02-15",
+      time: "20:00",
+      included: [
+        { label: 'Welcome Drink', icon: Wine, text: 'Red Wine' },
+        { label: 'Name Tag and Event Materials', icon: IdCardLanyard, text: 'Personal name tag' },
+        { label: 'Light Refreshments', icon: ConciergeBell, text: 'Bruschetta' },
+        { label: 'Contact Exchange Facilitation', icon: UsersRound, text: 'Interactive with a sommelier' },
+      ],
+    }
+]

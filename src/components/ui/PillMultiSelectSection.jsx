@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Controller } from "react-hook-form";
 import { PillToggle } from "./PillToggle";
+import clsx from "clsx";
+import { twMerge } from 'tailwind-merge';
 
 export function PillMultiSelectSection({
   control,
@@ -10,6 +12,12 @@ export function PillMultiSelectSection({
   icon,
   min = 0,
   max = Infinity,
+  className,
+  pillClassName,
+  pillBaseClassName,
+  pillSelectedClassName,
+  pillUnselectedClassName,
+  pillDisabledClassName,
 }) {
   return (
     <Controller
@@ -34,7 +42,7 @@ export function PillMultiSelectSection({
         const counterColor = selected.length < min ? "text-primary" : "text-gray-500";
 
         return (
-          <div className="space-y-3">
+          <div className={twMerge(clsx("space-y-3", className))}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {icon}
@@ -49,13 +57,22 @@ export function PillMultiSelectSection({
               {options.map((opt) => {
                 const isSelected = selected.includes(opt);
                 const disabled = !isSelected && !canAddMore;
+
                 return (
                   <PillToggle
                     key={opt}
-                    className="px-5 py-[5.5px]"
                     selected={isSelected}
                     disabled={disabled}
-                    onClick={() => toggle(opt)}
+                    onClick={() =>
+                      isSelected
+                        ? field.onChange(selected.filter((x) => x !== opt))
+                        : canAddMore && field.onChange([...selected, opt])
+                    }
+                    baseClassName={pillBaseClassName ?? "px-5 py-[5.5px] rounded-full text-sm"}
+                    selectedClassName={pillSelectedClassName}
+                    unselectedClassName={pillUnselectedClassName}
+                    disabledClassName={pillDisabledClassName}
+                    className={pillClassName}
                   >
                     {opt}
                   </PillToggle>

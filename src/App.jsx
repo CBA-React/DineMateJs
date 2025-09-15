@@ -30,6 +30,7 @@ import Matches from "./pages/Matches";
 import Dining from "./pages/Dining";
 import Profile from "./pages/Profile";
 import Restaurant from "./pages/Restaurant";
+import Events from "./pages/Events";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -57,7 +58,7 @@ function App() {
                 <Route path="/profile/:profileId/*" element={<Profile />} />
                 <Route path="/dining" element={<Dining />} />
                 <Route path="/restaurant/:restaurantId" element={<Restaurant />} />
-                {/* <Route path="/events" element={<Events />} /> */}
+                <Route path="/events" element={<Events />} />
                 <Route path="*" element={<Navigate to="/discover" replace />} />
               </Route>
 
