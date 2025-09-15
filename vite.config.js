@@ -18,7 +18,7 @@ export default defineConfig({
     open: true,
     proxy: {
       "/api": {
-        target: "http://54.70.169.83",
+        target: "https://api.dinemate.softwaredoes.com/",
         changeOrigin: true,
         secure: false,
       },
