@@ -88,6 +88,10 @@ export function StepInterests() {
           name="interestsUI"
           options={interestOptions.map(o => o.label)}
           title="Interests"
+          pillClassName="px-5 py-[5.5px]"
+          pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
+          pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
+          pillDisabledClassName="opacity-40 cursor-not-allowed"
           min={3}
           max={8}
           icon={<Grid2X2 className="w-4 h-4 text-primary-text" />}
@@ -104,6 +108,10 @@ export function StepInterests() {
           name="tagsUI"
           options={tagOptions.map(o => o.label)}
           title="Personality tags"
+          pillClassName="px-5 py-[5.5px]"
+          pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
+          pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
+          pillDisabledClassName="opacity-40 cursor-not-allowed"
           min={3}
           max={8}
           icon={<UserRound className="w-4 h-4 text-primary-text" />}
@@ -117,6 +125,10 @@ export function StepInterests() {
         name="alcohol"
         options={ALL_ALCOHOL}
         title="How often do you drink alcohol?"
+        pillClassName="px-5 py-[5.5px]"
+        pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
+        pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
+        pillDisabledClassName="opacity-40 cursor-not-allowed"
         min={1}
         max={1}
         icon={<UserRound className="w-4 h-4 text-primary-text" />}
@@ -129,6 +141,10 @@ export function StepInterests() {
         name="smoke"
         options={ALL_SMOKE}
         title="How often do you smoke?"
+        pillClassName="px-5 py-[5.5px]"
+        pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
+        pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
+        pillDisabledClassName="opacity-40 cursor-not-allowed"
         min={1}
         max={1}
         icon={<UserRound className="w-4 h-4 text-primary-text" />}

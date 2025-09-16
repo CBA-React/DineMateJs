@@ -1,20 +1,6 @@
 import { useEffect, useMemo, useRef, useState, forwardRef } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
-
-function toISO(d) {
-  if (!d) return "";
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function parseISO(s) {
-  if (!s) return null;
-  const [y, m, d] = s.split("-").map(Number);
-  const date = new Date(y, (m || 1) - 1, d || 1);
-  return Number.isNaN(date.getTime()) ? null : date;
-}
+import { parseISO, toISO } from "/src/utils/dateUtils";
 
 function sameDay(a, b) {
   if (!a || !b) return false;
