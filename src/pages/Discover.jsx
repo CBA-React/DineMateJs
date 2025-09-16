@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ReactCurvedText from "react-curved-text";
+// import ReactCurvedText from "react-curved-text";
 import DiscoverDeck from "/src/components/discover/DiscoverDeck";
 import { useNavigate } from "react-router-dom";
 import EndOfPeopleModal from "/src/components/discover/EndOfPeopleModal";
@@ -27,26 +27,10 @@ const Discover = () => {
             minHeight: '600px'
           }}
         >
-            <ReactCurvedText 
-                width={1420}
-                height={620}
-                cx={710}
-                cy={900}
-                rx={1000}
-                ry={400}
-                startOffset={565}
-                reversed={true}
-                text="DISCOVER"
-                textProps={{ style: { fontSize: 230, fill: "#fff", letterSpacing: "1.2rem" } }}
-                textPathProps={null}
-                tspanProps={null}
-                ellipseProps={{
-                    fill: "#fff",
-                    fillOpacity: 1,
-                    stroke: "none",
-                    style: { fill: "#fff" },
-                  }}
-                svgProps={null}
+            <img 
+              src="/pictures/discover-bg.svg" 
+              alt="Discover background" 
+              className="absolute inset-0 w-full h-full object-cover object-[center_0%] translate-y-1/3" 
             />
             <section className="absolute z-10 mx-auto flex -translate-y-1/4 -translate-x-1/2 top-1/2 left-1/2 max-w-7xl items-center justify-center px-4 sm:px-6">
                 <DiscoverDeck
