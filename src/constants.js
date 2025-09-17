@@ -264,7 +264,6 @@ export const CUISINES = ["Italian","Japanese","Seafood","Mexican","Mediterranean
 export const INTERESTS = ["Hiking","Photography","Yoga","Wine Tasting","Reading","Art","Music","Dancing","Meditation","Movies","Gardening","Travel","Sports","Theater","Cooking","Volunteering"];
 export const PERSONALITY = ["Adventurous","Foodie","Introverted","Spontaneous","Planner","Spiritual","Ambitious","Romantic","Intellectual","Laid-back","Extroverted","Optimistic","Artistic","Athletic","Creative"];
 
-
 export const EVENTS_TYPES = [
   "Speed Dating",
   "Social Mixers",
@@ -319,3 +318,49 @@ export const EVENTS = [
       ],
     }
 ]
+
+export const MOCK_CONVERSATIONS = [
+  {
+    id: "emma",
+    name: "Emma Chan",
+    lastMessage: "Ok, see you later",
+    time: "18:42",
+    avatar: "https://i.pravatar.cc/64?img=47",
+    unread: 0,
+    isOnline: true,
+  },
+  {
+    id: "mia",
+    name: "Mia Corvere",
+    lastMessage: "Table for four, 6PM. Be there.",
+    time: "16:58",
+    avatar: "https://i.pravatar.cc/64?img=32",
+    unread: 2,
+    isOnline: false,
+  },
+  {
+    id: "peter",
+    name: "Peter Parker",
+    lastMessage: "I'll bring dessert 🍰",
+    time: "12:10",
+    avatar: "https://i.pravatar.cc/64?img=12",
+    unread: 0,
+    isOnline: true,
+  },
+];
+
+export const MOCK_MESSAGES_BY_ID = {
+  emma: [
+    { id: 1, authorId: "them", text: "Hey! Dinner tonight?", ts: "18:35", createdAt: "2025-09-15"},
+    { id: 2, authorId: "me", text: "Sure, 7PM works?", ts: "18:37", status: "seen" },
+    { id: 3, authorId: "them", text: "Perfect. See you then!", ts: "18:42" },
+  ],
+  mia: [
+    { id: 1, authorId: "them", text: "Table for four, 6PM.", ts: "16:53" },
+    { id: 2, authorId: "them", text: "Be there.", ts: "16:58" },
+  ],
+  peter: [
+    { id: 1, authorId: "me", text: "Picking a place near downtown.", ts: "11:55", status: "unread" },
+    { id: 2, authorId: "them", text: "I'll bring dessert 🍰", ts: "12:10" },
+  ],
+};

@@ -2,7 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "/src/features/auth/authSlice";
 import profileReducer from '/src/features/profile/profileSlice';
 import registrationDraftReducer from "/src/features/auth/registrationDraftSlice";
-import bookingReducer from '../features/booking/bookingSlice';
+import bookingReducer from '/src/features/booking/bookingSlice';
+import chatUI from "/src/features/chats/chatUiSlice";
+import chats from "/src/features/chats/chatsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     profile: profileReducer,
     registrationDraft: registrationDraftReducer,
     booking: bookingReducer,
+    chatUi: chatUI,
+    chats,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
