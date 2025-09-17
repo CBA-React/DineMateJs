@@ -1,10 +1,15 @@
-export const Switch = ({ checked, onChange, disabled = false, className = "", size = "md", label }) => {
+export const Switch = ({ checked, onChange, disabled = false, className = "", size = "md", label, trackOn = "#E52421", trackOff = "#E7E7EA", trackOnClass, trackOffClass, }) => {
     const sizes = {
       sm: { track: "h-5 w-9", thumb: "h-4 w-4", inset: "top-0.5", translate: "translate-x-4" },
       md: { track: "h-[22px] w-10", thumb: "h-[18px] w-[18px]", inset: "top-0.5", translate: "translate-x-4.5" },
       lg: { track: "h-7 w-14", thumb: "h-6 w-6", inset: "top-0.5", translate: "translate-x-7" },
     };
     const s = sizes[size] ?? sizes.md;
+    const trackClass = checked ? trackOnClass : trackOffClass;
+    const trackStyle = trackClass
+    ? undefined
+    : { background: checked ? trackOn : trackOff };
+
     return (
       <button
         type="button"
@@ -22,7 +27,8 @@ export const Switch = ({ checked, onChange, disabled = false, className = "", si
         className={`relative inline-flex items-center rounded-[100px] transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-300 ${className}`}
       >
         <span
-          className={`block ${s.track} rounded-full shadow-inner transition-colors ${checked ? "bg-[#ff002b]" : "bg-neutral-300"} ${disabled ? "opacity-50" : ""}`}
+          className={`block ${s.track} rounded-full shadow-inner transition-colors ${disabled ? "opacity-50" : ""} ${trackClass ?? ""}`}
+          style={trackStyle}
         />
         <span
           className={`absolute ${s.inset} left-0.5 ${s.thumb} rounded-full bg-white shadow-md transition-transform duration-200 ${checked ? s.translate : "translate-x-0"}`}

@@ -22,16 +22,27 @@ import { StepAbout } from "./pages/onboarding/steps/StepAbout";
 import { StepInterests } from "./pages/onboarding/steps/StepInterests";
 import { StepQuiz } from "./pages/onboarding/steps/StepQuiz";
 
+// Edit
+import { EditLayout } from "./components/layout/EditLayout";
+import { EditGeneral } from "./pages/edit/EditGeneral";
+import { EditInterests } from "./pages/edit/EditInterests";
+import { EditAbout } from "./pages/edit/EditAbout";
+import { EditQuiz } from "./pages/edit/EditQuiz";
+import { EditVerificationCode } from "./pages/edit/EditVerificationCode";
+
 import LayoutSwitch from "./components/layout/LayoutSwitch";
 import HomeSwitch from "./pages/HomeSwitch";
 import RequireAuth from "./router/RequireAuth";
 import Discover from "./pages/Discover";
 import Matches from "./pages/Matches";
 import Dining from "./pages/Dining";
-import Profile from "./pages/Profile";
 import Restaurant from "./pages/Restaurant";
 import Events from "./pages/Events";
 import Chats from "./pages/Chats";
+import Settings from "./pages/Settings";
+import {ResetPasswordEmail} from "./pages/edit/ResetPassword";
+import { ResetPassword as EditResetPassword } from "./pages/edit/ResetPassword";
+import ProfileRoute from "./router/ProfileRoute";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -56,13 +67,26 @@ function App() {
                 <Route index element={<Navigate to="discover" replace />} />
                 <Route path="/discover" element={<Discover />} />
                 <Route path="/matches" element={<Matches />} />
-                <Route path="/profile/:profileId/*" element={<Profile />} />
+                <Route path="/profile/:profileId/*" element={<ProfileRoute />} />
+                <Route path="/profile/me" element={<ProfileRoute />} />  
+                <Route path="/profile" element={<ProfileRoute />} /> 
+                <Route path="/edit" element={<EditLayout />}>
+                  <Route index element={<Navigate to="general" replace />} />
+                  <Route path="general" element={<EditGeneral />} />
+                  <Route path="about" element={<EditAbout />} />
+                  <Route path="interests" element={<EditInterests />} />
+                  <Route path="quiz" element={<EditQuiz />} />
+                </Route>
                 <Route path="/dining" element={<Dining />} />
                 <Route path="/restaurant/:restaurantId" element={<Restaurant />} />
                 <Route path="/events" element={<Events />} />
                 <Route path="/chats" element={<Chats />}> 
                   <Route path=":conversationId" element={<Chats />} />
                 </Route>
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/settings/password" element={<ResetPasswordEmail />} />
+                <Route path="/settings/verification-code" element={<EditVerificationCode />} />
+                <Route path="/settings/reset-password" element={<EditResetPassword />} />
                 <Route path="*" element={<Navigate to="/discover" replace />} />
               </Route>
 

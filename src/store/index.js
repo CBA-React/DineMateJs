@@ -5,6 +5,7 @@ import registrationDraftReducer from "/src/features/auth/registrationDraftSlice"
 import bookingReducer from '/src/features/booking/bookingSlice';
 import chatUI from "/src/features/chats/chatUiSlice";
 import chats from "/src/features/chats/chatsSlice";
+import uiReducer from '../features/ui/uiSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     booking: bookingReducer,
     chatUi: chatUI,
     chats,
+    ui: uiReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

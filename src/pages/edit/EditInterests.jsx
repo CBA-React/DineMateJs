@@ -5,7 +5,7 @@ import { Grid2X2, UserRound } from "lucide-react";
 import { useFetch } from "/src/hooks/useFetch";
 import { ALL_ALCOHOL, ALL_SMOKE } from "/src/constants";
 
-export function StepInterests() {
+export const EditInterests = () => {
   const { control, setValue, register, getValues } = useFormContext();
 
   const { data: interestsArr = [], isLoading: interestsLoading } =
@@ -39,7 +39,7 @@ export function StepInterests() {
   const interestsUI = useWatch({ control, name: "interestsUI" }) ?? [];
   const tagsUI      = useWatch({ control, name: "tagsUI" }) ?? [];
   const interestsUIKey = useMemo(() => interestsUI.slice().sort().join("|"), [interestsUI]);
-  const tagsUIKey      = useMemo(() => tagsUI.slice().sort().join("|"), [tagsUI]);  
+  const tagsUIKey      = useMemo(() => tagsUI.slice().sort().join("|"), [tagsUI]);
 
   const alcoholSel = useWatch({ control, name: "alcohol" });
   const smokeSel   = useWatch({ control, name: "smoke" });
@@ -52,7 +52,7 @@ export function StepInterests() {
     if (changed) {
       setValue("interests", ids, { shouldValidate: true, shouldDirty: true });
     }
-  }, [interestsUIKey, interestLabelToId, getValues, setValue]); 
+  }, [interestsUIKey, interestLabelToId, getValues, setValue]);
 
   useEffect(() => {
     const ids = tagsUI.map(lbl => tagLabelToId[lbl]).filter(Boolean);
@@ -60,7 +60,7 @@ export function StepInterests() {
     const changed =
       ids.length !== prev.length || ids.some((v, i) => v !== prev[i]);
     if (changed) {
-      setValue("tags", ids, { shouldValidate: true, shouldDirty: true }); 
+      setValue("tags", ids, { shouldValidate: true, shouldDirty: true });
     }
   }, [tagsUIKey, tagLabelToId, getValues, setValue]);
 
@@ -74,7 +74,7 @@ export function StepInterests() {
   }, [alcoholSel, smokeSel, setValue]);
 
   return (
-    <section>
+    <div className="mx-auto max-w-[720px] space-y-6">
       {interestsLoading ? (
         <div className="text-fade-text">Loading interests…</div>
       ) : (
@@ -86,14 +86,11 @@ export function StepInterests() {
           pillClassName="px-5 py-[5.5px]"
           pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
           pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
-          pillDisabledClassName="opacity-40 cursor-not-allowed"
           min={3}
           max={8}
           icon={<Grid2X2 className="w-4 h-4 text-primary-text" />}
         />
       )}
-
-      <hr className="my-6 text-primary-text/15" />
 
       {tagsLoading ? (
         <div className="text-fade-text">Loading personality tags…</div>
@@ -106,14 +103,11 @@ export function StepInterests() {
           pillClassName="px-5 py-[5.5px]"
           pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
           pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
-          pillDisabledClassName="opacity-40 cursor-not-allowed"
           min={3}
           max={8}
           icon={<UserRound className="w-4 h-4 text-primary-text" />}
         />
       )}
-
-      <hr className="my-6 text-primary-text/15" />
 
       <PillMultiSelectSection
         control={control}
@@ -123,13 +117,10 @@ export function StepInterests() {
         pillClassName="px-5 py-[5.5px]"
         pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
         pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
-        pillDisabledClassName="opacity-40 cursor-not-allowed"
         min={1}
         max={1}
         icon={<UserRound className="w-4 h-4 text-primary-text" />}
       />
-
-      <hr className="my-6 text-primary-text/15" />
 
       <PillMultiSelectSection
         control={control}
@@ -139,34 +130,14 @@ export function StepInterests() {
         pillClassName="px-5 py-[5.5px]"
         pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
         pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
-        pillDisabledClassName="opacity-40 cursor-not-allowed"
         min={1}
         max={1}
         icon={<UserRound className="w-4 h-4 text-primary-text" />}
       />
 
-      <input
-        type="hidden"
-        {...register("interests", {
-          validate: v => (Array.isArray(v) && v.length >= 3) || "Pick at least 3 interests",
-        })}
-      />
-      <input
-        type="hidden"
-        {...register("tags", {
-          validate: v => (Array.isArray(v) && v.length >= 3) || "Pick at least 3 traits",
-        })}
-      />
-      <input
-        type="hidden"
-        {...register("habits", {
-          validate: v =>
-            (Array.isArray(v) &&
-              v.some(h => h?.type === "smoking" && h.value) &&
-              v.some(h => h?.type === "alcohol" && h.value)) ||
-            "Pick smoking and alcohol options",
-        })}
-      />
-    </section>
+      <input type="hidden" {...register("interests")} />
+      <input type="hidden" {...register("tags")} />
+      <input type="hidden" {...register("habits")} />
+    </div>
   );
-}
+};

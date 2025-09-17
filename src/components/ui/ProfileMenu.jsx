@@ -61,37 +61,37 @@ const ProfileMenu = ({
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-10 mt-2 lg:w-52 rounded-xl bg-white shadow-lg overflow-hidden z-50"
+          className="absolute left-0 top-10 mt-4 lg:w-52 rounded-xl bg-white shadow-lg overflow-hidden z-50 py-2"
         >
           <Link
             to="/profile"
             role="menuitem"
-            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+            className="flex items-center gap-3 px-5 py-2 hover:bg-accent/10 rounded-[5px]"
             onClick={() => setOpen(false)}
           >
-            <UserRound size={18} />
+            <UserRound size={20} />
             <span>My profile</span>
           </Link>
 
           <Link
             to="/settings"
             role="menuitem"
-            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+            className="flex items-center gap-3 px-5 py-2 hover:bg-accent/10 rounded-[5px]"
             onClick={() => setOpen(false)}
           >
-            <Settings size={18} />
+            <Settings size={20} />
             <span>Settings</span>
           </Link>
 
           <button
             role="menuitem"
-            className="w-full text-left flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-600"
+            className="w-full cursor-pointer text-left flex items-center gap-3 px-5 py-2 hover:bg-red-50 text-red-600 rounded-[5px]"
             onClick={() => {
               setOpen(false);
               onLogout ? onLogout() : navigate("/login");
             }}
           >
-            <LogOut size={18} />
+            <LogOut size={20} />
             <span>Log out</span>
           </button>
         </div>
