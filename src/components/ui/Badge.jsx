@@ -10,6 +10,9 @@ const sizeStyles = {
 };
 
 const byTone = {
+  default: {
+    solid: 'bg-white text-primary-text',
+  },
   gray: {
     soft: 'bg-gray-50 text-gray-700 border border-gray-200',
     solid: 'bg-gray-900 text-white',

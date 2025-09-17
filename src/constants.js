@@ -319,6 +319,30 @@ export const EVENTS = [
     }
 ]
 
+
+export const ALL_ALCOHOL = [
+  "Not for me","I don't drink","I try not to drink",
+  "I drink on special occasions","I drink with company on weekends","Almost every evening"
+];
+export const ALL_SMOKE = [
+  "I smoke for company","With alcohol","I don't smoke","I smoke","I'm trying to quit"
+];
+
+export const Q1 = [
+  "Quiet time alone or with a book",
+  "Intimate dinner with close friends",
+  "Social gathering or party"
+];
+export const Q2 = [
+  "Plan every detail in advance",
+  "Have a general idea and go with the flow",
+  "Be completely spontaneous"
+];
+export const Q3 = [
+  "I prefer familiar foods",
+  "I'll try most things once",
+  "The more exotic, the better!"
+];
 export const MOCK_CONVERSATIONS = [
   {
     id: "emma",

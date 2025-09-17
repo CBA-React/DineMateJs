@@ -2,11 +2,11 @@ import { useFormContext } from "react-hook-form";
 import { RadioPillGroup } from "/src/components/ui/RadioPillGroup";
 import { Q1, Q2, Q3 } from "/src/constants";
 
-export function StepQuiz() {
+export const EditQuiz = () => {
   const { control } = useFormContext();
 
   return (
-    <section className="space-y-8">
+    <div className="mx-auto max-w-[720px] space-y-8">
       <RadioPillGroup
         control={control}
         name="quiz.additionalProp1"
@@ -34,6 +34,6 @@ export function StepQuiz() {
         options={Q3}
         rules={{ required: "Pick an option" }}
       />
-    </section>
+    </div>
   );
-}
+};

@@ -9,14 +9,18 @@ export const DistanceSlider = ({
   step = 1,
   label = "Distance preference",
   helper = "Use the slider to set the maximum distance range for searching",
-  hideHelper = false
+  hideHelper = false,
+  showSectionHeader = true, 
+  showInlineLabel = true,    
 }) => {
   return (
     <div className="space-y-3">
-      <div>
-        <div className="block text-sm font-medium text-primary-text mb-2">DISTANCE</div>
-        {!hideHelper && <p className="text-fade-text">{helper}</p>}
-      </div>
+      {showSectionHeader && (
+        <div>
+          <div className="mb-2 block text-sm font-medium text-primary-text">DISTANCE</div>
+          {!hideHelper && <p className="text-fade-text">{helper}</p>}
+        </div>
+      )}
 
       <Controller
         name={name}
@@ -27,10 +31,12 @@ export const DistanceSlider = ({
           const pct = ((v - min) / (max - min)) * 100;
           return (
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-sm text-primary-text">{label}</label>
-                <div className="text-sm text-primary-text">{v} mi</div>
-              </div>
+              {showInlineLabel && (
+                <div className="mb-2 flex items-center justify-between">
+                  <label className="text-sm text-primary-text">{label}</label>
+                  <div className="text-sm text-primary-text">{v} mi</div>
+                </div>
+              )}
 
               <input
                 type="range"

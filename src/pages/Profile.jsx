@@ -1,13 +1,15 @@
 import { PROFILE_MOCK } from "/src/constants";
 import { useState } from "react";
+import { Badge } from "/src/components/ui/Badge";
 import { ChevronRight, ChevronLeft, Shield, MapPin, Circle, Heart, MessageCircle } from "lucide-react";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Button } from "/src/components/ui/Button";
 import { GENDERS_ICONS } from "/src/constants";
 import clsx from "clsx";
 
-const Profile = () => {
-    const p = PROFILE_MOCK;
+const Profile = ({person = PROFILE_MOCK, isSelf=false}) => {
+    const p = person;
+
     return (
         <div className="relative w-full">
             <div  className="pt-[180px] pb-[100px] relative"
@@ -18,8 +20,8 @@ const Profile = () => {
             >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6">
                     <div className="grid gap-8 lg:gap-12 lg:grid-cols-[450px_1fr] items-start">
-                        <GalleryCard person={p} className="w-full max-w-[520px] mx-auto lg:mx-0"/>
-                        <RightColumn person={p} />
+                        <GalleryCard person={person} isSelf={isSelf} className="w-full max-w-[520px] mx-auto lg:mx-0"/>
+                        <RightColumn person={person} isSelf={isSelf} />
                     </div>
                 </div>
             </div>
@@ -27,7 +29,7 @@ const Profile = () => {
     )
 }
 
-export const GalleryCard = ({person, className}) => {
+export const GalleryCard = ({person, isSelf, className}) => {
     const [idx, setIdx] = useState(0);
     const next = () => setIdx((i) => (i + 1) % person.photos.length);
     const prev = () =>
@@ -44,15 +46,15 @@ export const GalleryCard = ({person, className}) => {
                 />
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 </div>
-                {/* To do badges after merge */}
-                <div className="absolute left-4 top-4 flex justify-between right-4">
-                    <span className="rounded-full bg-white px-5 py-[5.5px] font-semibold text-gray-800 shadow">
-                        {person.match}% Match
-                    </span>
-                    <span className="rounded-full bg-linear-to-r from-primary to-accent px-5 py-[5.5px] font-semibold text-white shadow">
+
+                {!isSelf && <div className="absolute left-4 top-4 flex justify-between right-4">
+                    <Badge className="rounded-full bg-white px-5 py-[5.5px] shadow" tone='default' variant='solid' size="md" >
+                      {person.match}% Match
+                    </Badge>
+                    <Badge className="rounded-full border-0 bg-linear-to-r from-primary to-accent px-5 py-[5.5px] text-white shadow">
                         NEW
-                    </span>
-                </div>
+                    </Badge>
+                </div>}
 
                 <Button
                     aria-label="Previous photo"
@@ -126,7 +128,7 @@ export const GalleryCard = ({person, className}) => {
     )
 }
 
-export const RightColumn = ({ person }) => {
+export const RightColumn = ({ person, isSelf }) => {
     const key = person.gender?.toLowerCase?.() ?? "";
     const GenderIcon = GENDERS_ICONS.get(key) ?? Circle;
 
@@ -186,18 +188,29 @@ export const RightColumn = ({ person }) => {
             </div>
           ))}
         </div>
-  
-        <div className="mt-6 flex flex-row gap-3">
-          <SubmitButton
-            withIcon
-            className="rounded-full px-[47px] py-2.5 bg-primary text-white text-nowrap w-min"
-            text="Plan Date"
-          />
-          <Button className="rounded-full border w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
-            Message
-            <MessageCircle size={20} />
-          </Button>
-        </div>
+
+        {isSelf ? (
+          <div className="mt-2.5">
+            <SubmitButton
+              text="Edit"
+              withIcon
+              className="rounded-full font-medium text-base px-[74px] py-2.5 max-w-min"
+              onClick={() => (window.location.href = "/edit")}
+            />
+          </div>
+        ) : (
+          <div className="mt-2.5 flex flex-row gap-3">
+            <SubmitButton
+              withIcon
+              className="rounded-full px-[47px] py-2.5 bg-primary text-white text-nowrap w-min"
+              text="Plan Date"
+            />
+            <Button className="rounded-full border w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
+              Message
+              <MessageCircle size={20} />
+            </Button>
+          </div>
+        )}
       </section>
     );
 }
