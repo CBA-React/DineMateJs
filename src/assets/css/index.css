@@ -68,6 +68,12 @@
   .events-swiper .swiper-pagination-bullet-active-custom {
     background: #fff;                        
   }
+
+  .command-item[aria-selected="true"],
+  .command-item[data-selected="true"],
+  .command-item[data-state="active"] {
+    @apply text-primary-text;
+  }
 }
 
 @layer components {

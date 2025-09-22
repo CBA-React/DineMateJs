@@ -1,8 +1,7 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useMemo, useRef, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { Input } from "/src/components/ui/Input";
-import { LocationSelect } from "/src/components/auth/LocationSelect";
 import { AgeSelect } from "/src/components/auth/AgeSelect";
 
 export const EditGeneral = () => {
@@ -31,7 +30,7 @@ export const EditGeneral = () => {
 
     list.forEach((file) => {
       if (!file.type?.startsWith?.("image/")) return;
-      if (file.size > 5 * 1024 * 1024) return; // 5MB
+      if (file.size > 5 * 1024 * 1024) return; 
       next.push({
         id: crypto.randomUUID(),
         url: URL.createObjectURL(file),
@@ -167,11 +166,26 @@ export const EditGeneral = () => {
               error={errors.age?.message}
             />
             
-            <LocationSelect 
+            {/* <LocationSelect 
               inputProps={register("city", {
                 required: "Location is required"
               })}
               error={errors.city?.message}
+            /> */}
+
+            <Controller
+              name="city"
+              control={control}
+              rules={{ required: "Location is required" }}
+              render={({ field, fieldState }) => (
+                <LocationComboBox
+                  inputProps={field}            
+                  value={field.value ?? ""}     
+                  onChange={field.onChange}    
+                  error={fieldState.error?.message}
+                  required
+                />
+              )}
             />
 
               <input
