@@ -7,7 +7,7 @@ export const DiscoverCardFooter = ({ onPass = () => {}, onLike = () => {} }) => 
       <Button
         aria-label="Pass"
         onClick={onPass}
-        className="grid h-14 lg:max-h-14 lg:max-w-14 place-items-center rounded-full bg-white text-gray-900 shadow hover:bg-white"
+        className="grid h-14 max-h-14 max-w-14 place-items-center rounded-full bg-white text-gray-900 shadow hover:bg-white"
       >
         <X size={28} />
       </Button>
@@ -17,7 +17,7 @@ export const DiscoverCardFooter = ({ onPass = () => {}, onLike = () => {} }) => 
       <Button
         aria-label="Like"
         onClick={onLike}
-        className="grid h-14 lg:max-h-14 lg:max-w-14 place-items-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
+        className="grid h-14 max-h-14 max-w-14 place-items-center rounded-full bg-red-500 text-white shadow hover:bg-red-600"
       >
         <Heart size={28} />
       </Button>

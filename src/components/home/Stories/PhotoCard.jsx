@@ -7,7 +7,7 @@ export const PhotoCard = ({
     followers = '254k followers',
   }) => {
     return (
-        <article className="break-inside-avoid rounded-3xl overflow-hidden shadow-sm border border-gray-200 mb-6">
+        <article className="break-inside-avoid rounded-3xl overflow-hidden shadow-sm border border-gray-200 mb-3 md:mb-6">
         <div className="relative">
           <img src={image} alt="" className="w-full h-[440px] object-cover" />
   

@@ -139,7 +139,7 @@ export const EditGeneral = () => {
             onChange={(e) => handleFiles(e.target.files)}
         />
 
-        <div className="flex min-h-[200px] flex-col items-center justify-center text-center">
+        <div className="flex min-h-[200px] px-4 md:px-0 py-[57px] md:py-0 flex-col items-center justify-center text-center">
             <button
                 type="button"
                 className="flex items-center text-[20px] text-primary"
@@ -147,7 +147,7 @@ export const EditGeneral = () => {
             >
                 Click to Upload or drag and drop
             </button>
-            <p className="mt-0.5 text-fade-text">
+            <p className="mt-0.5 text-fade-text text-sm md:text-base">
                 JPG, JPEG, PNG. Max file size: 5MB
             </p>
         </div>
@@ -159,7 +159,7 @@ export const EditGeneral = () => {
 
         <Input label="EMAIL" placeholder="testemail@gmail.com" {...register("email", { required: true })} />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4">
             <AgeSelect 
               inputProps={register("age", {
                 required: "Age is required"

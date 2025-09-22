@@ -104,15 +104,15 @@ export const BookTableModal = () => {
       closeOnEsc
       initialFocusRef={dateRef}
       ariaLabel="Book a table dialog"
-      className="p-10 relative flex flex-col gap-5 max-w-[544px]"
+      className="relative gap-5 flex flex-col w-screen max-w-none h-[100svh] overflow-y-auto p-4 rounded-none md:max-w-[544px] md:h-auto md:overflow-visible md:p-10 md:rounded-2xl"
     >
       <div className="relative text-primary-text">
-        <h2 className="text-5xl font-medium font-serif text-center mb-3">Book Your Date</h2>
-        <h4 className="text-center text-[22px]">{restaurant?.name}</h4>
+        <h2 className=" text-4xl md:text-5xl font-medium font-serif text-center mb-3">Book Your Date</h2>
+        <h4 className="text-center md:text-[22px]">{restaurant?.name}</h4>
       </div>
 
       <Button
-          className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
+          className="absolute right-2.5 top-2.5 md:right-5 md:top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
           onClick={handleClose}
           aria-label="Close"
         >
@@ -192,8 +192,8 @@ export const BookTableModal = () => {
 
           {error ? <p className="text-sm text-primary">{error}</p> : null}
 
-          <div className="flex items-center justify-between pt-2">
-            <Button className="underline px-0 text-fade-text" type="button" onClick={handleClose}>
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between pt-2 gap-3">
+            <Button className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
               Cancel
             </Button>
             <SubmitButton
@@ -202,7 +202,7 @@ export const BookTableModal = () => {
               withIcon
               disabled={status === "loading"}
               onClick={goNext}
-              className="bg-primary rounded-full px-[42px] py-2.5 max-w-fit"
+              className="bg-primary rounded-full px-[42px] py-2.5 md:max-w-fit"
             />
           </div>
         </div>
@@ -251,9 +251,9 @@ export const BookTableModal = () => {
               maxLength={500}
           />
 
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-3">
               <Button
-                  className="underline px-0 text-fade-text"
+                  className="underline px-0 text-fade-text justify-center md:justify-start"
                   type="button"
                   onClick={goPrevious}
               >
@@ -264,7 +264,7 @@ export const BookTableModal = () => {
                   text={status === "loading" ? "Processing…" : "Book Table"}
                   withIcon
                   disabled={status === "loading"}
-                  className="bg-primary rounded-full px-[42px] py-2.5 max-w-fit"
+                  className="bg-primary rounded-full px-[42px] py-2.5 md:max-w-fit"
                   onClick={handleSubmit(onSubmit)}
               />
           </div>

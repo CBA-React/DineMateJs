@@ -58,7 +58,7 @@ const Modal = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="grid h-full w-full place-items-center p-4">
+          <div className="grid h-full w-full place-items-center">
             <motion.div
               ref={contentRef}
               className={`w-full max-w-2xl rounded-3xl bg-white shadow-2xl ring-1 ring-black/5 ${className}`}

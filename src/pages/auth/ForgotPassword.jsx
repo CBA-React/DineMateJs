@@ -13,13 +13,13 @@ export const ForgotPassword = () => {
 
     return (
         <>
-        <h1 className="text-center text-5xl font-medium font-serif mb-3">Forgot Password?</h1>
-        <h2 className="text-center text-[20px] font-normal font-family-sans-serif tracking-[1px] mb-10">
+        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Forgot Password?</h1>
+        <h2 className="text-center md:text-[20px] font-normal font-family-sans-serif tracking-[1px] mb-5 md:mb-10">
         Enter the email address associated with your account and we will send you a link to reset your password.
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-3 md:mb-5">
                 <EmailInput 
-                    className="mb-10"
+                    className="mb-5 md:mb-10"
                     inputProps={register("email", {
                     required: "Email is required",
                     pattern: { value: /^\S+@\S+$/, message: "Enter a valid email" },
@@ -27,7 +27,7 @@ export const ForgotPassword = () => {
                 error={errors.email?.message}/>
                 <SubmitButton onClick={(handleSubmit(onSubmit))} text="Continue" withIcon/>
         </form>
-        <a href="/login" className="justify-center w-full flex gap-1 font-family-sans-serif text-fade-text">
+        <a href="/login" className="justify-center w-full flex gap-1 font-family-sans-serif text-fade-text underline">
             Back to Sign In
         </a>
         </>

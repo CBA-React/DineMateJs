@@ -12,6 +12,7 @@ export function PillMultiSelectSection({
   icon,
   min = 0,
   max = Infinity,
+  wrap = true,
   className,
   pillClassName,
   pillBaseClassName,
@@ -53,7 +54,7 @@ export function PillMultiSelectSection({
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className={clsx("flex gap-2 overflow-scroll no-scrollbar", wrap && "flex-wrap")}>
               {options.map((opt) => {
                 const isSelected = selected.includes(opt);
                 const disabled = !isSelected && !canAddMore;
@@ -68,7 +69,7 @@ export function PillMultiSelectSection({
                         ? field.onChange(selected.filter((x) => x !== opt))
                         : canAddMore && field.onChange([...selected, opt])
                     }
-                    baseClassName={pillBaseClassName ?? "px-5 py-[5.5px] rounded-full text-sm"}
+                    baseClassName={pillBaseClassName ?? "px-5 py-[5.5px] rounded-full text-sm text-nowrap"}
                     selectedClassName={pillSelectedClassName}
                     unselectedClassName={pillUnselectedClassName}
                     disabledClassName={pillDisabledClassName}

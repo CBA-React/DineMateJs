@@ -77,7 +77,7 @@ export const RestaurantCarousel = ({ items }) => {
         ))}
       </Swiper>
 
-      <div className="mt-12 flex items-center absolute left-1/2 -translate-x-1/2 justify-center gap-4">
+      <div className="mt-6 md:mt-12 flex justify-between w-full md:w-auto items-center absolute md:flex left-1/2 -translate-x-1/2 md:justify-center gap-4">
         <button
           ref={prevRef}
           className="swiper-button-prev-custom min-h-8 min-w-8 cursor-pointer rounded-full bg-primary-text/5 shadow-sm hover:bg-primary-text/10 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
@@ -87,7 +87,7 @@ export const RestaurantCarousel = ({ items }) => {
           <ChevronLeft className="h-4 w-4 text-primary-text" />
         </button>
 
-        <div ref={paginationRef} className="swiper-pagination-custom flex items-center px-5 py-4 rounded-full gap-2 bg-primary-text/5" />
+        <div ref={paginationRef} className="swiper-pagination-custom flex max-w-min items-center px-5 py-4 rounded-full gap-2 bg-primary-text/5" />
 
         <button
           ref={nextRef}

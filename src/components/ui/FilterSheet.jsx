@@ -32,7 +32,7 @@ export const FilterSheet = ({
         onClick={onClose}
       />
       <aside
-        className={`fixed left-0 rounded-r-[20px] top-0 h-screen w-[320px] p-[28px] sm:w-[360px] bg-white shadow-xl z-[1010]
+        className={`fixed left-0 md:rounded-r-[20px] top-0 h-screen w-full md:w-[320px] p-5 md:p-[28px] sm:w-[360px] bg-white shadow-xl z-[1010]
                     transition-transform duration-300 will-change-transform
                     ${open ? "translate-x-0" : "-translate-x-full"} flex flex-col gap-6`}
       >

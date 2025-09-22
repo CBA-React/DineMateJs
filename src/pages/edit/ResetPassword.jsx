@@ -18,22 +18,21 @@ export const ResetPasswordEmail = () => {
 
     return (
         <div className="relative w-full">
-        <div  className="pt-[180px] pb-[100px] relative"
+        <div  className="pt-[104px] md:pt-[180px] pb-[60px] md:pb-[100px] px-5 relative"
             style={{
                 background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
-                minHeight: '600px'
               }}
         >
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <EditCard>
-                <div className="mx-auto w-[500px]">
-                        <h1 className="text-center text-5xl font-medium font-serif mb-3">Reset Password</h1>
-                        <h2 className="text-center text-[20px] font-normal font-family-sans-serif tracking-[1px] mb-10">
+                <div className="md:mx-auto w-auto md:w-[500px]">
+                        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Reset Password</h1>
+                        <h2 className="text-center md:text-[20px] font-normal font-family-sans-serif tracking-[1px] mb-5 md:mb-10">
                         Enter the email address associated with your account and we will send you a link to reset your password.
                         </h2>
                         <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
                                 <EmailInput 
-                                    className="mb-10"
+                                    className="mb-5 md:mb-10"
                                     inputProps={register("email", {
                                     required: "Email is required",
                                     pattern: { value: /^\S+@\S+$/, message: "Enter a valid email" },
@@ -60,21 +59,20 @@ export const ResetPassword = () => {
 
     return(
         <div className="relative w-full">
-                    <div  className={clsx("pt-[180px] pb-[100px] relative", isSuccess && "pt-[207px] pb-[128px]")}
+                    <div  className={clsx("pt-[104px] md:pt-[180px] pb-[60px] md:pb-[100px] relative px-5", isSuccess && "md:pt-[207px] md:pb-[128px] min-h-[335px]")}
                         style={{
                             background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
-                            minHeight: '600px'
                         }}
                     >
                         <div className="max-w-7xl mx-auto flex flex-col items-center">
                             <EditCard>
-                                <div className="mx-auto w-[500px]">
+                                <div className="md:mx-auto w-auto md:w-[500px]">
                                     {!isSuccess ? (
                                         <>
-                                        <h1 className="text-center text-5xl font-medium font-serif mb-3">Reset Password</h1>
-                                        <h2 className="text-center text-[20px] font-normal tracking-[1px] mb-10 block max-w-[500px]">Please enter your new password below. Make sure it’s strong and haven’t used before</h2>
+                                        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Reset Password</h1>
+                                        <h2 className="text-center md:text-[20px] font-normal tracking-[1px] mb-5 md:mb-10 block max-w-[500px]">Please enter your new password below. Make sure it’s strong and haven’t used before</h2>
                                         <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-                                            <div className="space-y-6 mb-10">
+                                            <div className="space-y-6 mb-5 md:mb-10">
                                                 <PasswordInput 
                                                     inputProps={register("password", {
                                                     required: "Password is required",

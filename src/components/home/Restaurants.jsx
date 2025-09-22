@@ -10,7 +10,7 @@ export const Restaurants = () => {
     }
 
     return (
-        <div className="relative w-full py-[120px]" id="restaurants">
+        <div className="relative w-full py-[60px] md:py-[120px]" id="restaurants">
         <div 
                 className="absolute inset-0 w-full h-full -z-1"
                 style={{
@@ -19,14 +19,14 @@ export const Restaurants = () => {
                 }}
             />
 
-        <div className="flex flex-col gap-16 mx-auto max-w-7xl items-center">
-            <div className="flex flex-col gap-3 items-center lg:max-w-[560px]">
+        <div className="flex flex-col gap-7 md:gap-16 px-5 mx-auto max-w-7xl items-center">
+            <div className="flex flex-col gap-1.5 md:gap-3 items-center lg:max-w-[560px]">
                 <span className="text-sm uppercase text-fade-text">{INTRO_TEXT.sectionName}</span>
                 <h2 className="font-serif font-medium text-center text-4xl lg:text-5xl 2xl:text-7xl leading-tight bg-linear-to-b from-primary to-secondary bg-clip-text">
                     <span className="text-transparent">{INTRO_TEXT.title1}</span><br/>
                     <span className="text-transparent">{INTRO_TEXT.title2}</span>
                 </h2>
-                <p className="text-[20px] text-center">{INTRO_TEXT.paragraphText}</p>
+                <p className="md:text-[20px] text-center">{INTRO_TEXT.paragraphText}</p>
             </div>
             <RestaurantCarousel items={RESTAURANTS} />
         </div>

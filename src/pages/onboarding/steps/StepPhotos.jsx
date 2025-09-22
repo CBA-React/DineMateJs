@@ -105,14 +105,14 @@ export function StepPhotos() {
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
         className={[
-          "rounded-2xl p-10 text-center cursor-pointer select-none",
+          "rounded-2xl px-4 py-[57px] md:p-10 text-center cursor-pointer select-none",
           "border-2 border-dashed transition",
           dragging ? "border-red-400 bg-red-50/40" : "border-gray-300",
           disabled ? "opacity-60 cursor-not-allowed" : "",
         ].join(" ")}
       >
-        <p className="text-red-600 text-xl">Click to Upload or drag and drop</p>
-        <p className="text-sm text-gray-400 mt-2">
+        <p className="text-primary text-xl">Click to Upload or drag and drop</p>
+        <p className="text-sm text-fade-text mt-0.5">
           JPG, JPEG, PNG. Max file size: 5MB
         </p>
 
@@ -129,7 +129,7 @@ export function StepPhotos() {
 
       {photos.length > 0 && (
         <>
-          <div className="mt-6 grid grid-cols-3 sm:grid-cols-4 gap-3">
+          <div className="mt-5 grid grid-cols-3 sm:grid-cols-4 gap-3">
             {photos.map((url, i) => (
               <div
                 key={`${url}-${i}`}

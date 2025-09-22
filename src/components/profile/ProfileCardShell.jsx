@@ -4,9 +4,9 @@ import clsx from "clsx";
 const ProfileCardShell = ({ person, footer, className }) => {
   return (
     <div className={clsx("relative z-10 w-full rounded-[20px] font-sans", className)}>
-      <div className="relative overflow-hidden rounded-2xl shadow-xl">
+      <div className="relative overflow-hidden rounded-[20px] shadow-xl">
 
-        <div className="relative aspect-[4/5] w-full">
+        <div className="relative aspect-[2/3] md:aspect-[4/5] w-full">
           <img
             src={person.photo}
             alt={person.name}

@@ -3,7 +3,7 @@ import { Search, Shield } from "lucide-react";
 import { Button } from "/src/components/ui/Button";
 import clsx from "clsx";
 
-export const Sidebar = ({ conversations, activeId, onSelect }) => {
+export const Sidebar = ({ conversations, activeId, onSelect, className }) => {
     const [query, setQuery] = useState("");
   
     const filtered = useMemo(() => {
@@ -17,8 +17,8 @@ export const Sidebar = ({ conversations, activeId, onSelect }) => {
     }, [query, conversations]);
   
     return (
-      <aside className="w-[368px] shrink-0">
-        <div className="p-6">
+      <aside className={clsx("shrink-0", className, !className && "w-[368px]")}>
+        <div className="p-5 md:p-6">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2" size={24} />
             <input
@@ -30,7 +30,7 @@ export const Sidebar = ({ conversations, activeId, onSelect }) => {
           </div>
         </div>
   
-        <ul className="pb-12 overflow-y-auto h-[calc(100vh-8rem)]">
+        <ul className="pb-5 md:pb-12 overflow-y-auto md:h-[calc(100vh-8rem)]">
           {filtered.map((c) => (
             <li key={c.id}>
               <Button

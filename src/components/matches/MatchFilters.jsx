@@ -3,6 +3,9 @@ import { AgeRange } from "/src/components/ui/AgeRange";
 import { DistanceSlider } from "/src/components/ui/DistanceSlider";
 import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSection";
 import { INTERESTS, PERSONALITY } from "/src/constants";
+import { useIsMobile } from "/src/hooks/useIsMobile";
+import { SortDropdown } from "/src/components/ui/SortDropdown";
+import { SORT_OPTIONS } from "/src/constants";
 
 const DEFAULTS = {
   ageMin: 18,
@@ -13,6 +16,8 @@ const DEFAULTS = {
 };
 
 export const MatchFilters = ({ open, onClose, onApply, onReset }) => {
+  const isMobile = useIsMobile();
+
   return (
     <FilterSheet
       title="Filters"
@@ -24,6 +29,9 @@ export const MatchFilters = ({ open, onClose, onApply, onReset }) => {
     >
       {({ control }) => (
         <>
+          {isMobile && <SortDropdown 
+          options={SORT_OPTIONS}     
+          />}
           <AgeRange control={control} min={18} max={100} />
           <DistanceSlider hideHelper control={control} name="distance" min={1} max={80} />
           <PillMultiSelectSection 

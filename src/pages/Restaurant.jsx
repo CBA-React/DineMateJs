@@ -8,6 +8,8 @@ import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { useBooking } from "/src/hooks/useBooking";
 import {BookTableModal} from "/src/components/dining/BookTableModal";
 import {BookingConfirmationModal} from "/src/components/dining/BookingConfirmationModal";
+import clsx from "clsx";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 const badgesKeys = [{key: "rating", label: "Rating", icon: Star }, {key: "pricePerPerson", label: "Avg per person", icon: DollarSign}, {key: "distanceMiles", label: "Distance", icon: MapPin}, {key: "isOpen", label: "Status", icon: Clock}];
 
@@ -15,6 +17,7 @@ const Restaurant = () => {
     const { restaurantId } = useParams();
     const restaurant = RESTAURANTS.find((r) => r.id === restaurantId);
     const { openBookingModal } = useBooking();
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         console.log(restaurantId);
@@ -23,7 +26,7 @@ const Restaurant = () => {
 
     if (!restaurant) {
         return <div className="relative w-full">
-        <div  className="pt-[120px] pb-[100px] relative"
+        <div  className="pt-[112px] md:pt-[120px] pb-[60px] md:pb-[100px] px-5 relative"
             style={{
                 background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                 minHeight: '600px'
@@ -38,7 +41,7 @@ const Restaurant = () => {
 
     return (
         <div className="relative w-full">
-            <div className="pt-[120px] pb-[100px] relative"
+            <div className="pt-[112px] md:pt-[120px] pb-[60px] md:pb-[100px] px-5 relative"
                 style={{
                     background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                     minHeight: '600px'
@@ -46,9 +49,9 @@ const Restaurant = () => {
             >
                 <div className="max-w-7xl mx-auto flex flex-col gap-10 items-center justify-center">
                     <div className="flex flex-col gap-3 w-full">
-                        <img src={restaurant.image} alt={restaurant.name} className="rounded-xl w-full max-h-[500px] object-cover" />
+                        <img src={restaurant.image} alt={restaurant.name} className={clsx("rounded-xl w-full max-h-[500px] object-cover", isMobile && "aspect-square")} />
                         
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div className="flex flex-row overflow-scroll no-scrollbar md:grid md:grid-cols-4 gap-3">
                             {badgesKeys.map((badge, index) => (
                                 <RestaurantBadge key={`${badge.label}${index}`} label={badge.label} value={restaurant[badge.key]} icon={badge.icon} />
                             ))}
@@ -94,7 +97,7 @@ const Restaurant = () => {
                     </div>
                     
                     <p className="text-primary-text">{restaurant.description}</p>
-                    <SubmitButton text="Book Table" withIcon className="max-w-fit px-5 py-2.5" onClick={() => openBookingModal(restaurant)}/>
+                    <SubmitButton text="Book Table" withIcon className="md:max-w-fit px-5 py-2.5" onClick={() => openBookingModal(restaurant)}/>
                     </div>
                 </div>
                 <BookTableModal />

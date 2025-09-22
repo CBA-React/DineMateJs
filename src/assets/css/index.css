@@ -45,8 +45,28 @@
   .swiper-button-prev {
     display: none !important;
   }
-  .swiper-pagination {
-    display: none !important;
+
+  .events-swiper .swiper-pagination-custom {
+    display: inline-flex;
+    gap: 6px;
+    padding: 19px 22px;             
+    border-radius: 9999px;         
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Dots */
+  .events-swiper .swiper-pagination-bullet-custom {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, .25); 
+    opacity: 1;                             
+    display: block;   
+    transition: background-color .15s ease;
+  }
+  
+  .events-swiper .swiper-pagination-bullet-active-custom {
+    background: #fff;                        
   }
 }
 

@@ -9,6 +9,7 @@ import { EVENTS, EVENTS_TYPES } from "/src/constants";
 import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSection";
 import { useForm } from "react-hook-form";
 import { EventRegisterModal } from "../components/events/EventRegisterModal";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 const TEXT = {
     title: "Events and Mixers",
@@ -18,6 +19,8 @@ const TEXT = {
 const Events = () => {
     const [sort, setSort] = useState("best");
     const [filtersOpen, setFiltersOpen] = useState(false);
+
+    const isMobile = useIsMobile();
 
     const { control, watch } = useForm({
         defaultValues: {
@@ -41,26 +44,26 @@ const Events = () => {
 
     return (
         <div className="relative w-full">
-            <div  className="pt-[180px] pb-[100px] relative"
+            <div  className="pt-[112px] md:pt-[180px] pb-[60px] md:pb-[100px] px-5 relative"
                 style={{
                     background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                     minHeight: '600px'
                   }}
             >
-                <div className="max-w-7xl mx-auto flex flex-col gap-10">
-                    <div className="flex flex-col gap-6">
-                        <div className="flex flex-row justify-between">
+                <div className="max-w-7xl mx-auto flex flex-col gap-7 md:gap-10">
+                    <div className="flex flex-col gap-7 md:gap-6">
+                        <div className="flex flex-col md:flex-row justify-between gap-5">
                             <div>
-                                <h2 className="font-serif font-medium text-4xl lg:text-5xl 2xl:text-7xl leading-tight bg-linear-to-b from-primary to-secondary bg-clip-text lg:mb-3">
+                                <h2 className="font-serif font-medium text-4xl lg:text-5xl 2xl:text-7xl leading-tight bg-linear-to-b from-primary to-secondary bg-clip-text mb-3">
                                       <span className="text-transparent">{TEXT.title}</span>
                                 </h2>
                                 <p>
                                     {TEXT.subtitle}
                                 </p>
                             </div>
-                            <div className="self-end gap-3 flex flex-row z-20">
+                            <div className="md:self-end gap-3 flex flex-col md:flex-row z-20">
                                 <Search  />
-                                <Button className="bg-white px-5 py-2.5 max-w-min font-medium rounded-full text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
+                                <Button className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
                                     <SlidersHorizontal />
                                     Filters
                                 </Button>
@@ -70,17 +73,19 @@ const Events = () => {
                                     onApply={(vals) => setFilters(vals)}
                                     onReset={() => setFilters(null)}
                                 />
+                                { !isMobile &&
                                 <SortDropdown
                                     options={[]}
                                     value={sort}
                                     onChange={setSort}
-                                />
+                                /> }
                             </div>
                         </div>
                         
                         <PillMultiSelectSection
                             options={EVENTS_TYPES}
                             control={control}
+                            wrap={false}
                             name="types"
                             className="space-y-0"
                             pillClassName="px-5 py-[5.5px] text-base"

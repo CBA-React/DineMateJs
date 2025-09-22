@@ -3,7 +3,7 @@ import { ChatHeader } from "./ChatHeader";
 import { MessageInput } from "./MessageInput";
 import { MessagesList } from "./MessagesList";
 
-export const ChatArea = ({ conversation, messages, onSend }) => {
+export const ChatArea = ({ conversation, messages, onSend, onReturn }) => {
     return (
         <div className="relative w-full h-full flex border-l-1 border-[#D9DCE0]">
             <img
@@ -22,8 +22,8 @@ export const ChatArea = ({ conversation, messages, onSend }) => {
             />
             {
                 conversation ? (
-                    <div className="flex flex-col min-w-0 z-0 w-full">
-                        <ChatHeader conversation={conversation} />
+                    <div className="flex flex-col min-w-0 h-[600px] md:h-auto z-0 w-full">
+                        <ChatHeader returnToChats={onReturn} conversation={conversation} />
                         <MessagesList messages={messages} />
                         <MessageInput onSend={onSend} />
                     </div>

@@ -16,7 +16,7 @@ export const Button = ({className, children, onClick, type = "button", ...props}
 }
 
 export const MessageButton = ({
-    to = "/messages",
+    to = "/chats",
     unread = 0,
     className = "",
   }) => {

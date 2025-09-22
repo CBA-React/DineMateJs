@@ -7,7 +7,7 @@ export const QuoteCard = ({
     text,
   }) => {
     return (
-      <article className="break-inside-avoid rounded-3xl bg-feature-card-bg p-5 sm:p-6 mb-6">
+      <article className="break-inside-avoid rounded-3xl bg-feature-card-bg p-5 sm:p-6 mb-3 md:mb-6">
         <div className="flex items-center gap-3">
           <img src={avatar} alt={`${name} avatar`} className="h-10 w-10 rounded-full object-cover" />
           <div className="min-w-0">

@@ -22,7 +22,7 @@ export const EventSpotsProgress = ({
 
   const Wrapper = ({ children }) =>
     boxed ? (
-      <div className={clsx('rounded-[10px] bg-white p-4', className)}>{children}</div>
+      <div className={clsx('rounded-[10px] bg-white p-3 md:p-4', className)}>{children}</div>
     ) : (
       <div className={className}>{children}</div>
     );

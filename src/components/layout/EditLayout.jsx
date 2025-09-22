@@ -2,6 +2,7 @@ import { EDIT_STEPS } from "/src/pages/edit/config";
 import { EditCard } from "/src/components/edit/EditCard";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate, Navigate } from "react-router-dom";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Button } from "/src/components/ui/Button";
 import { FormProvider, useForm } from "react-hook-form";
@@ -21,6 +22,8 @@ export const EditLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { pathname } = location;
+
+    const isMobile = useIsMobile();
 
     const { currentStep, totalSteps, formData, isSubmitting } = useSelector(
         (s) => s.profile
@@ -95,13 +98,13 @@ export const EditLayout = () => {
 
     return (
         <div className="relative w-full">
-            <div  className="pt-[180px] pb-[100px] relative"
+            <div  className="pt-[135px] md:pt-[180px] pb-[60px] md:pb-[100px] relative px-5"
                 style={{
                     background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                     minHeight: '600px'
                   }}
             >
-                <div className="max-w-7xl mx-auto flex flex-col items-center">
+                <div className="max-w-7xl md:mx-auto flex flex-col items-center">
                     <EditCard>
                         <FormProvider {...methods}>
                             <div className="mx-auto max-w-[720px]">
@@ -112,6 +115,7 @@ export const EditLayout = () => {
                                 </div>
                                 <div className="mt-10 flex flex-col gap-5">
                                 <SubmitButton onClick={updateProfile} withIcon text="Save" disabled={isSubmitting} className="w-full" />
+                                {isMobile && <Button className="text-secondary font-medium border-secondary border py-2.5 justify-center rounded-full" onClick={() => navigate("/profile")}>Cancel</Button>}
                                   {currentStep === 1 && (
                                     <div className="flex w-full justify-center">
                                       <Button
@@ -156,7 +160,24 @@ export const EditLayout = () => {
 
 function EditStepper({ current }) {
     return (
-      <div className="mb-6 lg:min-w-[500px]">
+      <>
+      <div className="sm:hidden text-left mt-5">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <p className="text-sm text-primary font-medium">{EDIT_STEPS[current].label}</p>
+            <p className="text-sm text-fade-text">Step {current + 1} of {EDIT_STEPS.length}</p>
+          </div>
+
+          <div
+                className={`w-8 h-8 rounded-full border-1 flex items-center justify-center border-primary bg-white"
+                }`}
+          >
+            <div className="w-[7px] h-[7px] rounded-full bg-primary" />
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden sm:block mb-6 lg:min-w-[500px]">
         <div className="relative flex items-center justify-center">
           <div
             className="absolute top-3.5 h-0.5 bg-primary-text/15"
@@ -201,5 +222,6 @@ function EditStepper({ current }) {
           ))}
         </div>
       </div>
+    </>
     );
   }

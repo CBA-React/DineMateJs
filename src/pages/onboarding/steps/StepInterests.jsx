@@ -83,7 +83,7 @@ export function StepInterests() {
           name="interestsUI"
           options={interestOptions.map(o => o.label)}
           title="Interests"
-          pillClassName="px-5 py-[5.5px]"
+          pillClassName="px-5 py-[5.5px] text-base"
           pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
           pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
           pillDisabledClassName="opacity-40 cursor-not-allowed"
@@ -103,7 +103,7 @@ export function StepInterests() {
           name="tagsUI"
           options={tagOptions.map(o => o.label)}
           title="Personality tags"
-          pillClassName="px-5 py-[5.5px]"
+          pillClassName="px-5 py-[5.5px] text-base"
           pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
           pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
           pillDisabledClassName="opacity-40 cursor-not-allowed"
@@ -120,7 +120,7 @@ export function StepInterests() {
         name="alcohol"
         options={ALL_ALCOHOL}
         title="How often do you drink alcohol?"
-        pillClassName="px-5 py-[5.5px]"
+        pillClassName="px-5 py-[5.5px] text-base"
         pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
         pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
         pillDisabledClassName="opacity-40 cursor-not-allowed"
@@ -136,7 +136,7 @@ export function StepInterests() {
         name="smoke"
         options={ALL_SMOKE}
         title="How often do you smoke?"
-        pillClassName="px-5 py-[5.5px]"
+        pillClassName="px-5 py-[5.5px] text-base"
         pillSelectedClassName="shadow-sm text-primary-text border-1 border-primary"
         pillUnselectedClassName="border bg-transparent text-fade-text border-fade-text"
         pillDisabledClassName="opacity-40 cursor-not-allowed"

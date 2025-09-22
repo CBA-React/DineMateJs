@@ -19,15 +19,15 @@ export const LogOutModal = ({ open, onClose }) => {
     };
 
     return (
-        <Modal open={open} onClose={onClose} className="max-w-[544px] text-primary-text relative">
-            <div className="p-10 flex flex-col gap-5">
+        <Modal open={open} onClose={onClose} className="max-w-[335px] md:max-w-[544px] text-primary-text relative">
+            <div className="p-7 md:p-10 flex flex-col gap-5">
                 <div className="flex items-start justify-between">
-                <div className="w-full text-center">
-                    <h2 className="font-serif text-5xl font-medium">
-                    {TEXT.title}
-                    </h2>
-                    <h4 className="mt-3 text-[22px]">{TEXT?.subtitle}</h4>
-                </div>
+                    <div className="w-full text-center">
+                        <h2 className="font-serif text-4xl md:text-5xl font-medium">
+                        {TEXT.title}
+                        </h2>
+                        <h4 className="mt-3 md:text-[22px]">{TEXT?.subtitle}</h4>
+                    </div>
                 <Button
                     className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
                     onClick={onClose}
@@ -37,8 +37,8 @@ export const LogOutModal = ({ open, onClose }) => {
                     </Button>
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
-                    <Button className="underline px-0 text-fade-text" type="button" onClick={handleClose}>
+                <div className="flex flex-col-reverse md:flex-row items-center justify-between pt-2 gap-3">
+                    <Button className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
                         Cancel
                     </Button>
                     <SubmitButton

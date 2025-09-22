@@ -10,7 +10,7 @@ export const Checkbox = ({
     <div className={className}>
       <label
         htmlFor={id}
-        className="inline-flex items-center gap-3 cursor-pointer select-none"
+        className="flex items-center gap-3 cursor-pointer select-none h-full"
       >
         <input
           id={id}
@@ -22,7 +22,7 @@ export const Checkbox = ({
         <span
           aria-hidden
           className="
-            relative h-5 w-5 rounded-full border-2 border-gray-400 transition
+            relative h-5 w-5 rounded-full border-2 border-gray-400 transition shrink-0
             peer-checked:border-primary
             peer-focus-visible:ring-2 peer-focus-visible:ring-primary/30 peer-focus-visible:ring-offset-2
 
@@ -33,7 +33,7 @@ export const Checkbox = ({
           "
         />
 
-        <span className="text-fade-text peer-checked:text-primary-text">
+        <span className="text-fade-text text-sm md:text-base peer-checked:text-primary-text">
           {label}
         </span>
       </label>

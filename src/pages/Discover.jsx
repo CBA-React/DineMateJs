@@ -21,7 +21,7 @@ const Discover = () => {
     
       return (
         <div 
-          className="relative font-serif lg:mb-[120px]"
+          className="relative font-serif mb-[60px] md:mb-[120px]"
           style={{
             background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
             minHeight: '600px'
@@ -32,7 +32,7 @@ const Discover = () => {
               alt="Discover background" 
               className="absolute inset-0 w-full h-full object-cover object-[center_0%] translate-y-1/3" 
             />
-            <section className="absolute z-10 mx-auto flex -translate-y-1/4 -translate-x-1/2 top-1/2 left-1/2 max-w-7xl items-center justify-center px-4 sm:px-6">
+            <section className="absolute z-10 mx-auto flex -translate-y-1/4 -translate-x-1/2 top-2/5 md:top-1/2 left-1/2 max-w-7xl items-center justify-center px-4 sm:px-6">
                 <DiscoverDeck
                     people={PEOPLE}
                     onDecision={handleDecision}
