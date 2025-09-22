@@ -1,16 +1,16 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { EmailInput } from "/src/components/auth/EmailInput";
 import { PasswordInput } from "/src/components/auth/PasswordInput";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Input } from "/src/components/ui/Input";
 import { Checkbox } from "/src/components/ui/Checkbox";
 import { AgeSelect } from "/src/components/auth/AgeSelect";
-import { LocationSelect } from "/src/components/auth/LocationSelect";
 import { useNavigate } from "react-router-dom";
 import { upsertDraft } from "/src/features/auth/registrationDraftSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { checkUserExists } from "/src/services/authService";
+import { LocationComboBox } from "/src/components/auth/LocationComboBox";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Register = () => {
     setValue,
     setError,
     clearErrors,
+    control
   } = useForm({
     defaultValues: {
       email: "",
@@ -32,6 +33,7 @@ const Register = () => {
       fullName: "",
       age: 18,
       gender: "",
+      city_id: "",
       city: "",
       location: [0, 0],
       quiz: { additionalProp1: "", additionalProp2: "", additionalProp3: "" },
@@ -89,8 +91,6 @@ const Register = () => {
   }, [setValue, setError, clearErrors]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
     dispatch(
       upsertDraft({
         email: data.email,
@@ -146,11 +146,19 @@ const Register = () => {
               error={errors.age?.message}
             />
             
-            <LocationSelect 
-              inputProps={register("city", {
-                required: "Location is required"
-              })}
-              error={errors.city?.message}
+            <Controller
+              name="city"
+              control={control}
+              rules={{ required: "Location is required" }}
+              render={({ field, fieldState }) => (
+                <LocationComboBox
+                  inputProps={field}            
+                  value={field.value ?? ""}     
+                  onChange={field.onChange}    
+                  error={fieldState.error?.message}
+                  required
+                />
+              )}
             />
 
               <input
