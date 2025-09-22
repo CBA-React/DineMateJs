@@ -92,7 +92,7 @@ export const VerificationCodeInput = forwardRef(({ inputProps, error, length = 6
         VERIFICATION CODE *
       </label>
       
-      <div className="grid grid-cols-6 gap-2 mb-10">
+      <div className="grid grid-cols-6 gap-2 mb-5 md:mb-10">
         {values.map((value, index) => (
           <input
             key={index}

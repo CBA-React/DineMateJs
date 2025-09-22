@@ -27,10 +27,10 @@ const ResetPassword = () => {
 
   return (
     <>
-        <h1 className="text-center text-5xl font-medium font-serif mb-3">Reset Password</h1>
-        <h2 className="text-center text-[20px] font-normal tracking-[1px] mb-10 block max-w-[500px]">Please enter your new password below. Make sure it’s strong and haven’t used before</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-            <div className="space-y-6 mb-10">
+        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Reset Password</h1>
+        <h2 className="text-center md:text-[20px] font-normal tracking-[1px] mb-5 md:mb-10 block max-w-[500px]">Please enter your new password below. Make sure it’s strong and haven’t used before</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-6 mb-5 md:mb-10">
                 <PasswordInput 
                     inputProps={register("password", {
                     required: "Password is required",

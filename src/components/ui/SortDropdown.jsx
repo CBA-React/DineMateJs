@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 export const SortDropdown = ({
   options = [],                 
@@ -14,6 +15,7 @@ export const SortDropdown = ({
   const isControlled = value !== undefined;
   const [innerValue, setInnerValue] = useState(defaultValue ?? options[0]?.value);
   const currentValue = isControlled ? value : innerValue;
+  const isMobile = useIsMobile();
 
   const selected = useMemo(
     () => options.find(o => o.value === currentValue) ?? options[0],
@@ -60,7 +62,8 @@ export const SortDropdown = ({
   };
 
   return (
-    <div className={`relative inline-block ${className}`}>
+    !isMobile ?(
+      <div className={`relative inline-block ${className}`}>
       <button
         ref={btnRef}
         type="button"
@@ -101,5 +104,54 @@ export const SortDropdown = ({
         </div>
       )}
     </div>
+    ) : (
+      <div className={`w-full ${className}`}>
+  <label className="block text-sm uppercase font-medium mb-2">
+    Sort By
+  </label>
+
+  <div className="relative block w-full">
+    <button
+      ref={btnRef}
+      type="button"
+      onClick={() => setOpen(o => !o)}
+      className="flex items-center gap-2 rounded-[10px] bg-white px-4 py-3 text-primary-text
+                hover:shadow-sm transition cursor-pointer border border-primary-text/15 w-full justify-between"
+    >
+      <span className="text-gray-500">{labelPrefix}</span>
+      <span>{selected?.label}</span>
+      <ChevronDown size={18} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+    </button>
+
+    {open && (
+      <div
+        ref={menuRef}  
+        role="listbox"
+        className={`absolute z-30 left-0 mt-2 min-w-[84vw] w-full rounded-2xl bg-white shadow-lg ring-1 ring-black/10 overflow-hidden ${menuClassName}`}
+      >
+        {options.map((opt, i) => {
+          const isSelected = opt.value === currentValue;
+          const isActive = i === activeIndex;
+          return (
+            <button
+              key={opt.value}
+              role="option"
+              aria-selected={isSelected}
+              type="button"
+              onMouseEnter={() => setActiveIndex(i)}
+              onClick={() => select(opt)}
+              className={`w-full text-left px-5 py-3 text-lg
+                          ${isSelected ? "bg-rose-100/60" : isActive ? "bg-gray-50" : "bg-white"}
+                          text-primary-text transition`}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+    )}
+  </div>
+</div>
+    )
   );
 }

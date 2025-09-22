@@ -3,6 +3,7 @@ import { BellRing, Shield, SlidersHorizontal, PenLine } from "lucide-react";
 import { DistanceSlider } from "/src/components/ui/DistanceSlider";
 import { AgeRange } from "/src/components/ui/AgeRange";
 import { Switch } from "/src/components/ui/Switch";
+import clsx from "clsx";
 const TEXT = {
   title: "Settings",
   subtitle: "Manage your account preferences and privacy settings",
@@ -39,7 +40,7 @@ const Settings = () => {
   return (
     <div className="relative w-full">
       <div
-        className="pt-[180px] pb-[100px] relative"
+        className="pt-[112px] md:pt-[180px] pb-[60px] md:pb-[100px] relative"
         style={{
           background: "linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)",
           minHeight: "600px",
@@ -116,14 +117,14 @@ const Settings = () => {
                           color="purple"
                           trackOnClass={"bg-secondary"}
                         />
-                        <Row>
+                        <Row className="flex-col md:flex-row items-start md:items-center gap-3">
                           <div>
                             <div className="text-[20px] text-primary-text">Password</div>
                             <p className=" text-fade-text">Change your account password</p>
                           </div>
                           <button
                             type="button"
-                            className="inline-flex items-center gap-2.5 text-primary-text underline self-end cursor-pointer"
+                            className="inline-flex items-center gap-2.5 text-primary-text underline self-start md:self-end cursor-pointer"
                             onClick={() => (window.location.href = "/settings/password")}
                           >
                             <PenLine size={16} /> Reset Password
@@ -133,7 +134,7 @@ const Settings = () => {
                   </Card>
                 </div>
                 <Card>
-                    <CardTitle icon={<SlidersHorizontal className="text-primary" size={32} />}>
+                    <CardTitle icon={<SlidersHorizontal className="text-primary self-start md:self-center" size={32} />}>
                         Discovery Preferences
                     </CardTitle>
 
@@ -203,8 +204,8 @@ const CardTitle = ({ children, icon }) => (
   </div>
 );
 
-const Row = ({ children }) => (
-  <div className="flex items-center justify-between">
+const Row = ({ children, className }) => (
+  <div className={clsx("flex items-center justify-between", className)}>
     {children}
   </div>
 );
@@ -224,7 +225,7 @@ const ToggleRow = ({ control, name, label, desc, disabled = false, trackOnClass 
           onChange={(v) => field.onChange(v)}
           disabled={disabled}
           label={label}
-          className="self-end"
+          className="self-start md:self-end"
           size="md"
           trackOnClass={trackOnClass}
         />

@@ -106,13 +106,13 @@ const Register = () => {
 
   return (
     <>
-      <h1 className="text-center text-5xl font-medium font-serif mb-3">Create Account</h1>
-      <h2 className="text-center text-[20px] font-normal tracking-[1px] mb-10">
+      <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Create Account</h1>
+      <h2 className="text-center md:text-[20px] font-normal tracking-[1px] mb-5 md:mb-10">
         Join our community of food-loving singles
       </h2>
       
-      <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-        <div className="space-y-6 mb-10">
+      <form onSubmit={handleSubmit(onSubmit)} className="mb-3 md:mb-5">
+        <div className="space-y-6 mb-5 md:mb-10">
           <Input
             label="FULL NAME"
             placeholder="Enter your full name"
@@ -131,7 +131,7 @@ const Register = () => {
             error={errors.email?.message}
           />
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <AgeSelect 
               inputProps={register("age", {
                 required: "Age is required"
@@ -222,7 +222,7 @@ const Register = () => {
         />
       </form>
 
-      <span className="justify-center w-full flex gap-1 font-family-sans-serif text-fade-text">
+      <span className="justify-center w-full flex gap-1 text-sm md:text-base font-family-sans-serif text-fade-text">
         Already have an account?{" "}
         <a href="/login" className="text-primary cursor-pointer">Sign in</a>
       </span>

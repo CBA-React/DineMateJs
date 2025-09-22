@@ -51,7 +51,7 @@ export const IncludedDropdown = ({
                   )}
                   <div className="mt-0.5 flex items-center gap-2">
                     {it.icon ? <it.icon size={20} className="text-accent" strokeWidth={1.25} /> : null}
-                    <span className="text-xl">{it.text}</span>
+                    <span className="md:text-xl">{it.text}</span>
                   </div>
                 </div>
               ))}

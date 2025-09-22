@@ -1,10 +1,13 @@
 import { PROFILE_MOCK } from "/src/constants";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Badge } from "/src/components/ui/Badge";
 import { ChevronRight, ChevronLeft, Shield, MapPin, Circle, Heart, MessageCircle } from "lucide-react";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Button } from "/src/components/ui/Button";
 import { GENDERS_ICONS } from "/src/constants";
+import { useIsMobile } from "/src/hooks/useIsMobile";
+import {Swiper, SwiperSlide} from "swiper/react";
+import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
 import clsx from "clsx";
 
 const Profile = ({person = PROFILE_MOCK, isSelf=false}) => {
@@ -12,15 +15,15 @@ const Profile = ({person = PROFILE_MOCK, isSelf=false}) => {
 
     return (
         <div className="relative w-full">
-            <div  className="pt-[180px] pb-[100px] relative"
+            <div  className="pt-[112px] md:pt-[180px] pb-[60px] md:pb-[100px] relative"
                 style={{
                     background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                     minHeight: '600px'
                   }}
             >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6">
-                    <div className="grid gap-8 lg:gap-12 lg:grid-cols-[450px_1fr] items-start">
-                        <GalleryCard person={person} isSelf={isSelf} className="w-full max-w-[520px] mx-auto lg:mx-0"/>
+                    <div className="grid gap-8 lg:gap-12 grid-cols-1 md:grid-cols-[450px_1fr] items-start">
+                        <GalleryCard person={person} isSelf={isSelf} className="md:w-full w-[335px] md:max-w-[450px] mx-auto lg:mx-0"/>
                         <RightColumn person={person} isSelf={isSelf} />
                     </div>
                 </div>
@@ -34,11 +37,81 @@ export const GalleryCard = ({person, isSelf, className}) => {
     const next = () => setIdx((i) => (i + 1) % person.photos.length);
     const prev = () =>
     setIdx((i) => (i - 1 + person.photos.length) % person.photos.length);
+    const isMobile = useIsMobile();
+    const paginationRef = useRef(null);
+
+    if (isMobile) {
+      return (
+        <section className={clsx("select-none relative events-swiper", className)}>
+        <Swiper
+          modules={[Pagination]}
+          slidesPerView={1}
+          pagination={{
+            clickable: true,
+            el: paginationRef.current,            
+            bulletClass: "swiper-pagination-bullet-custom",
+            bulletActiveClass: "swiper-pagination-bullet-active-custom",
+          }}
+          onBeforeInit={(swiper) => {
+            swiper.params.pagination.el = paginationRef.current;
+          }}
+          onSwiper={(swiper) => {
+            swiper.pagination.init();
+            swiper.pagination.render();
+            swiper.pagination.update();
+          }}
+          className="relative overflow-hidden rounded-[20px] shadow-xl aspect-[2/3]"
+        >
+          {person.photos.map((src, i) => (
+            <SwiperSlide key={i}>
+              <div className="relative w-full h-full">
+                <img
+                  src={src}
+                  alt={`${person.name} photo ${i + 1}`}
+                  className="h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                {!isSelf && (
+                  <div className="absolute left-4 top-4 right-4 flex justify-between">
+                    <Badge className="rounded-full bg-white px-5 py-[5.5px] shadow">
+                      {person.match}% Match
+                    </Badge>
+                    <Badge className="rounded-full border-0 bg-linear-to-r from-primary to-accent px-5 py-[5.5px] text-white shadow">
+                      NEW
+                    </Badge>
+                  </div>
+                )}
+                <div className="absolute flex flex-col bottom-1/4 left-1/2 -translate-x-1/2 text-center text-nowrap text-white">
+                  <h3 className="text-[28px] font-medium flex justify-center items-center gap-2">
+                    {person.name} {person.age}{" "}
+                    {person.verified && <Shield size={20} />}
+                  </h3>
+                  <div className="mt-0.5 flex justify-center items-center gap-1 text-sm text-white/50">
+                    <MapPin size={16} className="opacity-90" />
+                    <span>{person.location}</span>
+                    <span>• {person.distance} mi</span>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-10 flex items-center justify-center">
+          <div
+            ref={paginationRef}
+            className="swiper-pagination-custom"
+            aria-label="carousel pagination"
+          />
+        </div>
+      </section>
+      );
+    }
 
     return (
         <section className={clsx("select-none", className)}>
             <div className="relative overflow-hidden rounded-[20px] shadow-xl">
-                <div className="relative aspect-[3/4] w-full bg-black">
+                <div className="relative aspect-[2/3] md:aspect-[3/4] w-full bg-black">
                 <img
                     src={person.photos[idx]}
                     alt={`${person.name} photo ${idx + 1}`}
@@ -56,6 +129,8 @@ export const GalleryCard = ({person, isSelf, className}) => {
                     </Badge>
                 </div>}
 
+                {!isMobile && 
+                <>
                 <Button
                     aria-label="Previous photo"
                     onClick={prev}
@@ -70,13 +145,15 @@ export const GalleryCard = ({person, isSelf, className}) => {
                 >
                     <ChevronRight size={28} />
                 </Button>
+                </>
+                }
 
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+                <div className="absolute w-[243px] md:w-auto inset-x-0 left-1/2 md:left-0 bottom-1/6 md:bottom-0 md:translate-x-0 -translate-x-1/2 md:p-4 sm:p-5">
                     <div className="text-white">
-                        <h3 className="sm:text-[24px] md:text-[28px] font-medium flex items-center gap-2">
+                        <h3 className="text-[28px] font-medium flex items-center gap-2">
                         {person.name} {person.age} {person.verified && <Shield size={20} />}
                         </h3>
-                        <div className="mt-0.5 flex items-center gap-1 text-sm text-white/50">
+                        <div className="mt-0.5 flex items-center justify-center md:justify-start gap-1 text-sm text-white/50">
                             <MapPin size={16} className="opacity-90" />
                             <span>{person.location}</span>
                             <span>• {person.distance} mi</span>
@@ -85,7 +162,7 @@ export const GalleryCard = ({person, isSelf, className}) => {
                 </div>
             </div>
 
-            <div className="mt-3 w-full flex gap-3">
+          {!isMobile && <div className="mt-3 w-full flex gap-3">
               {person.photos.slice(0, person.photos.length > 4 ? 3 : 4).map((src, i) => (
                 <button
                   key={i}
@@ -123,7 +200,7 @@ export const GalleryCard = ({person, isSelf, className}) => {
                 </div>
               </button>
             )}
-          </div>
+          </div>}
         </section>
     )
 }
@@ -131,15 +208,16 @@ export const GalleryCard = ({person, isSelf, className}) => {
 export const RightColumn = ({ person, isSelf }) => {
     const key = person.gender?.toLowerCase?.() ?? "";
     const GenderIcon = GENDERS_ICONS.get(key) ?? Circle;
+    const isMobile = useIsMobile();
 
     return (
-      <section className="flex flex-col gap-6">
+      <section className="flex flex-col gap-5 md:gap-6">
         <div>
           <div className="mb-0.5 flex items-center justify-between gap-3">
             <h1 className="font-sans flex items-center gap-2 text-[28px] sm:text-[30px] text-primary-text">
               {person.name} {person.age} {person.verified && <Shield size={20} className="inline" />}
             </h1>
-            {person.online && (
+            {person.online && !isMobile && (
               <span className="inline-flex items-center gap-2 text-[#00743D]">
                 <Circle className="fill-[#00743D] text-[#00743D]" size={10} />
                 Online
@@ -181,7 +259,7 @@ export const RightColumn = ({ person, isSelf }) => {
               key={i}
               className="rounded-xl bg-white p-4"
             >
-              <div className="flex flex-row gap-2 text-[20px] items-center text-primary-text">{item.icon ? <item.icon size={24} /> : null} {item.q}</div>
+              <div className="flex flex-row gap-2 text-[20px] items-center text-primary-text">{item.icon && !isMobile ? <item.icon size={24} /> : null} {item.q}</div>
               <div className="mt-2 uppercase text-sm tracking-wide text-primary">
                 {item.a}
               </div>
@@ -194,18 +272,18 @@ export const RightColumn = ({ person, isSelf }) => {
             <SubmitButton
               text="Edit"
               withIcon
-              className="rounded-full font-medium text-base px-[74px] py-2.5 max-w-min"
+              className="rounded-full font-medium text-base px-[74px] py-2.5 md:max-w-min"
               onClick={() => (window.location.href = "/edit")}
             />
           </div>
         ) : (
-          <div className="mt-2.5 flex flex-row gap-3">
+          <div className="md:mt-2.5 flex flex-col md:flex-row gap-3">
             <SubmitButton
               withIcon
-              className="rounded-full px-[47px] py-2.5 bg-primary text-white text-nowrap w-min"
+              className="rounded-full px-[47px] justify-center py-2.5 bg-primary text-white text-nowrap md:w-min"
               text="Plan Date"
             />
-            <Button className="rounded-full border w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
+            <Button className="rounded-full justify-center border md:w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
               Message
               <MessageCircle size={20} />
             </Button>

@@ -40,15 +40,15 @@ const Login = () => {
 
   return (
     <>
-        <h1 className="text-center text-5xl font-medium font-serif mb-3">Welcome Back</h1>
-        <h2 className="text-center text-[20px] font-normal tracking-[1px] mb-10">Sign in to continue your dating journey</h2>
+        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Welcome Back</h1>
+        <h2 className="text-center md:text-[20px] font-normal tracking-[1px] mb-5 md:mb-10">Sign in to continue your dating journey</h2>
      
         {isError && !!message && (
           <div className="mb-4 rounded-md bg-red-50 p-3 text-red-600">{message}</div>
         )}
 
-        <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
-            <div className="space-y-6 mb-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-3 md:mb-5">
+            <div className="space-y-6 mb-5 md:mb-10">
                 <EmailInput 
                     inputProps={register("email", {
                     required: "Email is required",
@@ -63,8 +63,8 @@ const Login = () => {
                 error={errors.password?.message}
                 />
                           <div className="flex items-center justify-between">
-                <RememberMe/>
-                <ForgotPassword/>
+                <RememberMe className="h-full"/>
+                <ForgotPassword className="text-sm md:text-base"/>
                           </div>
             </div>
             <SubmitButton
@@ -74,7 +74,7 @@ const Login = () => {
               disabled={isLoading}
             />
         </form>
-        <span className="justify-center w-full flex gap-1 font-family-sans-serif text-fade-text">
+        <span className="justify-center w-full flex gap-1 text-sm md:text-base font-family-sans-serif text-fade-text">
         Don&apos;t have an account?{" "}
         <Link to="/register" className="text-primary cursor-pointer">Sign up</Link>
       </span>

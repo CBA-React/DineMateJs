@@ -9,7 +9,7 @@ export const STEPS = [
     id: "about", label: "About You", route: "about",
     fields: ["gender","type","distance","about"],
     h2: "Tell about yourself",
-    sub: "Choose at least 2 photos that represent you well",
+    sub: "A few words to get to know you better",
   },
   {
     id: "interests", label: "Interests", route: "interests",

@@ -90,21 +90,23 @@ export function OnboardingLayout() {
         <AuthCard>
             <FormProvider {...methods}>
                 <div className="mx-auto max-w-[720px]">
-                    <h1 className="text-center text-5xl text-primary-text font-serif my-10">Complete Your Profile</h1>
-                    <h3 className="text-center text-primary-text font-normal text-[28px] mb-1.5">{step.h2}</h3>
-                    <p className="text-center text-primary-text">{step.sub}</p>
+                    <h1 className="text-center text-4xl md:text-5xl text-primary-text font-serif my-5 md:my-10">Complete Your Profile</h1>
+                    <div className="hidden md:block">
+                      <h3 className="text-center text-primary-text font-normal text-[28px] mb-1.5">{step.h2}</h3>
+                      <p className="text-center text-primary-text">{step.sub}</p>
+                    </div>
 
                     <Stepper current={stepIndex} />
 
-                    <div className="mt-8">
+                    <div className="mt-5 md:mt-8">
                     <Outlet />
                     </div>
 
-                    <div className="mt-10 flex items-center justify-between">
+                    <div className="mt-5 md:mt-10 flex flex-col-reverse md:flex-row items-center gap-3 justify-between">
                         <button className="text-fade-text underline" onClick={handlePrev} disabled={stepIndex === 0}>
                             Previous
                         </button>
-                        <SubmitButton onClick={handleNext} className="max-w-[120px]" withIcon text="Next" disabled={isLoading} />
+                        <SubmitButton onClick={handleNext} className="md:max-w-[120px]" withIcon text="Next" disabled={isLoading} />
                     </div>
                 </div>
             </FormProvider>
@@ -115,51 +117,74 @@ export function OnboardingLayout() {
 
 function Stepper({ current }) {
   return (
-    <div className="my-6">
-      <div className="flex items-center justify-center relative">
-        <div
-          className="absolute top-3.5 h-0.5 bg-primary-text/15"
-          style={{
-            left: `${100 / (STEPS.length * 2)}%`,
-            right: `${100 / (STEPS.length * 2)}%`,
-          }}
-        />
+    <>
+      <div className="sm:hidden text-left mt-5">
+        <div className="flex items-center justify-between mb-5">
+          <div>
+            <p className="text-sm text-primary font-medium">{STEPS[current].label}</p>
+            <p className="text-sm text-fade-text">Step {current + 1} of {STEPS.length}</p>
+          </div>
 
-        {current > 0 && (
           <div
-            className="absolute top-3.5 h-0.5 bg-red-500"
+                className={`w-8 h-8 rounded-full border-1 flex items-center justify-center border-primary bg-white"
+                }`}
+          >
+            <div className="w-[7px] h-[7px] rounded-full bg-primary" />
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-left text-primary-text font-normal text-[28px] mb-1.5">{STEPS[current].h2}</h3>
+          <p className="text-left text-primary-text">{STEPS[current].sub}</p>
+        </div>
+      </div>
+
+      <div className="hidden sm:block my-6">
+        <div className="flex items-center justify-center relative">
+          <div
+            className="absolute top-3.5 h-0.5 bg-primary-text/15"
             style={{
               left: `${100 / (STEPS.length * 2)}%`,
-              width: `${(current / (STEPS.length - 1)) * (100 - 100 / STEPS.length)}%`,
+              right: `${100 / (STEPS.length * 2)}%`,
             }}
           />
-        )}
 
-        {STEPS.map((step, index) => (
-          <div key={step.id} className="flex flex-col items-center relative z-10" style={{ flex: 1 }}>
+          {current > 0 && (
             <div
-              className={`w-8 h-8 rounded-full border-1 flex items-center justify-center ${
-                index < current
-                  ? "border-primary bg-primary"
-                  : index === current
-                    ? "border-primary bg-white"
-                    : "border-fade-text bg-white"
-              }`}
-            >
-              {index < current ? (
-                <Check className="w-3 h-3 text-white" />
-              ) : index === current ? (
-                <div className="w-[7px] h-[7px] rounded-full bg-primary" />
-              ) : (
-                <div className="w-2 h-2 rounded-full bg-transparent" />
-              )}
+              className="absolute top-3.5 h-0.5 bg-red-500"
+              style={{
+                left: `${100 / (STEPS.length * 2)}%`,
+                width: `${(current / (STEPS.length - 1)) * (100 - 100 / STEPS.length)}%`,
+              }}
+            />
+          )}
+
+          {STEPS.map((step, index) => (
+            <div key={step.id} className="flex flex-col items-center relative z-10" style={{ flex: 1 }}>
+              <div
+                className={`w-8 h-8 rounded-full border-1 flex items-center justify-center ${
+                  index < current
+                    ? "border-primary bg-primary"
+                    : index === current
+                      ? "border-primary bg-white"
+                      : "border-fade-text bg-white"
+                }`}
+              >
+                {index < current ? (
+                  <Check className="w-3 h-3 text-white" />
+                ) : index === current ? (
+                  <div className="w-[7px] h-[7px] rounded-full bg-primary" />
+                ) : (
+                  <div className="w-2 h-2 rounded-full bg-transparent" />
+                )}
+              </div>
+              <span className={`mt-2 text-sm font-medium ${index <= current ? "text-red-500" : "text-gray-400"}`}>
+                {step.label}
+              </span>
             </div>
-            <span className={`mt-2 text-sm font-medium ${index <= current ? "text-red-500" : "text-gray-400"}`}>
-              {step.label}
-            </span>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

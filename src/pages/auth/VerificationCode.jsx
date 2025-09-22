@@ -16,12 +16,12 @@ export const VerificationCode = () => {
 
   return (
     <>
-      <h1 className="text-center text-5xl font-medium font-serif mb-3">Verification Code</h1>
-      <h2 className="text-center text-[20px] font-normal font-family-sans-serif tracking-[1] mb-10">
+      <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Verification Code</h1>
+      <h2 className="text-center md:text-[20px] font-normal font-family-sans-serif tracking-[1] mb-5 md:mb-10">
         We sent a reset link to <span className="text-primary">contact@gmail.com</span> enter 6 digit code that mentioned in the email
       </h2>
 
-      <form className="mb-5" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-3 md:mb-5" onSubmit={handleSubmit(onSubmit)}>
         <VerificationCodeInput
           inputProps={register("verificationCode", {
             required: "Verification code is required",
@@ -34,7 +34,7 @@ export const VerificationCode = () => {
         <SubmitButton type="submit" text="Continue" withIcon />
       </form>
 
-      <span className="flex justify-center gap-1 text-fade-text">
+      <span className="flex flex-col md:flex-row items-center text-sm md:text-base justify-center gap-1 text-fade-text">
         Haven’t got the email yet? <a href="#" className="text-primary">Resend email</a>
       </span>
     </>

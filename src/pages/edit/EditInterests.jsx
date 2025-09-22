@@ -4,9 +4,11 @@ import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSectio
 import { Grid2X2, UserRound } from "lucide-react";
 import { useFetch } from "/src/hooks/useFetch";
 import { ALL_ALCOHOL, ALL_SMOKE } from "/src/constants";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 export const EditInterests = () => {
   const { control, setValue, register, getValues } = useFormContext();
+  const isMobile = useIsMobile();
 
   const { data: interestsArr = [], isLoading: interestsLoading } =
     useFetch("/api/v1/profile/interests/list", "interests-list", {

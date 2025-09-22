@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from "react";
 import { Search as SearchIcon, X } from "lucide-react";
 import clsx from "clsx";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 export const Search = ({
   onSubmit = (q) => {},
   placeholder = "Search",
   className = "",
 }) => {
-  const [open, setOpen] = useState(false);
+  const isMobile = useIsMobile();
   const [q, setQ] = useState("");
+  const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -20,7 +22,10 @@ export const Search = ({
     }
     function onKey(e) {
       if (e.key === "Escape") setOpen(false);
-      if ((e.key === "/" || (e.ctrlKey && e.key.toLowerCase() === "k")) && !open) {
+      if (
+        (e.key === "/" || (e.ctrlKey && e.key.toLowerCase() === "k")) &&
+        !open
+      ) {
         e.preventDefault();
         setOpen(true);
         requestAnimationFrame(() => inputRef.current?.focus());
@@ -34,7 +39,43 @@ export const Search = ({
     };
   }, [open]);
 
-  const submit = (e) => {
+  if (isMobile) {
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const query = q.trim();
+      if (query) onSubmit(query);
+    };
+
+    return (
+      <form
+        onSubmit={handleSubmit}
+        className={clsx(
+          "flex items-center gap-2 w-full rounded-full bg-white px-4 py-3 relative",
+          className
+        )}
+      >
+        <SearchIcon size={20} className="text-primary-text shrink-0" />
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={placeholder}
+          className="flex-1 bg-transparent font-medium relative outline-none placeholder:text-fade-text text-primary-text"
+        />
+        {q && (
+          <button
+            type="button"
+            onClick={() => setQ("")}
+            className="rounded-full p-1 hover:bg-gray-100 text-gray-400 absolute right-2 top-1/2 -translate-y-1/2"
+            aria-label="Clear search"
+          >
+            <X size={16} />
+          </button>
+        )}
+      </form>
+    );
+  }
+  
+  const submitDesktop = (e) => {
     e.preventDefault();
     const query = q.trim();
     if (!query) return;
@@ -63,7 +104,7 @@ export const Search = ({
         aria-hidden={!open}
       >
         <form
-          onSubmit={submit}
+          onSubmit={submitDesktop}
           className={clsx(
             "w-[16rem] sm:w-[22rem] lg:w-[28rem]",
             "rounded-full bg-white",
@@ -78,7 +119,7 @@ export const Search = ({
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={placeholder}
-              className="flex-1 outline-none placeholder:text-fade-text bg-transparent "
+              className="flex-1 outline-none placeholder:text-fade-text bg-transparent"
             />
             {q && (
               <button

@@ -48,7 +48,7 @@ export const MessagesList = ({ messages }) => {
   
     return (
       <div ref={ref} className="flex-1 overflow-y-auto px-6 py-4 space-y-1 flex flex-col justify-end">
-        <div className="relative flex flex-col gap-4">
+        <div className="relative flex flex-col gap-4 max-h-[600px] overflow-y-auto no-scrollbar">
           {items.map((it) =>
             it.type === "divider" ? (
               <DayDivider key={it.id} date={it.date} />

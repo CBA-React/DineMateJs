@@ -19,7 +19,7 @@ export const DeleteChatModal = () => {
       closeOnBackdrop
       closeOnEsc
       ariaLabel="Delete chat"
-      className="p-10 relative max-w-[544px] text-center text-primary-text justify-items-center"
+      className="p-5 md:p-10 relative max-w-[335px] md:max-w-[544px] text-center text-primary-text justify-items-center"
     >
       <Button
           className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
@@ -29,21 +29,21 @@ export const DeleteChatModal = () => {
           <X size={28} />
         </Button>
 
-      <h2 className="font-serif font-medium text-5xl mb-3">
+      <h2 className="font-serif font-medium text-4xl md:text-5xl mb-3">
         {TEXT.title}
       </h2>
 
-      <h4 className="text-[22px] mb-5">
+      <h4 className="md:text-[22px] mb-5">
         {TEXT.subtitle}
       </h4>
-      <div className="flex flex-row items-center justify-between w-full">
-        <Button onClick={closeDeleteChatModal} className="underline text-fade-text">
+      <div className="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-3">
+        <Button onClick={closeDeleteChatModal} className="underline text-fade-text justify-center md:justify-start">
           Cancel
         </Button>
         <SubmitButton
             text="Delete"
             withIcon
-            className="bg-primary px-[38px] py-2.5 rounded-full font-medium max-w-fit"
+            className="bg-primary px-[38px] py-2.5 rounded-full font-medium md:max-w-fit"
             onClick={confirmDeleteChat}
         />
       </div>

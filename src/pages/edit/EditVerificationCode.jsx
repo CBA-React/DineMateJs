@@ -14,17 +14,16 @@ export const EditVerificationCode = () => {
 
     return (
         <div className="relative w-full">
-        <div  className="pt-[180px] pb-[100px] relative"
+        <div  className="pt-[104px] md:pt-[180px] pb-[60px] md:pb-[100px] relative px-5"
             style={{
                 background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
-                minHeight: '600px'
               }}
         >
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 <EditCard>
-                <div className="mx-auto w-[500px]">
-                        <h1 className="text-center text-5xl font-medium font-serif mb-3">Reset Password</h1>
-                              <h2 className="text-center text-[20px] font-normal font-family-sans-serif tracking-[1] mb-10">
+                <div className="md:mx-auto w-auto md:w-[500px]">
+                        <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Reset Password</h1>
+                              <h2 className="text-center md:text-[20px] font-normal font-family-sans-serif tracking-[1] mb-5 md:mb-10">
                                 We sent a reset link to <span className="text-primary">contact@gmail.com</span> enter 6 digit code that mentioned in the email
                               </h2>
                         
@@ -38,9 +37,9 @@ export const EditVerificationCode = () => {
                                   length={6}
                                 />
                         
-                                <SubmitButton type="submit" text="Continue" withIcon />
+                                <SubmitButton className="mb-3" type="submit" text="Continue" withIcon />
                               </form>
-                              <span className="flex justify-center gap-1 text-fade-text">
+                              <span className="flex flex-col md:flex-row items-center md:justify-center gap-1 text-fade-text">
         Haven’t got the email yet? <a href="#" className="text-primary">Resend email</a>
       </span>
                     </div>

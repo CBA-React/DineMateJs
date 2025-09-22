@@ -8,7 +8,7 @@ export function StepAbout() {
   const { control, register, formState: { errors} } = useFormContext();
 
   return (
-    <section className="grid gap-8">
+    <section className="grid gap-6">
       <GenderSelect
         className="no-scrollbar"
         inputProps={register("gender")}

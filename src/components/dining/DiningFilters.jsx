@@ -3,6 +3,9 @@ import { DistanceSlider } from "/src/components/ui/DistanceSlider";
 import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSection";
 import { Select } from "/src/components/ui/Select"; 
 import { CUISINES } from "/src/constants";
+import { useIsMobile } from "/src/hooks/useIsMobile";
+import { SortDropdown } from "/src/components/ui/SortDropdown";
+import { SORT_OPTIONS } from "/src/constants";
 
 const DEFAULTS = {
   distance: 50,
@@ -11,6 +14,8 @@ const DEFAULTS = {
 };
 
 export const DiningFilters = ({ open, onClose, onApply, onReset }) => {
+  const isMobile = useIsMobile();
+
   return (
     <FilterSheet
       title="Filters"
@@ -22,6 +27,9 @@ export const DiningFilters = ({ open, onClose, onApply, onReset }) => {
     >
       {({ control }) => (
         <>
+          {isMobile && <SortDropdown 
+          options={SORT_OPTIONS}    
+          />}
           <DistanceSlider hideHelper control={control} name="distance" min={1} max={80} />
           <Select control={control} name="priceRange" label="PRICE RANGE" placeholder="Select price range" />
           <PillMultiSelectSection 

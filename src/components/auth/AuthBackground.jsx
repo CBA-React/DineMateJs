@@ -9,7 +9,7 @@ export const AuthBackground = ({ src, children }) => {
         className="absolute inset-0 h-full w-full object-cover z-0 pointer-events-none select-none"
       />
       <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
-      <div className="relative z-20 flex min-h-dvh items-center justify-center p-4">
+      <div className="relative z-20 flex min-h-dvh items-center justify-center p-5 md:p-4">
         {children}
       </div>
     </div>

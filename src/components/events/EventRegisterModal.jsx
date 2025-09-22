@@ -5,7 +5,8 @@ import { SubmitButton } from '/src/components/ui/SubmitButton';
 import { MapPin, Calendar, X, UserRound } from 'lucide-react';
 import { IncludedDropdown } from '/src/components/ui/IncludedDropdown';        
 import { formatDateTime } from '/src/utils/dateUtils';   
-import { Button } from '/src/components/ui/Button';     
+import { Button } from '/src/components/ui/Button';    
+import { useIsMobile } from '/src/hooks/useIsMobile'; 
 
 const TEXT = {
     title: 'Register for Event',
@@ -14,6 +15,7 @@ const TEXT = {
 }
 
 export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
+  const isMobile = useIsMobile();
   const hasDate =
     typeof event?.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(event.date);
   const { dateStr, timeStr } = hasDate
@@ -21,17 +23,17 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
     : { dateStr: '', timeStr: '' };
 
   return (
-    <Modal open={open} onClose={onClose} className="max-w-[544px] text-primary-text relative">
-      <div className="p-10 flex flex-col gap-5">
+    <Modal open={open} onClose={onClose} className="w-screen max-w-none h-[100svh] overflow-y-auto rounded-none md:max-w-[544px] text-primary-text relative md:h-auto md:overflow-visible md:rounded-3xl">
+      <div className="p-5 md:p-10 flex flex-col gap-5">
         <div className="flex items-start justify-between">
           <div className="w-full text-center">
-            <h2 className="font-serif text-5xl font-medium">
+            <h2 className="font-serif text-4xl md:text-5xl font-medium">
               {TEXT.title}
             </h2>
-            <h4 className="mt-3 text-[22px]">{event?.title}</h4>
+            <h4 className="mt-3 md:text-[22px]">{event?.title}</h4>
           </div>
           <Button
-            className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
+            className="absolute right-2.5 top-2.5 md:right-5 md:top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
             onClick={onClose}
             aria-label="Close"
             >
@@ -43,14 +45,14 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
             <div className="rounded-[10px] bg-[#DBDBDB25] p-4">
                 <h4 className="text-[22px]">{TEXT.detailsTitle}</h4>
               <div className="grid grid-cols-2 gap-y-1.5 text-sm mt-2.5 text-primary-text">
-                <div className="col-span-2 flex items-center gap-2">
+                <div className="col-span-2 flex items-center gap-1 md:gap-2">
                   <MapPin size={16} />
                   <span className="truncate">{event?.venue}</span>
                   <span className="ml-auto">
                     {event?.distance != null ? `${event.distance} mi` : null}
                   </span>
                 </div>
-                <div className="col-span-2 flex items-center gap-2">
+                <div className="col-span-2 flex items-center gap-1 md:gap-2">
                   <UserRound size={16} />
                   <span className="truncate">
                     {event?.attending != null && event?.capacity != null
@@ -61,10 +63,10 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
                     {event?.ages ? `Ages ${event.ages}` : null}
                   </span>
                 </div>
-                <div className="col-span-2 flex items-center gap-2">
+                <div className="col-span-2 flex items-center gap-1 md:gap-2">
                   <Calendar size={16} />
                   <span className="truncate">{dateStr}</span>
-                  <span className="ml-auto">{timeStr}</span>
+                  {!isMobile &&<span className="ml-auto">{timeStr}</span>}
                 </div>
               </div>
             </div>
@@ -85,7 +87,7 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
             </h4>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col-reverse md:flex-row gap-3 items-center justify-between">
           <Button onClick={onClose} className="text-sm text-fade-text underline max-w-fit">
             Cancel
           </Button>

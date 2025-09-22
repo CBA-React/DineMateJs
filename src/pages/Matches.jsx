@@ -10,6 +10,7 @@ import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Link } from "react-router-dom";
 import { MatchFilters } from "/src/components/matches/MatchFilters";
 import { SORT_OPTIONS } from "/src/constants";
+import { useIsMobile } from "/src/hooks/useIsMobile";
 
 const TEXT = {
     title: "Your Matches",
@@ -23,29 +24,30 @@ const Matches = () => {
     const [filtersOpen, setFiltersOpen] = useState(false);
     const [_, setFilters] = useState(null);
     const navigate = useNavigate();
+    const isMobile = useIsMobile();
 
     return (
         <div className="relative w-full">
-            <div  className="pt-[180px] pb-[370px] relative"
+            <div  className="pt-[112px] md:pt-[180px] pb-[140px] md:pb-[370px] px-5 relative"
                 style={{
                     background: 'linear-gradient(270deg, #F2F2F2 0%, #FFEDEE 50%, #FFF0F1 100%)',
                     minHeight: '600px'
                   }}
             >
-                <div className="max-w-7xl mx-auto flex flex-col">
-                    <div className="flex flex-row justify-between">
-                        <div>
-                            <h2 className="font-serif font-medium text-4xl lg:text-5xl 2xl:text-7xl leading-tight bg-linear-to-b from-primary to-secondary bg-clip-text lg:mb-3">
-                                  <span className="text-transparent">{TEXT.title}</span>
-                            </h2>
-                            <p>
+            <div className="max-w-7xl mx-auto flex flex-col">
+                <div className="flex flex-col md:flex-row gap-5 justify-between">
+                    <div>
+                        <h2 className="font-serif font-medium text-4xl lg:text-5xl 2xl:text-7xl leading-tight bg-linear-to-b from-primary to-secondary bg-clip-text mb-3">
+                              <span className="text-transparent">{TEXT.title}</span>
+                        </h2>
+                        <p>
                                 {PEOPLE.length} {TEXT.likedYou}
                             </p>
                         </div>
 
-                        <div className="self-end gap-3 flex flex-row z-20">
-                            <Search  />
-                            <Button className="bg-white px-5 py-2.5 max-w-min font-medium rounded-full text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
+                        <div className="md:self-end gap-3 flex flex-col md:flex-row z-20">
+                            <Search defaultOpen side="right" />
+                            <Button className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full justify-center text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
                                 <SlidersHorizontal />
                                 Filters
                             </Button>
@@ -55,15 +57,17 @@ const Matches = () => {
                                 onApply={(vals) => setFilters(vals)}
                                 onReset={() => setFilters(null)}
                             />
+
+                            {!isMobile &&
                             <SortDropdown
                                 options={SORT_OPTIONS}
                                 value={sort}
                                 onChange={setSort}
-                            />
+                            />}
                         </div>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 gap-x-6 gap-y-10 lg:mt-10 justify-items-stretch items-start">
+                    <div className="grid lg:grid-cols-3 gap-x-6 gap-y-7 md:gap-y-10 mt-7 md:mt-10 justify-items-stretch items-start">
                         {PEOPLE.map((p) => 
                         <MatchCard 
                             key={`${p.name}-${p.age}-${p.location}`}
