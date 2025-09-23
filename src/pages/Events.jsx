@@ -8,8 +8,10 @@ import { useState } from "react";
 import { EVENTS, EVENTS_TYPES } from "/src/constants";
 import { PillMultiSelectSection } from "/src/components/ui/PillMultiSelectSection";
 import { useForm } from "react-hook-form";
-import { EventRegisterModal } from "../components/events/EventRegisterModal";
+import { EventRegisterModal } from "/src/components/events/EventRegisterModal";
 import { useIsMobile } from "/src/hooks/useIsMobile";
+import { EventRegistrationConfirmationModal } from "/src/components/events/EventRegistrationConfirmationModal";
+import { useEventRegistration } from "/src/hooks/useEventRegistration";
 
 const TEXT = {
     title: "Events and Mixers",
@@ -19,28 +21,31 @@ const TEXT = {
 const Events = () => {
     const [sort, setSort] = useState("best");
     const [filtersOpen, setFiltersOpen] = useState(false);
+    const { isOpen, event, openRegistrationModal, closeRegistrationModal, confirmRegistration } =
+    useEventRegistration();
 
     const isMobile = useIsMobile();
 
-    const { control, watch } = useForm({
+    const { control } = useForm({
         defaultValues: {
           types: []
         },
-      });
+    });
+    
+    const openRegister = (ev) => {
+        openRegistrationModal(ev);
+    };
 
-      const [registerOpen, setRegisterOpen] = useState(false);
-      const [selectedEvent, setSelectedEvent] = useState(null);
-      
-      const openRegister = (ev) => {
-        setSelectedEvent(ev);
-        setRegisterOpen(true);
-      };
-      const closeRegister = () => setRegisterOpen(false);
-
-      const handleComplete = (ev) => {
-        console.log("Complete registration for", ev?.id);
-        setRegisterOpen(false);
-      };
+    const completeRegistration = (ev) => {
+        confirmRegistration({
+            eventTitle: ev.title,
+            venueName: ev.venue,
+            venueArea: ev.area,
+            date: ev.date,
+            time: ev.time,
+            ticketQty: 1,
+        });
+    };
 
     return (
         <div className="relative w-full">
@@ -97,11 +102,12 @@ const Events = () => {
 
                     <EventsCarousel events={EVENTS} onRegister={openRegister} />
                     <EventRegisterModal
-                        open={registerOpen}
-                        onClose={closeRegister}
-                        onComplete={handleComplete}
-                        event={selectedEvent}
+                        open={isOpen}
+                        onClose={closeRegistrationModal}
+                        event={event}
+                        onComplete={completeRegistration}
                     />
+                    <EventRegistrationConfirmationModal />
                 </div>
             </div>
         </div>
