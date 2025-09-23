@@ -2,15 +2,18 @@ import { useForm } from "react-hook-form";
 import { EmailInput } from "/src/components/auth/EmailInput";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { useNavigate } from "react-router-dom";
+import usePasswordReset from "/src/hooks/usePasswordReset";
 
 export const ForgotPassword = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const { requestResetCode } = usePasswordReset();
 
-    async function onSubmit() {
-        navigate("/verification-code")
-      }
-
+    const onSubmit = async ({ email }) => {
+        await requestResetCode(email);
+        navigate("/verification-code");
+    };
+     
     return (
         <>
         <h1 className="text-center text-4xl md:text-5xl font-medium font-serif mb-3">Forgot Password?</h1>

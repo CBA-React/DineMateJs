@@ -6,6 +6,7 @@ import bookingReducer from '/src/features/booking/bookingSlice';
 import chatUI from "/src/features/chats/chatUiSlice";
 import chats from "/src/features/chats/chatsSlice";
 import uiReducer from '../features/ui/uiSlice';
+import passwordResetReducer from '/src/features/auth/passwordResetSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
     booking: bookingReducer,
     chatUi: chatUI,
     chats,
-    ui: uiReducer
+    ui: uiReducer,
+    passwordReset: passwordResetReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -4,15 +4,18 @@ import { SubmitButton } from "/src/components/ui/SubmitButton";
 import SuccessWindow from "./SuccessWindow";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import usePasswordReset from "/src/hooks/usePasswordReset";
 
 const ResetPassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
+  const {updatePassword} = usePasswordReset();
 
-  async function onSubmit() {
+  const onSubmit = async ({ password1, password2 }) => {
+    await updatePassword(password1, password2);
     setIsSuccess(true);
-  }
+  };
 
   if (isSuccess) {
     return (
@@ -32,7 +35,7 @@ const ResetPassword = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-6 mb-5 md:mb-10">
                 <PasswordInput 
-                    inputProps={register("password", {
+                    inputProps={register("password1", {
                     required: "Password is required",
                     minLength: { value: 8, message: "Min 8 characters" },
                     })}
@@ -40,7 +43,7 @@ const ResetPassword = () => {
                 error={errors.password?.message}
                 />
                 <PasswordInput 
-                    inputProps={register("password", {
+                    inputProps={register("password2", {
                     required: "Password is required",
                     minLength: { value: 8, message: "Min 8 characters" },
                     })}

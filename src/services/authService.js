@@ -83,10 +83,43 @@ export const checkUserExists = async (email) => {
   return Boolean(data);
 };
 
+// Reset Code 
+export const sendResetCode = async (email) => {
+  const { data } = await api.post(`${API_URL}/reset-password`, { email });
+  return data;
+};
+
+// Verify Reset Code
+export const verifyResetCode = async (email, code) => {
+  const { data } = await api.post(`${API_URL}/verify-reset-code`, { email, code });
+  return data;
+};
+
+// Change Password
+export const changePassword = async (email, password_1, password_2, code) => {
+  const { data } = await api.post(`${API_URL}/change-password`, {
+    email,
+    password_1,
+    password_2,
+    code,
+  });
+  return data;
+};
+
+// Refresh
+export const refreshToken = async () => {
+  const { data } = await api.post(`${API_URL}/refresh`, {}, {withCredentials: true});
+  return data;
+};
+
 const authService = {
   register,
   login,
   logout,
+  sendResetCode,
+  verifyResetCode,
+  changePassword,
+  refreshToken
 };
 
 export default authService;
