@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { upsertDraft } from "/src/features/auth/registrationDraftSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import { checkUserExists } from "/src/services/authService";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ const Register = () => {
       location: [0, 0],
       quiz: { additionalProp1: "", additionalProp2: "", additionalProp3: "" },
     },
-    mode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onBlur"
   });
 
   const password1 = watch("password1");
@@ -127,6 +129,11 @@ const Register = () => {
             inputProps={register("email", {
               required: "Email is required",
               pattern: { value: /^\S+@\S+$/, message: "Enter a valid email" },
+              validate: async (value) => {
+                if (!value) return true;
+                const exists = await checkUserExists(value);
+                return exists ? "An account with this email already exists" : true;
+              },
             })}
             error={errors.email?.message}
           />
@@ -167,6 +174,15 @@ const Register = () => {
             inputProps={register("password1", {
               required: "Password is required",
               minLength: { value: 8, message: "Min 8 characters" },
+              validate: (value) => {
+                const hasUpper = /[A-Z]/.test(value);
+                const hasLower = /[a-z]/.test(value);
+                const hasNumber = /[0-9]/.test(value);
+                if (!hasUpper) return "Must include at least one uppercase letter";
+                if (!hasLower) return "Must include at least one lowercase letter";
+                if (!hasNumber) return "Must include at least one number";
+                return true;
+              }
             })}
             label="PASSWORD"
             placeholder="Create a password"
