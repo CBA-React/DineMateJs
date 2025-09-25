@@ -91,8 +91,8 @@ export default function ComboBox({
   };
 
   const handleSelect = (opt) => {
-    setOpen(false);
     fireChange(opt.value);
+    setOpen(false);
   };
 
   const clearSelection = (e) => {
@@ -115,10 +115,6 @@ export default function ComboBox({
             type="button"
             disabled={disabled}
             onBlur={inputProps.onBlur}
-            onFocus={(e) => {
-              inputProps.onFocus?.(e);
-              setOpen(true);
-            }}
             className={`
               w-full px-4 py-4 border rounded-xl
               focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent

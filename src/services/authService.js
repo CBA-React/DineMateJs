@@ -75,6 +75,14 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
+// User Check
+export const checkUserExists = async (email) => {
+  const { data } = await api.get(`${API_URL}/check-user-exists`, {
+    params: { email },
+  });
+  return Boolean(data);
+};
+
 const authService = {
   register,
   login,
