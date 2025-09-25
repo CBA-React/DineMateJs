@@ -5,8 +5,9 @@ import registrationDraftReducer from "/src/features/auth/registrationDraftSlice"
 import bookingReducer from '/src/features/booking/bookingSlice';
 import chatUI from "/src/features/chats/chatUiSlice";
 import chats from "/src/features/chats/chatsSlice";
-import uiReducer from '../features/ui/uiSlice';
 import passwordResetReducer from '/src/features/auth/passwordResetSlice';
+import uiReducer from '/src/features/ui/uiSlice';
+import eventRegistrationReducer from "/src/features/booking/eventSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     profile: profileReducer,
     registrationDraft: registrationDraftReducer,
     booking: bookingReducer,
+    eventRegistration: eventRegistrationReducer,
     chatUi: chatUI,
     chats,
     ui: uiReducer,
