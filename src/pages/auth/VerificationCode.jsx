@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { VerificationCodeInput } from "/src/components/auth/CodeInput";
 import { SubmitButton } from "../../components/ui/SubmitButton";
 import { useNavigate } from "react-router-dom";
+import usePasswordReset from "/src/hooks/usePasswordReset";
 
 export const VerificationCode = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -9,10 +10,12 @@ export const VerificationCode = () => {
     mode: "onSubmit",
   });
   const navigate = useNavigate();
+  const { verifyCode } = usePasswordReset();
 
-  async function onSubmit() {
+  const onSubmit = async ({ verificationCode }) => {
+    await verifyCode(verificationCode);
     navigate("/reset-password");
-  }
+  };
 
   return (
     <>

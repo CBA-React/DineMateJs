@@ -21,6 +21,7 @@ export default defineConfig({
         target: "https://api.dinemate.softwaredoes.com/",
         changeOrigin: true,
         secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   }
