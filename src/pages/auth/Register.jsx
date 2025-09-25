@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { upsertDraft } from "/src/features/auth/registrationDraftSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { checkUserExists } from "/src/services/authService";
 import { LocationComboBox } from "/src/components/auth/LocationComboBox";
 import { checkUserExists } from "/src/services/authService";
 
