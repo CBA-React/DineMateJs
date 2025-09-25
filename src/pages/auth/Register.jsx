@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { checkUserExists } from "/src/services/authService";
 import { LocationComboBox } from "/src/components/auth/LocationComboBox";
+import { checkUserExists } from "/src/services/authService";
 
 const Register = () => {
   const navigate = useNavigate();
