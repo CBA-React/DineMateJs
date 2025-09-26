@@ -1,5 +1,5 @@
 import { MoreVertical, Search } from "lucide-react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom as ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { ChatMenu } from "./ChatMenu";
 import { useState } from "react";
 import { useDeleteChat } from "/src/hooks/useDeleteChat";
@@ -22,18 +22,18 @@ export const ChatHeader = ({ conversation, returnToChats }) => {
     if(isMobile) return (
       <div className="flex items-center justify-between px-5 py-3 border-b border-l border-[#D9DCD0] bg-white">
         <div className="flex items-center justify-between gap-3 w-full">
-          <Button className="max-w-min" onClick={returnToChats}>
+          <ButtonCustom className="max-w-min" onClick={returnToChats}>
             <ChevronLeft />
-          </Button>
+          </ButtonCustom>
           <div className="text-center">
             <div className="font-medium text-rich-black">{conversation.name}</div>
             <div className="text-sm text-navy-grey">
               {conversation.isOnline ? "Online" : "Offline"}
             </div>
           </div>
-          <Button className="max-w-max" onClick={() => setChatMenuOpen((v) => !v)}>
+          <ButtonCustom className="max-w-max" onClick={() => setChatMenuOpen((v) => !v)}>
             <img src={conversation.avatar} alt="avatar" className="h-10 w-10 rounded-full" />
-          </Button>
+          </ButtonCustom>
           <ChatMenu
                 open={chatMenuOpen}
                 onClose={() => setChatMenuOpen(false)}
@@ -58,12 +58,12 @@ export const ChatHeader = ({ conversation, returnToChats }) => {
           </div>
         </div>
         <div className="flex flex-row gap-5 pl-2">
-            <Button className="h-fit p-2 flex items-center justify-center rounded-full hover:bg-neutral-100">
+            <ButtonCustom className="h-fit p-2 flex items-center justify-center rounded-full hover:bg-neutral-100">
               <Search size={24} className="text-primary-text" />
-            </Button>
-            <Button onClick={() => setChatMenuOpen((v) => !v)} className="h-fit p-2 flex items-center justify-center rounded-full hover:bg-neutral-100">
+            </ButtonCustom>
+            <ButtonCustom onClick={() => setChatMenuOpen((v) => !v)} className="h-fit p-2 flex items-center justify-center rounded-full hover:bg-neutral-100">
               <MoreVertical size={24} className="text-primary-text" />
-            </Button>
+            </ButtonCustom>
             <ChatMenu
                 open={chatMenuOpen}
                 onClose={() => setChatMenuOpen(false)}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { SubmitButton } from '/src/components/ui/SubmitButton';
-import { Button } from "/src/components/ui/Button"
+import { ButtonCustom } from "/src/components/ui/ButtonCustom"
 
 const HERO_TEXT = {
   title: "Meet. Dine. Connect.",
@@ -41,9 +41,9 @@ export const HeroSection = ({
               <Link
                 to="/#how-it-works"
               >
-                <Button>
+                <ButtonCustom>
                   <span className="border-white border-[1px] px-5 py-2.5 w-full md:w-auto rounded-full font-medium transition-all hover:-translate-y-0.5 hover:shadow-md duration-300">See how it works</span>
-                </Button>
+                </ButtonCustom>
               </Link>
             </div>
           </div>

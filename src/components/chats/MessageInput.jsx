@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SendHorizonal, Smile } from "lucide-react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { EmojiPicker } from "/src/components/ui/EmojiPicker";
 import { useIsMobile } from "/src/hooks/useIsMobile";
 
@@ -18,13 +18,13 @@ export const MessageInput = ({ onSend }) => {
     return (
       <div className="px-6 pb-6 relative">
         <div className="flex items-center gap-4 bg-white rounded-[10px] p-4 relative">
-          <Button 
+          <ButtonCustom 
           className="max-w-min text-fade-text"
             onClick={() => setShowEmoji((s) => !s)}
             aria-label="Emoji picker"
             >
             <Smile size={24} />
-          </Button>
+          </ButtonCustom>
            {showEmoji && <EmojiPicker className={`${ !isMobile ? "bottom-14" : "top-full"} left-0`} onPick={(emoji) => setValue(value + emoji)} />}
           <input
             value={value}
@@ -38,12 +38,12 @@ export const MessageInput = ({ onSend }) => {
               }
             }}
           />
-          <Button
+          <ButtonCustom
             onClick={submit}
             className="inline-flex absolute right-4 items-center rounded-lg p-1 text-primary max-w-min active:translate-y-[1px]"
           >
             <SendHorizonal strokeWidth={0.8} color="white" fill="#E52421" size={24} />
-          </Button>
+          </ButtonCustom>
         </div>
       </div>
     );

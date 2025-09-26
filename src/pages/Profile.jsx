@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { Badge } from "/src/components/ui/Badge";
 import { ChevronRight, ChevronLeft, Shield, MapPin, Circle, Heart, MessageCircle } from "lucide-react";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { GENDERS_ICONS } from "/src/constants";
 import { useIsMobile } from "/src/hooks/useIsMobile";
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -131,20 +131,20 @@ export const GalleryCard = ({person, isSelf, className}) => {
 
                 {!isMobile && 
                 <>
-                <Button
+                <ButtonCustom
                     aria-label="Previous photo"
                     onClick={prev}
                     className="absolute left-3 top-1/2 w-min text-white -translate-y-1/2 grid place-items-center rounded-full p-2 hover:text-white/70"
                 >
                     <ChevronLeft size={28} />
-                </Button>
-                <Button
+                </ButtonCustom>
+                <ButtonCustom
                     aria-label="Next photo"
                     onClick={next}
                     className="absolute right-3 top-1/2 w-min text-white -translate-y-1/2 grid place-items-center rounded-full p-2 hover:text-white/70"
                 >
                     <ChevronRight size={28} />
-                </Button>
+                </ButtonCustom>
                 </>
                 }
 
@@ -283,10 +283,10 @@ export const RightColumn = ({ person, isSelf }) => {
               className="rounded-full px-[47px] justify-center py-2.5 bg-primary text-white text-nowrap md:w-min"
               text="Plan Date"
             />
-            <Button className="rounded-full justify-center border md:w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
+            <ButtonCustom className="rounded-full justify-center border md:w-min flex flex-row gap-1.5 items-center border-primary px-[47px] py-2.5 text-primary hover:bg-accent/10">
               Message
               <MessageCircle size={20} />
-            </Button>
+            </ButtonCustom>
           </div>
         )}
       </section>

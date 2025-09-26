@@ -3,7 +3,7 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
-import { Button } from './Button';
+import { ButtonCustom } from './ButtonCustom';
 
 export const IncludedDropdown = ({
   title = "What's Included",
@@ -15,7 +15,7 @@ export const IncludedDropdown = ({
 
   return (
     <div className={clsx('rounded-[10px] bg-accent/10 p-4', className)}>
-      <Button
+      <ButtonCustom
         type="button"
         aria-expanded={open}
         className="w-full flex items-center justify-between rounded-lg text-left text-base font-medium text-gray-900"
@@ -26,7 +26,7 @@ export const IncludedDropdown = ({
           className={clsx('transition-transform', open && 'rotate-180')}
           size={20}
         />
-      </Button>
+      </ButtonCustom>
 
       <AnimatePresence initial={false}>
         {open && (

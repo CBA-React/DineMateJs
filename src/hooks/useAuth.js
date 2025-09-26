@@ -9,7 +9,7 @@ export const useAuth = () => {
   );
 
   const isAuthenticated = !!user;
-  const token = user?.token ?? user?.access_token ?? null;
+  const token = user?.token ?? user?.token.access_token ?? null;
 
   const loginUser = useCallback((userData) => {
     return dispatch(login(userData)).unwrap(); 

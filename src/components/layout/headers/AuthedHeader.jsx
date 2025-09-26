@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import { Logo } from "@/components/branding/Logo";
 import { BrandName } from "@/components/branding/BrandName";
 import ProfileMenu from "/src/components/ui/ProfileMenu";
-import { MessageButton } from "/src/components/ui/Button";
+import { MessageButton } from "/src/components/ui/ButtonCustom";
 import clsx from "clsx";
 import { useUI } from "/src/hooks/useUI";
 import { useState } from "react";

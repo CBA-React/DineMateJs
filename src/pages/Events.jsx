@@ -1,5 +1,5 @@
 import { Search } from "/src/components/ui/Search";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SlidersHorizontal } from "lucide-react";
 import { EventsFilters } from "/src/components/events/EventsFilters";
 import { SortDropdown } from "/src/components/ui/SortDropdown";
@@ -68,10 +68,10 @@ const Events = () => {
                             </div>
                             <div className="md:self-end gap-3 flex flex-col md:flex-row z-20">
                                 <Search  />
-                                <Button className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
+                                <ButtonCustom className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
                                     <SlidersHorizontal />
                                     Filters
-                                </Button>
+                                </ButtonCustom>
                                 <EventsFilters
                                     open={filtersOpen}
                                     onClose={() => setFiltersOpen(false)}
