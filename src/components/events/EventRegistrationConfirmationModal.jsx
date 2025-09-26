@@ -1,5 +1,5 @@
 import Modal from "/src/components/ui/Modal";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { X } from "lucide-react";
 import { useEventRegistration } from "/src/hooks/useEventRegistration";
@@ -26,13 +26,13 @@ export const EventRegistrationConfirmationModal = () => {
       ariaLabel="Registration confirmed"
       className="p-5 md:p-10 relative max-w-[335px] md:max-w-[609px] text-center text-primary-text justify-items-center"
     >
-      <Button
+      <ButtonCustom
         className="absolute right-2.5 md:right-5 top-2.5 md:top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
         onClick={closeConfirmationModal}
         aria-label="Close"
       >
         <X size={28} />
-      </Button>
+      </ButtonCustom>
 
       <h2 className="font-serif text-4xl md:text-5xl mb-3">
         Registration Confirmed!

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate, Navigate } from "react-router-dom";
 import { useIsMobile } from "/src/hooks/useIsMobile";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { FormProvider, useForm } from "react-hook-form";
 import useAuth from "/src/hooks/useAuth";
 import { useMemo, useEffect } from "react";
@@ -115,37 +115,37 @@ export const EditLayout = () => {
                                 </div>
                                 <div className="mt-10 flex flex-col gap-5">
                                 <SubmitButton onClick={updateProfile} withIcon text="Save" disabled={isSubmitting} className="w-full" />
-                                {isMobile && <Button className="text-secondary font-medium border-secondary border py-2.5 justify-center rounded-full" onClick={() => navigate("/profile")}>Cancel</Button>}
+                                {isMobile && <ButtonCustom className="text-secondary font-medium border-secondary border py-2.5 justify-center rounded-full" onClick={() => navigate("/profile")}>Cancel</ButtonCustom>}
                                   {currentStep === 1 && (
                                     <div className="flex w-full justify-center">
-                                      <Button
+                                      <ButtonCustom
                                         onClick={handleNext}
                                         className="inline-flex w-full max-w-[320px] !justify-center text-fade-text underline"
                                       >
                                         Next Step
-                                      </Button>
+                                      </ButtonCustom>
                                     </div>
                                   )}
 
                                   {currentStep > 1 && currentStep < totalSteps && (
                                     <div className="flex w-full items-center justify-between">
-                                      <Button className="text-fade-text underline" onClick={handlePrev}>
+                                      <ButtonCustom className="text-fade-text underline" onClick={handlePrev}>
                                         Previous Step
-                                      </Button>
-                                      <Button className="text-fade-text underline place-content-end" onClick={handleNext}>
+                                      </ButtonCustom>
+                                      <ButtonCustom className="text-fade-text underline place-content-end" onClick={handleNext}>
                                         Next Step
-                                      </Button>
+                                      </ButtonCustom>
                                     </div>
                                   )}
 
                                   {currentStep === totalSteps && (
                                     <div className="flex w-full justify-center">
-                                      <Button
+                                      <ButtonCustom
                                         onClick={handlePrev}
                                         className="inline-flex w-full max-w-[320px] !justify-center text-fade-text underline"
                                       >
                                         Previous Step
-                                      </Button>
+                                      </ButtonCustom>
                                     </div>
                                   )}
                                 </div>

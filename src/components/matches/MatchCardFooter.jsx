@@ -1,4 +1,4 @@
-import { MessageButton } from "/src/components/ui/Button";
+import { MessageButton } from "/src/components/ui/ButtonCustom";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 
 export const MatchCardFooter = ({

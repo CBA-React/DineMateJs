@@ -1,5 +1,5 @@
 import Modal from "/src/components/ui/Modal";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom as ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { X } from "lucide-react";
 import { SubmitButton } from '/src/components/ui/SubmitButton';
 import { useDeleteChat } from "/src/hooks/useDeleteChat";
@@ -21,13 +21,13 @@ export const DeleteChatModal = () => {
       ariaLabel="Delete chat"
       className="p-5 md:p-10 relative max-w-[335px] md:max-w-[544px] text-center text-primary-text justify-items-center"
     >
-      <Button
+      <ButtonCustom
           className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
           onClick={closeDeleteChatModal}
           aria-label="Close"
         >
           <X size={28} />
-        </Button>
+        </ButtonCustom>
 
       <h2 className="font-serif font-medium text-4xl md:text-5xl mb-3">
         {TEXT.title}
@@ -37,9 +37,9 @@ export const DeleteChatModal = () => {
         {TEXT.subtitle}
       </h4>
       <div className="flex flex-col-reverse md:flex-row items-center justify-between w-full gap-3">
-        <Button onClick={closeDeleteChatModal} className="underline text-fade-text justify-center md:justify-start">
+        <ButtonCustom onClick={closeDeleteChatModal} className="underline text-fade-text justify-center md:justify-start">
           Cancel
-        </Button>
+        </ButtonCustom>
         <SubmitButton
             text="Delete"
             withIcon

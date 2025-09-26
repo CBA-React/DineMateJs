@@ -1,5 +1,5 @@
 import Modal from "/src/components/ui/Modal";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { X } from "lucide-react";
 import { useAuth } from "/src/hooks/useAuth";
 import { SubmitButton } from "./SubmitButton";
@@ -28,19 +28,19 @@ export const LogOutModal = ({ open, onClose }) => {
                         </h2>
                         <h4 className="mt-3 md:text-[22px]">{TEXT?.subtitle}</h4>
                     </div>
-                <Button
+                <ButtonCustom
                     className="absolute right-5 top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
                     onClick={onClose}
                     aria-label="Close"
                     >
                         <X size={28} />
-                    </Button>
+                    </ButtonCustom>
                 </div>
 
                 <div className="flex flex-col-reverse md:flex-row items-center justify-between pt-2 gap-3">
-                    <Button className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
+                    <ButtonCustom className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
                         Cancel
-                    </Button>
+                    </ButtonCustom>
                     <SubmitButton
                         type="button"
                         text={"Log out"}

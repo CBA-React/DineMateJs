@@ -12,7 +12,7 @@ api.interceptors.request.use(
   (config) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.token) {
-      config.headers.Authorization = `Bearer ${user.token}`;
+      config.headers.Authorization = `Bearer ${user.token.access_token}`;
     }
     return config;
   },
@@ -41,7 +41,7 @@ api.interceptors.response.use(
         const user = JSON.parse(localStorage.getItem("user") || {});
         localStorage.setItem("user", JSON.stringify({ ...user, token: newToken }));
 
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newToken.access_token}`;
         return api(originalRequest);
       } catch (refreshError) {
         // If refresh fails, logout the user

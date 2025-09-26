@@ -1,6 +1,6 @@
 import { SortDropdown } from "/src/components/ui/SortDropdown";
 import { useState } from "react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SlidersHorizontal } from "lucide-react";
 import { Search } from "/src/components/ui/Search";
 import { PEOPLE } from "/src/constants";
@@ -47,10 +47,10 @@ const Matches = () => {
 
                         <div className="md:self-end gap-3 flex flex-col md:flex-row z-20">
                             <Search defaultOpen side="right" />
-                            <Button className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full justify-center text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
+                            <ButtonCustom className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full justify-center text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
                                 <SlidersHorizontal />
                                 Filters
-                            </Button>
+                            </ButtonCustom>
                             <MatchFilters 
                                 open={filtersOpen}
                                 onClose={() => setFiltersOpen(false)}

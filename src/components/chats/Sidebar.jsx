@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Search, Shield } from "lucide-react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import clsx from "clsx";
 
 export const Sidebar = ({ conversations, activeId, onSelect, className }) => {
@@ -33,7 +33,7 @@ export const Sidebar = ({ conversations, activeId, onSelect, className }) => {
         <ul className="pb-5 md:pb-12 overflow-y-auto md:h-[calc(100vh-8rem)]">
           {filtered.map((c) => (
             <li key={c.id}>
-              <Button
+              <ButtonCustom
                 onClick={() => onSelect(c.id)}
                 className={clsx(
                   "w-full flex items-center gap-4 px-6 py-3 transition rounded-none",
@@ -64,7 +64,7 @@ export const Sidebar = ({ conversations, activeId, onSelect, className }) => {
                     )}
                   </div>
                 </div>
-              </Button>
+              </ButtonCustom>
             </li>
           ))}
         </ul>

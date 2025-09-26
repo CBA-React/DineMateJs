@@ -1,6 +1,6 @@
 import Modal from "/src/components/ui/Modal";
 import { ChevronRight } from "lucide-react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 
 const TEXT = {
   modalTitle1: "You’ve met everyone",
@@ -28,19 +28,19 @@ export default function EndOfPeopleModal({
         </h4>
 
         <div className="mt-4 flex flex-col-reverse sm:flex-row items-center justify-center gap-3 sm:gap-6 font-sans">
-          <Button
+          <ButtonCustom
             onClick={onExpandArea}
             className="w-full sm:w-auto justify-center rounded-full px-[31px] py-2.5 border-2 border-secondary text-secondary hover:bg-secondary/5 transition"
           >
             {TEXT.expandArea}
-          </Button>
+          </ButtonCustom>
 
-          <Button
+          <ButtonCustom
             onClick={onDiscoverEvents}
             className="w-full sm:w-auto justify-center rounded-full px-[31px] py-2.5 bg-primary text-white hover:bg-primary transition inline-flex items-center gap-2"
           >
             {TEXT.discoverEvents} <ChevronRight size={18} />
-          </Button>
+          </ButtonCustom>
         </div>
       </div>
     </Modal>

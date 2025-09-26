@@ -1,6 +1,6 @@
 import { UserRound, Trash2 } from "lucide-react";
 import { Switch } from "/src/components/ui/Switch";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom as ButtonCustom } from "/src/components/ui/ButtonCustom";
 
 export const ChatMenu = ({ open, onViewProfile, onDelete, notifOn, setNotifOn }) => {
 
@@ -12,12 +12,12 @@ export const ChatMenu = ({ open, onViewProfile, onDelete, notifOn, setNotifOn })
             <Switch checked={notifOn} onChange={setNotifOn} size="md" className="w-full max-w-min text-left rounded-[5px] hover:bg-accent/10 cursor-pointer flex items-center relative" /> 
             <span>Notifications</span>
         </div>
-        <Button className="w-full text-left py-2 px-5 rounded-[5px] hover:bg-accent/10 cursor-pointer flex items-center gap-2.5" onClick={onViewProfile}>
+        <ButtonCustom className="w-full text-left py-2 px-5 rounded-[5px] hover:bg-accent/10 cursor-pointer flex items-center gap-2.5" onClick={onViewProfile}>
           <UserRound size={18} /> <span>View Profile</span>
-        </Button>
-        <Button className="w-full text-left py-2 px-5 rounded-[5px] hover:bg-accent/10 cursor-pointer text-primary flex items-center gap-2.5" onClick={onDelete}>
+        </ButtonCustom>
+        <ButtonCustom className="w-full text-left py-2 px-5 rounded-[5px] hover:bg-accent/10 cursor-pointer text-primary flex items-center gap-2.5" onClick={onDelete}>
           <Trash2 size={18} /> <span>Delete chat</span>
-        </Button>
+        </ButtonCustom>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Modal from "/src/components/ui/Modal";
 import { X, Heart } from "lucide-react";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 
 const TEXT = {
   title: "You’ve just matched!",
@@ -24,13 +24,13 @@ export const MatchModal = ({
 
   return (
     <Modal open={open} onClose={onClose} initialFocusRef={focusRef} className="relative p-7 md:p-10 max-w-[335px] md:max-w-[560px]">
-      <Button
+      <ButtonCustom
         aria-label="Close"
         onClick={onClose}
         className="absolute right-5 max-h-7 max-w-7 top-5 flex items-center rounded-full text-gray-500 hover:bg-gray-100"
       >
         <X size={28} />
-      </Button>
+      </ButtonCustom>
 
       <div className="text-center">
         <div className="flex items-center justify-center gap-4 mb-3">
@@ -48,21 +48,21 @@ export const MatchModal = ({
         </h4>
 
         <div className="mt-2 flex flex-col-reverse sm:flex-row px-7 md:px-0 items-center justify-center gap-2 sm:gap-3 font-sans mb-5">
-          <Button
+          <ButtonCustom
             ref={focusRef}
             onClick={onFindRestaurant}
             className="w-full font-medium sm:w-auto justify-center rounded-full px-6 py-3 sm:px-8 sm:py-4 md:px-[42px] md:py-2.5 border-2 border-secondary text-secondary hover:bg-secondary/5"
           >
             {TEXT.findRestaurantButton}
-          </Button>
+          </ButtonCustom>
 
-          <Button
+          <ButtonCustom
             onClick={onSendMessage}
             className="w-full font-medium sm:w-auto justify-center rounded-full px-6 py-3 sm:px-8 sm:py-4 md:px-[42px] md:py-2.5 bg-primary text-white hover:bg-primary inline-flex items-center gap-2"
           >
             {TEXT.sendMessageButton}
             <span aria-hidden>›</span>
-          </Button>
+          </ButtonCustom>
         </div>
 
         <button

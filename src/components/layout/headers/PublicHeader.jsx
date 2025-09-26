@@ -1,7 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { Logo } from "/src/components/branding/Logo";
 import { BrandName } from "/src/components/branding/BrandName";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { useState } from "react";
 import { X } from "lucide-react"
@@ -35,9 +35,9 @@ export const PublicHeader = ({ links }) => {
 
             <div className="hidden md:flex items-center gap-5 sm:gap-4 justify-self-end">
               <NavLink to="/login">
-                <Button className="transition-all hover:-translate-y-0.5 duration-300">
+                <ButtonCustom className="transition-all hover:-translate-y-0.5 duration-300">
                   <span>Sign In</span>
-                </Button>
+                </ButtonCustom>
               </NavLink>
               <NavLink to="/register">
                 <SubmitButton

@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { X } from "lucide-react";
 
 import Modal from "/src/components/ui/Modal";
-import { Button } from "/src/components/ui/Button";
+import { ButtonCustom as ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { useBooking } from "/src/hooks/useBooking";
 import { Select } from "/src/components/ui/Select";
@@ -111,13 +111,13 @@ export const BookTableModal = () => {
         <h4 className="text-center md:text-[22px]">{restaurant?.name}</h4>
       </div>
 
-      <Button
+      <ButtonCustom
           className="absolute right-2.5 top-2.5 md:right-5 md:top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
           onClick={handleClose}
           aria-label="Close"
         >
           <X size={28} />
-        </Button>
+        </ButtonCustom>
 
       <form onSubmit={onSubmit}>
         <div className={clsx(step === 1 ? "block" : "hidden", "space-y-5")}>
@@ -193,9 +193,9 @@ export const BookTableModal = () => {
           {error ? <p className="text-sm text-primary">{error}</p> : null}
 
           <div className="flex flex-col-reverse md:flex-row items-center justify-between pt-2 gap-3">
-            <Button className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
+            <ButtonCustom className="underline px-0 text-fade-text justify-center md:justify-start" type="button" onClick={handleClose}>
               Cancel
-            </Button>
+            </ButtonCustom>
             <SubmitButton
               type="button"
               text={status === "loading" ? "Processing…" : "Continue"}
@@ -252,13 +252,13 @@ export const BookTableModal = () => {
           />
 
           <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-3">
-              <Button
+              <ButtonCustom
                   className="underline px-0 text-fade-text justify-center md:justify-start"
                   type="button"
                   onClick={goPrevious}
               >
                   Previous Step
-              </Button>
+              </ButtonCustom>
               <SubmitButton
                   type="submit"
                   text={status === "loading" ? "Processing…" : "Book Table"}

@@ -5,7 +5,7 @@ import { SubmitButton } from '/src/components/ui/SubmitButton';
 import { MapPin, Calendar, X, UserRound } from 'lucide-react';
 import { IncludedDropdown } from '/src/components/ui/IncludedDropdown';        
 import { formatDateTime } from '/src/utils/dateUtils';   
-import { Button } from '/src/components/ui/Button';    
+import { ButtonCustom } from '/src/components/ui/ButtonCustom';    
 import { useIsMobile } from '/src/hooks/useIsMobile'; 
 
 const TEXT = {
@@ -32,13 +32,13 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
             </h2>
             <h4 className="mt-3 md:text-[22px]">{event?.title}</h4>
           </div>
-          <Button
+          <ButtonCustom
             className="absolute right-2.5 top-2.5 md:right-5 md:top-5 p-1 rounded-full flex items-center text-black hover:bg-gray-100 max-w-fit"
             onClick={onClose}
             aria-label="Close"
             >
                 <X size={28} />
-            </Button>
+            </ButtonCustom>
         </div>
 
         <div>
@@ -88,9 +88,9 @@ export const EventRegisterModal = ({ open, onClose, event, onComplete }) => {
         </div>
 
         <div className="flex flex-col-reverse md:flex-row gap-3 items-center justify-between">
-          <Button onClick={onClose} className="text-sm text-fade-text underline max-w-fit">
+          <ButtonCustom onClick={onClose} className="text-sm text-fade-text underline max-w-fit">
             Cancel
-          </Button>
+          </ButtonCustom>
           <div className="flex items-center gap-6">
             <SubmitButton
               text="Complete Registration"
