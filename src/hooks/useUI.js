@@ -4,11 +4,13 @@ import { useCallback } from "react";
 import {
     openLogOutModal as openLogOutModalAction,
     closeLogOutModal as closeLogOutModalAction,
+    closeNotificationsPopUp as closeNotificationsPopUpAction,
+    openNotificationsPopUp as openNotificationsPopUpAction
   } from "/src/features/ui/uiSlice";
 
 export const useUI = () => {
     const dispatch = useDispatch();
-    const { isLogOutModalOpen } = useSelector((state) => state.ui);
+    const { isLogOutModalOpen, isNotificationsPopUpOpen } = useSelector((state) => state.ui);
 
     const openLogOut = useCallback(() => {
         dispatch(openLogOutModalAction());
@@ -18,9 +20,21 @@ export const useUI = () => {
         dispatch(closeLogOutModalAction());
       }, [dispatch]);
 
+      const openNotifications = useCallback(() => {
+        dispatch(openNotificationsPopUpAction());
+      }, [dispatch]);
+
+      const closeNotifications = useCallback(() => {
+        dispatch(closeNotificationsPopUpAction());
+      }, [dispatch]);
+
     return {
         isLogOutModalOpen,
+        isNotificationsPopUpOpen,
+
         openLogOut,
         closeLogOut,
+        openNotifications,
+        closeNotifications
     };
 }

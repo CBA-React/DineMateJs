@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
 
 export const ButtonCustom = ({className, children, onClick, type = "button", ...props}) => {
     return (
@@ -15,17 +14,14 @@ export const ButtonCustom = ({className, children, onClick, type = "button", ...
     )
 }
 
-export const MessageButton = ({
-    to = "/chats",
-    unread = 0,
-    className = "",
-  }) => {
+export const MessageButton = ({ unread = 0, className = "", ...props }, ref) => {
     return (
-      <Link
-        to={to}
+      <ButtonCustom
+        type="button"
         aria-label={unread ? `${unread} unread messages` : "Messages"}
         className={clsx(`relative inline-flex h-6 w-6 items-center justify-center 
                     rounded-full text-gray-900 hover:bg-gray-100 transition-colors`, className)}
+        {...props}
       >
         <MessageCircle size={24} strokeWidth={2} />
         {unread > 0 && (
@@ -37,6 +33,6 @@ export const MessageButton = ({
             {unread > 99 ? "99+" : unread}
           </span>
         )}
-      </Link>
+      </ButtonCustom>
     );
   }
