@@ -21,7 +21,7 @@ export function useDiscoverPeople({
   mapItem = defaultMapItem,
 } = {}) {
   const [people, setPeople] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [lastId, setLastId] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,29 +30,38 @@ export function useDiscoverPeople({
 
   const extractResults = (data) => {
     if (Array.isArray(data)) return data;
-    return (data?.results ?? data?.items ?? data?.data ?? []);
+    return data?.results ?? data?.items ?? data?.data ?? data?.profiles ?? [];
   };
 
   const load = useCallback(
-    async (start) => {
+    async (cursor) => {
       if (loading) return 0;
       setLoading(true);
       setError(null);
       const rid = ++reqIdRef.current;
 
+      const last_id = typeof cursor === "number" ? cursor : lastId;
+
       try {
-        const raw = await search(start, pageSize);
+        const raw = await search(last_id, pageSize);
+
         if (rid !== reqIdRef.current) return 0;
 
         const items = extractResults(raw).map(mapItem);
+
         setPeople((prev) => {
           const seen = new Set(prev.map((p) => String(p.id)));
           const merged = prev.concat(items.filter((p) => !seen.has(String(p.id))));
           return merged;
         });
 
-        setOffset(start + items.length);
+        if (items.length > 0) {
+          const newLastId = Number(items[items.length - 1].id) || last_id;
+          setLastId(newLastId);
+        }
+
         setHasMore(items.length >= pageSize);
+
         return items.length;
       } catch (e) {
         if (rid === reqIdRef.current) setError(e);
@@ -61,22 +70,27 @@ export function useDiscoverPeople({
         if (rid === reqIdRef.current) setLoading(false);
       }
     },
-    [pageSize, mapItem, loading]
+    [pageSize, mapItem, lastId, loading]
   );
 
-  const loadMore = useCallback(() => load(offset), [load, offset]);
+  const loadMore = useCallback(() => load(lastId), [load, lastId]);
+
   const reload = useCallback(async () => {
     reqIdRef.current++;
     setPeople([]);
-    setOffset(0);
+    setLastId(0);
     setHasMore(true);
     setError(null);
-    return load(0);
+    return load(0); 
   }, [load]);
 
+  const depsKey = JSON.stringify(deps);
+  const lastRunKeyRef = useRef(null);
   useEffect(() => {
+    if (lastRunKeyRef.current === depsKey) return;
+    lastRunKeyRef.current = depsKey;
     reload();
-  }, deps); 
+  }, [depsKey, reload]);
 
   return { people, loading, error, hasMore, loadMore, reload, setPeople };
 }

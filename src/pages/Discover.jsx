@@ -34,9 +34,16 @@ const Discover = () => {
       };
 
       const handleEmpty = useCallback(async () => {
-        const added = await loadMore(); 
-        if (!added && !hasMore) setEndOpen(true);
-      }, [hasMore, loadMore]);
+       if (loading) return;
+        const added = await loadMore();
+        if (added === 0) {
+          setEndOpen(true);
+        }
+      }, [loading, loadMore]);
+
+      const handleEnd = useCallback(() => {
+        setEndOpen(true);
+      }, []);
     
       return (
         <div 
@@ -63,9 +70,12 @@ const Discover = () => {
           </div>
             ) : (
             <DiscoverDeck
-            people={people}
-            onDecision={handleDecision}
-            onEmpty={handleEmpty}
+              people={people}
+              hasMore={hasMore}
+              loading={loading}
+              onDecision={handleDecision}
+              onEnd={handleEnd}
+              onEmpty={handleEmpty}
             />)}
         </section>
         {matchOpen && 
