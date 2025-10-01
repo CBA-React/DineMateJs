@@ -388,3 +388,42 @@ export const MOCK_MESSAGES_BY_ID = {
     { id: 2, authorId: "them", text: "I'll bring dessert 🍰", ts: "12:10" },
   ],
 };
+
+export const NOTIFICATIONS = [
+  {
+    id: 1,
+    unread: true,
+    kind: "message",
+    avatar: "/pictures/avatar.jpg",
+    name: "Jason Parker",
+    profileTo: "/profile/jason-parker",
+    time: "15 min ago",
+  },
+  {
+    id: 2,
+    unread: true,
+    kind: "event",
+    title: "Wine and Dine Speed Dating",
+    eventTo: "/events/1",
+    suffix: "you might like are coming in 2 days",
+    time: "1 hour ago",
+  },
+  {
+    id: 3,
+    unread: false,
+    kind: "match",
+    avatar: "/pictures/avatar.jpg",
+    name: "Lina Park",
+    profileTo: "/profile/lina-park",
+    time: "3 hours ago",
+  },
+  {
+    id: 4,
+    unread: false,
+    kind: "message",
+    avatar: "/pictures/avatar.jpg",
+    name: "Jason Parker",
+    profileTo: "/profile/jason-parker",
+    time: "Yesterday",
+  },
+  ]
