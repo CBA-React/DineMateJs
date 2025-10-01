@@ -1,9 +1,8 @@
 import { SortDropdown } from "/src/components/ui/SortDropdown";
-import { useState } from "react";
-import { ButtonCustom } from "/src/components/ui/ButtonCustom";
+import { useState, useEffect, useRef } from "react";
+import { ButtonCustom } from "/src/components/ui/Button";
 import { SlidersHorizontal } from "lucide-react";
 import { Search } from "/src/components/ui/Search";
-import { PEOPLE } from "/src/constants";
 import { MatchCard } from "/src/components/matches/MatchCard";
 import { useNavigate } from "react-router-dom";
 import { SubmitButton } from "/src/components/ui/SubmitButton";
@@ -11,6 +10,9 @@ import { Link } from "react-router-dom";
 import { MatchFilters } from "/src/components/matches/MatchFilters";
 import { SORT_OPTIONS } from "/src/constants";
 import { useIsMobile } from "/src/hooks/useIsMobile";
+import { getLikes } from "@/services/matchesService";
+
+import { useMatches } from "@/hooks/useMatches";
 
 const TEXT = {
     title: "Your Matches",
@@ -20,11 +22,65 @@ const TEXT = {
 }
 
 const Matches = () => {
-    const [sort, setSort] = useState("best");
     const [filtersOpen, setFiltersOpen] = useState(false);
-    const [_, setFilters] = useState(null);
+    const [filters, setFilters] = useState({order_by: "best_match"});
+    const [liked, setLiked] = useState();
     const navigate = useNavigate();
     const isMobile = useIsMobile();
+
+    const sentinelRef = useRef(null);
+
+    const { matches, loading, hasMore, loadMore } = useMatches({
+        pageSize: 10,
+        filters,
+    });
+
+    const handleApplyFilters = (vals) => {
+        const { order_by, ...rest } = vals;
+        setFilters((prev) => ({
+            ...prev,
+            ...rest,
+            ...(order_by ? { order_by } : {}),
+        }));
+    };
+
+    useEffect(() => {
+    let mounted = true;
+    (async () => {
+        try {
+        const likes = await getLikes();
+        if (mounted) setLiked(likes ?? 0);
+        } catch (e) {
+        console.error("getLikes failed", e);
+        if (mounted) setLiked(0);
+        }
+    })();
+    return () => { mounted = false; };
+    }, []);
+
+    useEffect(() => {
+        const el = sentinelRef.current;
+        if (!el) return;
+
+        const io = new IntersectionObserver(
+            (entries) => {
+            const first = entries[0];
+            if (!first) return;
+            
+            if (first.isIntersecting && hasMore && !loading) {
+                loadMore();
+            }
+            },
+            {
+            root: null,              
+            rootMargin: "800px 0px",  
+            threshold: 0,
+            }
+        );
+
+        io.observe(el);
+        return () => io.disconnect();
+    }, [hasMore, loading, loadMore]);
 
     return (
         <div className="relative w-full">
@@ -41,43 +97,64 @@ const Matches = () => {
                               <span className="text-transparent">{TEXT.title}</span>
                         </h2>
                         <p>
-                                {PEOPLE.length} {TEXT.likedYou}
+                                {liked} {TEXT.likedYou}
                             </p>
                         </div>
 
                         <div className="md:self-end gap-3 flex flex-col md:flex-row z-20">
-                            <Search defaultOpen side="right" />
-                            <ButtonCustom className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full justify-center text-base hover:shadow-sm" onClick={() => setFiltersOpen(true)}>
+                            <Search
+                                defaultOpen
+                                side="right"
+                                onSubmit={(query) => {
+                                    setFilters((prev) => ({
+                                    ...prev,
+                                    name: query,
+                                    }));
+                                }}
+                            />
+                            <ButtonCustom className="bg-white px-5 py-2.5 md:max-w-min font-medium rounded-full justify-center text-base hover:shadow-sm hover:bg-white h-full" onClick={() => setFiltersOpen(true)}>
                                 <SlidersHorizontal />
                                 Filters
                             </ButtonCustom>
-                            <MatchFilters 
+                            <MatchFilters
                                 open={filtersOpen}
                                 onClose={() => setFiltersOpen(false)}
-                                onApply={(vals) => setFilters(vals)}
-                                onReset={() => setFilters(null)}
+                                onApply={handleApplyFilters}
+                                onReset={() => {
+                                    setFilters({order_by: "best_match"})
+                                }}
+                                currentSort={filters.order_by}
                             />
 
                             {!isMobile &&
                             <SortDropdown
                                 options={SORT_OPTIONS}
-                                value={sort}
-                                onChange={setSort}
+                                value={filters.order_by}
+                                onChange={
+                                    (val) => setFilters({ ...filters, order_by: val })}
                             />}
                         </div>
                     </div>
 
                     <div className="grid lg:grid-cols-3 gap-x-6 gap-y-7 md:gap-y-10 mt-7 md:mt-10 justify-items-stretch items-start">
-                        {PEOPLE.map((p) => 
-                        <MatchCard 
-                            key={`${p.name}-${p.age}-${p.location}`}
+                        {(matches ?? []).map((person) => (
+                            <MatchCard
+                            key={`${person.id}-${person.full_name ?? person.name}-${person.city ?? person.location}`}
                             className="w-full"
-                            person={p}
-                            onPlan={() => navigate(`/plan/${p.id}`)}
-                            onChat={() => navigate(`/messages/${p.id}`)}
-                            unread={2} 
-                        />)}
+                            person={person}
+                            onPlan={() => navigate(`/plan/${person.id}`)}
+                            onChat={() => navigate(`/messages/${person.id}`)}
+                            unread={2}
+                            />
+                        ))}
                     </div>
+
+                    <div ref={sentinelRef} aria-hidden="true" />
+                    {loading && (
+                    <div className="py-6 text-center text-fade-text">Loading…</div>
+                    )}
+                    {!hasMore && (matches?.length ?? 0) > 0 && (null
+                    )}
                 </div>
                 
                 <div className="absolute bottom-0 left-0 w-full overflow-hidden">

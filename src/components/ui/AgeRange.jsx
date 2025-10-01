@@ -8,8 +8,8 @@ export const AgeRange = ({
   step = 1,
   label = "AGE RANGE",
 }) => {
-  const { field: minField } = useController({ name: "ageMin", control, defaultValue: min });
-  const { field: maxField } = useController({ name: "ageMax", control, defaultValue: min + 10 });
+  const { field: minField } = useController({ name: "age_from", control, defaultValue: min });
+  const { field: maxField } = useController({ name: "age_to", control, defaultValue: min + 10 });
 
   const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
   const pct = (v) => ((v - min) / (max - min)) * 100;
@@ -53,7 +53,6 @@ export const AgeRange = ({
         />
 
         <style>{`
-          /* IMPORTANT: disable events on the input, re-enable on the thumbs */
           .dual-range {
             -webkit-appearance: none;
             appearance: none;
@@ -61,7 +60,7 @@ export const AgeRange = ({
             width: 100%;
             height: 24px;             /* hit area */
             outline: none;
-            pointer-events: none;      /* <— let clicks pass through except on thumbs */
+            pointer-events: none;
           }
           .dual-range::-webkit-slider-runnable-track {
             height: 24px;
@@ -77,7 +76,7 @@ export const AgeRange = ({
             border: 1px solid #ef4444;
             box-shadow: 0 1px 2px rgba(0,0,0,0.06);
             cursor: pointer;
-            pointer-events: auto;      /* <— thumb is draggable */
+            pointer-events: auto;
           }
           .dual-range::-moz-range-track {
             height: 28px;
@@ -91,7 +90,7 @@ export const AgeRange = ({
             border: 2px solid #ef4444;
             box-shadow: 0 1px 2px rgba(0,0,0,0.06);
             cursor: pointer;
-            pointer-events: auto;      /* <— thumb is draggable (Firefox) */
+            pointer-events: auto;
           }
         `}</style>
       </div>

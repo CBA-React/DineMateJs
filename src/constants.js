@@ -254,9 +254,9 @@ export const GENDER_OPTIONS = [
 ]
 
 export const SORT_OPTIONS = [
-    {value: "best-match", label: "Best Match"},
-    {value: "most-recent", label: "Most Recent"},
-    {value: "closest-location", label: "Closest Location"},
+    {value: "best_match", label: "Best Match"},
+    {value: "recent", label: "Most Recent"},
+    {value: "closest", label: "Closest Location"},
 ]
 
 export const CUISINES = ["Italian","Japanese","Seafood","Mexican","Mediterranean","American","Indian","Spanish","Chinese","French","Vegan"];

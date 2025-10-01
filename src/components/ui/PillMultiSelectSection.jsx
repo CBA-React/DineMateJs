@@ -25,8 +25,10 @@ export function PillMultiSelectSection({
       name={name}
       control={control}
       rules={{
-        validate: (v) =>
-          (Array.isArray(v) && v.length >= min) || `Pick at least ${min} ${title.toLowerCase()}`,
+        validate: (v) => {
+          if (min === 0) return true;
+          return (Array.isArray(v) && v.length >= min) || `Pick at least ${min} ${title.toLowerCase()}`;
+        },
       }}
       render={({ field, fieldState }) => {
         const selected = Array.isArray(field.value) ? field.value : [];
