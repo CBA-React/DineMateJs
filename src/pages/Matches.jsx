@@ -1,6 +1,6 @@
 import { SortDropdown } from "/src/components/ui/SortDropdown";
 import { useState, useEffect, useRef } from "react";
-import { ButtonCustom } from "/src/components/ui/Button";
+import { ButtonCustom } from "/src/components/ui/ButtonCustom";
 import { SlidersHorizontal } from "lucide-react";
 import { Search } from "/src/components/ui/Search";
 import { MatchCard } from "/src/components/matches/MatchCard";
