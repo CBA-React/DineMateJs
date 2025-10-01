@@ -2,8 +2,8 @@ import api from "./api";
 
 const API_URL = "api/v1/matches"; 
 
-export async function search(offset = 0, limit = 10) { 
-    const res = await api.get(`${API_URL}/search?offset=${offset}&limit=${limit}`); 
+export async function search(last_id = 0, limit = 10) { 
+    const res = await api.get(`${API_URL}/search?last_id=${last_id}&limit=${limit}`); 
     return res.data.profiles; 
 }
 
