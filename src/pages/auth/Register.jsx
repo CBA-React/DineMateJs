@@ -186,9 +186,11 @@ const Register = () => {
                 const hasUpper = /[A-Z]/.test(value);
                 const hasLower = /[a-z]/.test(value);
                 const hasNumber = /[0-9]/.test(value);
+                const hasSpecial = /[^A-Za-z0-9]/.test(value);
                 if (!hasUpper) return "Must include at least one uppercase letter";
                 if (!hasLower) return "Must include at least one lowercase letter";
                 if (!hasNumber) return "Must include at least one number";
+                if (!hasSpecial) return "Must include at least one special character";
                 return true;
               }
             })}
