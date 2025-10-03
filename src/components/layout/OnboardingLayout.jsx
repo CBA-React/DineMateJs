@@ -10,6 +10,7 @@ import { SubmitButton } from "/src/components/ui/SubmitButton";
 import { Check } from "lucide-react";
 import useAuth from "/src/hooks/useAuth";
 import { upsertDraft, resetDraft } from "/src/features/auth/registrationDraftSlice";
+import { useVeriff } from "/src/hooks/useVeriff";
 
 export function OnboardingLayout() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ export function OnboardingLayout() {
   );
 
   const { registerUser, isLoading } = useAuth();
+  const { startVeriffSession } = useVeriff();
 
   if (!draft?.email || !draft?.password1 || !draft?.password2) {
     return <Navigate to="/register" replace />;
@@ -71,7 +73,17 @@ export function OnboardingLayout() {
     const allValues = getValues();             
 
     try {
-      await registerUser(allValues);               
+      await registerUser(allValues);
+      try {
+        const { _, verification_url } = await startVeriffSession();
+        if (verification_url) {
+          window.location.assign(verification_url);
+          return;
+        }
+      } catch (e) {
+        console.error("Failed to start Veriff session:", e);
+      }
+
       dispatch(resetDraft());
       navigate("/discover", { replace: true }); 
     } catch (err) {

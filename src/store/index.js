@@ -8,6 +8,7 @@ import chats from "/src/features/chats/chatsSlice";
 import passwordResetReducer from '/src/features/auth/passwordResetSlice';
 import uiReducer from '/src/features/ui/uiSlice';
 import eventRegistrationReducer from "/src/features/booking/eventSlice";
+import verificationReducer from "/src/features/verification/verificationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     chatUi: chatUI,
     chats,
     ui: uiReducer,
-    passwordReset: passwordResetReducer
+    passwordReset: passwordResetReducer,
+    verification: verificationReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
