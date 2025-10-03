@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useIsMobile } from "/src/hooks/useIsMobile";
+import { Controller } from "react-hook-form";
 
-export const SortDropdown = ({
-  options = [],                 
-  value,                         
-  defaultValue,                  
+export const SortDropdownBase = ({
+  options = [],
+  value,
+  defaultValue,
   onChange = () => {},
   className = "",
   menuClassName = "",
@@ -18,15 +19,13 @@ export const SortDropdown = ({
   const isMobile = useIsMobile();
 
   const selected = useMemo(
-    () => options.find(o => o.value === currentValue) ?? options[0],
+    () => options.find((o) => o.value === currentValue) ?? options[0],
     [currentValue, options]
   );
 
   const btnRef = useRef(null);
   const menuRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(
-    Math.max(0, options.findIndex(o => o.value === currentValue))
-  );
+  const [activeIndex, setActiveIndex] = useState(Math.max(0, options.findIndex((o) => o.value === currentValue)));
 
   useEffect(() => {
     if (!open) return;
@@ -44,8 +43,8 @@ export const SortDropdown = ({
     if (!open) return;
     const onKey = (e) => {
       if (e.key === "Escape") { setOpen(false); return; }
-      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex(i => Math.min(options.length - 1, i + 1)); }
-      if (e.key === "ArrowUp")   { e.preventDefault(); setActiveIndex(i => Math.max(0, i - 1)); }
+      if (e.key === "ArrowDown") { e.preventDefault(); setActiveIndex((i) => Math.min(options.length - 1, i + 1)); }
+      if (e.key === "ArrowUp")   { e.preventDefault(); setActiveIndex((i) => Math.max(0, i - 1)); }
       if (e.key === "Enter") {
         const opt = options[activeIndex];
         if (opt) select(opt);
@@ -61,97 +60,107 @@ export const SortDropdown = ({
     setOpen(false);
   };
 
-  return (
-    !isMobile ?(
-      <div className={`relative inline-block ${className}`}>
+  const Menu = (
+    <div
+      ref={menuRef}
+      role="listbox"
+      className={`absolute z-30 left-0 mt-2 min-w-[84vw] w-full rounded-2xl bg-white shadow-lg ring-1 ring-black/10 overflow-hidden ${menuClassName}`}
+    >
+      {options.map((opt, i) => {
+        const isSelected = opt.value === currentValue;
+        const isActive = i === activeIndex;
+        return (
+          <button
+            key={opt.value}
+            role="option"
+            aria-selected={isSelected}
+            type="button"
+            onMouseEnter={() => setActiveIndex(i)}
+            onClick={() => select(opt)}
+            className={`w-full text-left px-5 py-3 text-lg
+                        ${isSelected ? "bg-rose-100/60" : isActive ? "bg-gray-50" : "bg-white"}
+                        text-primary-text transition`}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  return !isMobile ? (
+    <div className={`relative inline-block ${className}`}>
       <button
         ref={btnRef}
         type="button"
-        onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-primary-text
-                   hover:shadow-sm transition cursor-pointer"
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-primary-text hover:shadow-sm transition cursor-pointer"
       >
-        <span className="text-gray-500"> {labelPrefix} </span>
+        <span className="text-gray-500">{labelPrefix}</span>
         <span className="font-semibold">{selected?.label}</span>
         <ChevronDown size={18} className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
-
       {open && (
-        <div
-          ref={menuRef}
-          role="listbox"
-          className={`absolute z-10 left-0 mt-2 w-[min(84vw,225px)] rounded-2xl bg-white shadow-lg ring-1 ring-black/10 overflow-hidden ${menuClassName}`}
-        >
-          {options.map((opt, i) => {
-            const isSelected = opt.value === currentValue;
-            const isActive = i === activeIndex;
-            return (
-              <button
-                key={opt.value}
-                role="option"
-                aria-selected={isSelected}
-                type="button"
-                onMouseEnter={() => setActiveIndex(i)}
-                onClick={() => select(opt)}
-                className={`w-full text-left px-5 py-3 text-lg
-                            ${isSelected ? "bg-rose-100/60" : isActive ? "bg-gray-50" : "bg-white"}
-                            text-primary-text transition`}
-              >
-                {opt.label}
-              </button>
-            );
-          })}
+        <div className={`absolute z-10 left-0 mt-2 w-[min(84vw,225px)] rounded-2xl bg-white shadow-lg ring-1 ring-black/10 overflow-hidden ${menuClassName}`}>
+          {Menu.props.children}
         </div>
       )}
     </div>
-    ) : (
-      <div className={`w-full ${className}`}>
-  <label className="block text-sm uppercase font-medium mb-2">
-    Sort By
-  </label>
-
-  <div className="relative block w-full">
-    <button
-      ref={btnRef}
-      type="button"
-      onClick={() => setOpen(o => !o)}
-      className="flex items-center gap-2 rounded-[10px] bg-white px-4 py-3 text-primary-text
-                hover:shadow-sm transition cursor-pointer border border-primary-text/15 w-full justify-between"
-    >
-      <span className="text-gray-500">{labelPrefix}</span>
-      <span>{selected?.label}</span>
-      <ChevronDown size={18} className={`transition-transform ${open ? "rotate-180" : ""}`} />
-    </button>
-
-    {open && (
-      <div
-        ref={menuRef}  
-        role="listbox"
-        className={`absolute z-30 left-0 mt-2 min-w-[84vw] w-full rounded-2xl bg-white shadow-lg ring-1 ring-black/10 overflow-hidden ${menuClassName}`}
-      >
-        {options.map((opt, i) => {
-          const isSelected = opt.value === currentValue;
-          const isActive = i === activeIndex;
-          return (
-            <button
-              key={opt.value}
-              role="option"
-              aria-selected={isSelected}
-              type="button"
-              onMouseEnter={() => setActiveIndex(i)}
-              onClick={() => select(opt)}
-              className={`w-full text-left px-5 py-3 text-lg
-                          ${isSelected ? "bg-rose-100/60" : isActive ? "bg-gray-50" : "bg-white"}
-                          text-primary-text transition`}
-            >
-              {opt.label}
-            </button>
-          );
-        })}
+  ) : (
+    <div className={`w-full ${className}`}>
+      <label className="block text-sm uppercase font-medium mb-2">Sort By</label>
+      <div className="relative block w-full">
+        <button
+          ref={btnRef}
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="flex items-center gap-2 rounded-[10px] bg-white px-4 py-3 text-primary-text
+                     hover:shadow-sm transition cursor-pointer border border-primary-text/15 w-full justify-between"
+        >
+          <span className="text-gray-500">{labelPrefix}</span>
+          <span>{selected?.label}</span>
+          <ChevronDown size={18} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+        </button>
+        {open && Menu}
       </div>
-    )}
-  </div>
-</div>
-    )
+    </div>
   );
-}
+};
+
+export const SortDropdown = ({
+  control,
+  name,
+  options,
+  defaultValue,
+  value,
+  onChange: onChangeExtra, 
+  ...rest
+}) => {
+  if (!control || !name) {
+    return <SortDropdownBase 
+    options={options} 
+    value={value} 
+    defaultValue={defaultValue} 
+    onChange={onChangeExtra}
+    {...rest} />;
+  }
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      defaultValue={defaultValue ?? options[0]?.value}
+      render={({ field: { value, onChange } }) => (
+        <SortDropdownBase
+          options={options}
+          value={value}
+          onChange={(val) => {
+            onChange(val);
+            onChangeExtra?.(val);
+          }}
+          {...rest}
+        />
+      )}
+    />
+  );
+};

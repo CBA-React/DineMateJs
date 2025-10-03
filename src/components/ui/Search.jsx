@@ -43,7 +43,7 @@ export const Search = ({
     const handleSubmit = (e) => {
       e.preventDefault();
       const query = q.trim();
-      if (query) onSubmit(query);
+      onSubmit(query);
     };
 
     return (
@@ -78,7 +78,6 @@ export const Search = ({
   const submitDesktop = (e) => {
     e.preventDefault();
     const query = q.trim();
-    if (!query) return;
     onSubmit(query);
     setOpen(false);
   };
