@@ -8,6 +8,8 @@ const initialState = {
 
   confirmationOpen: false,
   confirmation: null,
+
+  failOpen: false
 };
 
 export const confirmEventRegistration = createAsyncThunk(
@@ -44,6 +46,13 @@ const eventRegistrationSlice = createSlice({
       state.confirmationOpen = false;
       state.confirmation = null;
     },
+    openFailModal(state) {
+      state.failOpen = true;
+      state.confirmation = null;
+    },
+    closeFailModal(state) {
+      state.failOpen = false;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -69,6 +78,7 @@ const eventRegistrationSlice = createSlice({
         state.status = "failed";
         state.error =
           action.payload || action.error?.message || "Registration failed";
+        state.failOpen = true;
       });
   },
 });
@@ -79,6 +89,8 @@ export const {
   setEvent,
   openConfirmation: openEventConfirmation,
   closeConfirmation: closeEventConfirmation,
+  closeFailModal,
+  openFailModal
 } = eventRegistrationSlice.actions;
 
 export default eventRegistrationSlice.reducer;

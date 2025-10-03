@@ -8,6 +8,8 @@ const initialState = {
 
   confirmationOpen: false,
   confirmation: null,
+
+  failOpen: false
 };
 
 export const confirmBooking = createAsyncThunk(
@@ -44,6 +46,13 @@ const bookingSlice = createSlice({
       state.confirmationOpen = false;
       state.confirmation = null;
     },
+    openFailModal(state) {
+      state.failOpen = true;
+    },
+    closeFailModal(state) {
+      state.failOpen = false;
+      state.confirmation = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -66,11 +75,12 @@ const bookingSlice = createSlice({
       .addCase(confirmBooking.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error?.message || "Booking failed";
+        state.failOpen = true;
       });
   },
 });
 
-export const { openBook, closeBook, setRestaurant, openConfirmation, closeConfirmation } = bookingSlice.actions;
+export const { openBook, closeBook, setRestaurant, openConfirmation, closeConfirmation, openFailModal, closeFailModal } = bookingSlice.actions;
 export default bookingSlice.reducer;
 
 export const selectBooking = (state) => state.booking;

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
-import { selectBooking, openBook, closeBook, confirmBooking, closeConfirmation } from "/src/features/booking/bookingSlice";
+import { selectBooking, openBook, closeBook, confirmBooking, closeConfirmation, closeFailModal, openFailModal } from "/src/features/booking/bookingSlice";
 
 export const useBooking = () => {
   const dispatch = useDispatch();
-  const { isOpen, restaurant, status, error, confirmationOpen, confirmation } = useSelector(selectBooking);
+  const { isOpen, restaurant, status, error, confirmationOpen, confirmation, failOpen } = useSelector(selectBooking);
 
   const openBookingModal = useCallback((restaurantData) => {
     dispatch(openBook(restaurantData));
@@ -16,6 +16,14 @@ export const useBooking = () => {
 
   const closeConfirmationModal = useCallback(() => {
     dispatch(closeConfirmation());
+  }, [dispatch]);
+
+  const openBookingFailModal = useCallback(() => {
+    dispatch(openFailModal());
+  }, [dispatch])
+
+  const closeBookingFailModal = useCallback(() => {
+    dispatch(closeFailModal());
   }, [dispatch]);
 
   const confirmBookingAction = useCallback((bookingData) => {
@@ -35,9 +43,13 @@ export const useBooking = () => {
     confirmationOpen,
     confirmation,
 
+    failOpen,
+
     openBookingModal,
     closeBookingModal,
     confirmBookingAction,
     closeConfirmationModal,
+    openBookingFailModal,
+    closeBookingFailModal
   };
 };

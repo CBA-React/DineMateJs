@@ -6,11 +6,13 @@ import {
   openRegister,
   closeRegister,
   confirmEventRegistration,
+  openFailModal,
+  closeFailModal
 } from "/src/features/booking/eventSlice";
 
 export const useEventRegistration = () => {
   const dispatch = useDispatch();
-  const { confirmationOpen, confirmation, status, error, isOpen, event } =
+  const { confirmationOpen, confirmation, status, error, isOpen, event, failOpen } =
     useSelector(selectEventRegistration);
 
   const openRegistrationModal = useCallback(
@@ -28,6 +30,17 @@ export const useEventRegistration = () => {
     [dispatch]
   );
 
+
+  const openConfirmationFailModal = useCallback(
+    () => dispatch(openFailModal()),
+    [dispatch]
+  );
+
+  const closeConfirmationFailModal = useCallback(
+    () => dispatch(closeFailModal()),
+    [dispatch]
+  )
+
   const confirmRegistration = useCallback(
     (data) => dispatch(confirmEventRegistration(data)),
     [dispatch]
@@ -40,9 +53,12 @@ export const useEventRegistration = () => {
     confirmation,
     status,
     error,
+    failOpen,
     openRegistrationModal,
     closeRegistrationModal,
     closeConfirmationModal,
     confirmRegistration,
+    openConfirmationFailModal,
+    closeConfirmationFailModal
   };
 };

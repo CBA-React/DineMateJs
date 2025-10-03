@@ -12,6 +12,7 @@ import { BookTableModal } from "/src/components/dining/BookTableModal";
 import { useBooking } from "/src/hooks/useBooking";
 import { BookingConfirmationModal } from "/src/components/dining/BookingConfirmationModal";
 import { useIsMobile } from "/src/hooks/useIsMobile";
+import { BookingFailedModal } from "@/components/dining/BookingFailedModal";
 
 const TEXT = {
     title: "Perfect Date Spots",
@@ -80,6 +81,7 @@ const Dining = () => {
             </div>
             <BookTableModal />
             <BookingConfirmationModal />
+            <BookingFailedModal />
         </div>
     )
 }

@@ -12,6 +12,7 @@ import { EventRegisterModal } from "/src/components/events/EventRegisterModal";
 import { useIsMobile } from "/src/hooks/useIsMobile";
 import { EventRegistrationConfirmationModal } from "/src/components/events/EventRegistrationConfirmationModal";
 import { useEventRegistration } from "/src/hooks/useEventRegistration";
+import { EventRegistrationFailModal } from "@/components/events/EventRegistrationFailModal";
 
 const TEXT = {
     title: "Events and Mixers",
@@ -108,6 +109,7 @@ const Events = () => {
                         onComplete={completeRegistration}
                     />
                     <EventRegistrationConfirmationModal />
+                    <EventRegistrationFailModal />
                 </div>
             </div>
         </div>
